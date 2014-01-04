@@ -1,0 +1,12 @@
+DirectoryIndex load.html
+
+<IfModule mod_rewrite.c>
+#Deny From All
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^api/(.*)$ rpc.php?api=$1 [L,QSA]
+
+</IfModule>
