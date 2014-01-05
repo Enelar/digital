@@ -7,7 +7,7 @@ include_once('pgsql_php/connect.php');
 function phoxy_conf()
 {
   $ret = phoxy_default_conf();
-  
+
   return $ret;
 }
 
