@@ -1,3 +1,11 @@
+<%
+  var menu_elements =
+  {
+    "Google" : "http://google.com",
+    "Yandex" : "http://ya.ru"
+  };
+%>
+
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="bootstrap/js/bootstrap.min.js"></script>
 
@@ -5,7 +13,7 @@
 <!-- Bootstrap -->
 <div class='page_content_wrapper'>
   <a href='#content' class="sr-only">Skip to main content</a>
-  <div id='menu'><%= DeferRender('main/menu', {menu: ['a', 'b']}) %></div>
+  <div id='menu'><%= DeferRender('main/menu', {menu: menu_elements}) %></div>
 
   <div style='padding-top: 50px;'></div>
   <div class='container' id='content'>

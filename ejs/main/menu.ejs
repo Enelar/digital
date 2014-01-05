@@ -1,9 +1,11 @@
 <%
-for(i = 0; i < menu.length; i++)
+for (var k in menu)
 {
-  element = menu[i];
+  if (!menu.hasOwnProperty(k))
+    continue;
+  v = menu[k];
 %>
-<%= element %>
+<%= DeferRender('main/menu_element', {url: v, name: k}) %>
 <%
 }
 %>

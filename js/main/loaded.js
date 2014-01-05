@@ -33,7 +33,7 @@ function DeferRender( ejs, data )
   
   if (typeof(data) == 'undefined')
   { // single param call
-    if (typeof(ejs) == 'object' && )
+    if (typeof(ejs) == 'object')
     { // called as constructed object
       func = function()
       {
@@ -45,7 +45,7 @@ function DeferRender( ejs, data )
     { // called as phoxy rpc
       func = function()
       {
-        phoxy.SimpleApiRequest(ejs);
+        phoxy.ApiRequest(ejs, replace_callback);
       };
     }
   }
