@@ -5,7 +5,7 @@
 <!-- Bootstrap -->
 <div class='page_content_wrapper'>
   <a href='#content' class="sr-only">Skip to main content</a>
-  <div id='menu'></div>
+  <div id='menu'><%= DeferRender('main/menu', {menu: ['a', 'b']}) %></div>
 
   <div style='padding-top: 50px;'></div>
   <div class='container' id='content'>
