@@ -4,6 +4,6 @@ class main extends api
 {
   protected function Reserve()
   {
-    return array("error" => "ok");
+    return array("design" => "main/body");
   }
 }
