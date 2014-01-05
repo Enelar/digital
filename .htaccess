@@ -14,3 +14,21 @@ RewriteRule ^libs/(.*)$ /phoxy/$0 [L,QSA]
 RewriteRule ^phoxy.js$ /phoxy/$0 [L,QSA]
 
 </IfModule>
+
+<FilesMatch "load.html$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+<FilesMatch ".(ejs|css|js)$">
+#debug 
+  Header set Cache-Control "public, max-age=3600"
+</FilesMatch>
+
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|pdf)$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+Header unset Pragma
+Header unset Last-Modified
+Header unset ETag
+#Header unset Cache-Control
