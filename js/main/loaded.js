@@ -31,19 +31,29 @@ function DeferRender( ejs, data )
 
   var func;
   
-  if (typeof(ejs) == 'object' && typeof(data) == 'undefined')
-  { // called as constructed object
-    func = function()
-    {
-      ejs.target = id;
-      phoxy.ApiAnswer(ejs, replace_callback);
-    };
+  if (typeof(data) == 'undefined')
+  { // single param call
+    if (typeof(ejs) == 'object' && )
+    { // called as constructed object
+      func = function()
+      {
+        ejs.result = id;
+        phoxy.ApiAnswer(ejs, replace_callback);
+      };
+    }
+    else
+    { // called as phoxy rpc
+      func = function()
+      {
+        phoxy.SimpleApiRequest(ejs);
+      };
+    }
   }
   else
   { // called as design submodule (only ejs string and that data)
     func = function()
     {
-      phoxy.ApiAnswer({"design" : ejs, "data": data, "target": id}, replace_callback);
+      phoxy.ApiAnswer({design : ejs, "data" : data, result : id}, replace_callback);
     };
   }
   
