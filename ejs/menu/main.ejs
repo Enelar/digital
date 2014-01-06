@@ -28,7 +28,7 @@
         }
       };
     %>
-    <%= DeferRender('main/menu_render', {menu: menu.left}) %>
+    <%= DeferRender('menu/menu', {menu: menu.left}) %>
     </ul>
 
     <form class="navbar-form navbar-right" role="search">
@@ -39,7 +39,7 @@
     </form>
 
     <ul class="nav navbar-nav navbar-right">
-      <%= DeferRender('main/menu_render', {menu: menu.right}) %>
+      <%= DeferRender('menu/menu', {menu: menu.right}) %>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
