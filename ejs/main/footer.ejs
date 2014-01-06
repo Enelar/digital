@@ -1,0 +1,11 @@
+<%
+for (var k in footer)
+{
+  if (!footer.hasOwnProperty(k))
+    continue;
+  v = footer[k];
+%>
+<%= DeferRender('main/footer_element', {url: v, name: k}) %>
+<%
+}
+%>
