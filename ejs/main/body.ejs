@@ -1,8 +1,11 @@
 <%
   var menu_elements =
   {
-    "Google" : "http://google.com",
-    "Yandex" : "http://ya.ru"
+ 
+  };
+  var block_product_menu_elements =
+  {
+  
   };
 %>
 
@@ -13,8 +16,11 @@
 <!-- Bootstrap -->
 <div class='page_content_wrapper'>
   <a href='#content' class="sr-only">Skip to main content</a>
+  <div id='header'><%= DeferRender('main/header', {}) %></div>
   <div id='menu'><%= DeferRender('main/menu', {menu: menu_elements}) %></div>
-
+  <div id='block_news'><%= DeferRender('main/block_news', {}) %></div>
+  <div id='block_product_menu'><%= DeferRender('main/block_product_menu', {block_product_menu: block_product_menu_elements}) %></div>
+  <div id='block_user_profile'><%= DeferRender('main/block_user_profile', {}) %></div>
   <div style='padding-top: 50px;'></div>
   <div class='container' id='content'>
   </div>
@@ -22,8 +28,9 @@
 </div>
 
 <div id="footer" class='footer'>
+  <%= DeferRender('main/footer', {}) %>
   <div class="container">
-    <p class="muted credit pull-right">Exsul ltd 2013 (c).</p>
+    <p class="muted credit pull-right">Exsul ltd 2014 (c).</p>
   </div>
 </div>
 
