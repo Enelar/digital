@@ -11,7 +11,7 @@ RewriteRule ^api/(.*)$ rpc.php?api=$1 [L,QSA]
 
 #refactor but idk how.
 RewriteRule ^libs/(.*)$ /phoxy/$0 [L,QSA]
-RewriteRule ^phoxy.js$ /phoxy/$0 [L,QSA]
+RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
 </IfModule>
 
