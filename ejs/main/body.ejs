@@ -1,13 +1,24 @@
 <%
   var menu_elements =
   {
-    "Google" : "http://google.com",
-    "Yandex" : "http://ya.ru"
+    "MenuElement1" : "/menuel_1",
+    "MenuElement2" : "/menuel_2",
+    "MenuElement3" : "/menuel_3",
+    "MenuElement4" : "/menuel_4",
+    "MenuElement5" : "/menuel_5",
+    "MenuElement6" : "/menuel_6",
+    "MenuElement7" : "/menuel_7",
   };
-  var footer_elements =
+  var block_product_menu_elements =
   {
-    "Google" : "http://google.com",
-    "Yandex" : "http://ya.ru"
+    "ProductCategory1" : "/cat1",
+    "ProductCategory2" : "/cat2",
+    "ProductCategory3" : "/cat3",
+    "ProductCategory4" : "/cat4",
+    "ProductCategory5" : "/cat5",
+    "ProductCategory6" : "/cat6",
+    "ProductCategory7" : "/cat7",
+    "ProductCategory8" : "/cat8",
   };
 %>
 
@@ -18,8 +29,11 @@
 <!-- Bootstrap -->
 <div class='page_content_wrapper'>
   <a href='#content' class="sr-only">Skip to main content</a>
+  <div id='header'><%= DeferRender('main/header', {}) %></div>
   <div id='menu'><%= DeferRender('main/menu', {menu: menu_elements}) %></div>
-
+  <div id='block_news'><%= DeferRender('main/block_news', {}) %></div>
+  <div id='block_product_menu'><%= DeferRender('main/block_product_menu', {block_product_menu: block_product_menu_elements}) %></div>
+  <div id='block_user_profile'><%= DeferRender('main/block_user_profile', {}) %></div>
   <div style='padding-top: 50px;'></div>
   <div class='container' id='content'>
   </div>
@@ -27,7 +41,7 @@
 </div>
 
 <div id="footer" class='footer'>
-  <%= DeferRender('main/footer', {footer: footer_elements}) %>
+  <%= DeferRender('main/footer', {}) %>
   <div class="container">
     <p class="muted credit pull-right">Exsul ltd 2014 (c).</p>
   </div>
