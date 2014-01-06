@@ -1,0 +1,11 @@
+<%
+for (var k in news)
+{
+  if (!news.hasOwnProperty(k))
+    continue;
+  v = news[k];
+%>
+<%= DeferRender('', {}) %>
+<%
+}
+%>

@@ -1,0 +1,11 @@
+<%
+for (var k in user_profile)
+{
+  if (!user_profile.hasOwnProperty(k))
+    continue;
+  v = user_profile[k];
+%>
+<%= DeferRender('', {}) %>
+<%
+}
+%>
