@@ -35,7 +35,7 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Поиск в каталоге">
       </div>
-      <button type="submit" class="btn btn-default"><span class='glyphicon glyphicon-search'></span></button>
+      <button type="submit" class="btn btn-default" style="display: none;"><span class='glyphicon glyphicon-search'></span></button>
     </form>
 
     <ul class="nav navbar-nav navbar-right">
@@ -43,3 +43,25 @@
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
+
+<%
+
+phoxy.Defer(function()
+{
+  var form = $("#menu form[role='search']");
+
+   // var button = $(this).closest("form").find("button");
+  var button = form.find("button");
+  var input = form.find("input[type='text']");
+
+  input.on("keyup", function()
+  {
+    var text = $(this).val();
+
+    button.animate(
+    {
+      width: text.length == 0 ? 'hide' : 'show'
+    });
+  });
+});
+%>
