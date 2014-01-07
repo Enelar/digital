@@ -30,9 +30,45 @@
 <div id="footer" class='footer'>
   <%= DeferRender('main/footer', {}) %>
   <div class="container">
-    <p class="muted credit pull-right"><span class="glyphicon glyphicon-copyright-mark"></span> Exsul ltd 2014</p>
+    <p class="muted credit pull-right"><span class="glyphicon glyphicon-copyright-mark"></span> <span>Digital812 2014</span></p>
   </div>
 </div>
 
 <link href="css/sticky_footer.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
+
+<%
+phoxy.Defer(function()
+{
+  function Bruce( text )
+  {
+    return $('<li />').html(text);
+  }
+  
+  var el = $('<div />')
+    .html('Этот сайт создан с использованием следующих инструментов:')
+    .append
+    (
+      $('<ul />')
+        .append
+        (
+          Bruce('<a href="http://requirejs.org">RequireJS</a>'),
+          Bruce('<a href="http://embeddedjs.com">EJS</a>'),
+          Bruce('<a href="http://jquery.com">JQuery</a>'),
+          Bruce('<a href="http://github.com/Enelar/phoxy">phoxy</a>'),
+          Bruce('<a href="http://getbootstrap.com">Bootstrap</a>'),
+          Bruce('<a href="http://glyphicons.com">Glyphicons</a>'),
+          Bruce('<a href="http://github.com">GitHub</a>')
+        )
+    );
+  
+  $("p span.glyphicon-copyright-mark").css({cursor: 'pointer'})
+    .popover({html: true, placement: "top", content: GetElementCode(el)})
+    .next().on('click', function()
+    {
+      window.location.replace("//exsul.net");
+    });
+    
+}
+);
+%>
