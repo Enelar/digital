@@ -1,3 +1,9 @@
 .no_ul_bullets {
   list-style-type: none;
 }
+
+.attention_glow {
+  -webkit-box-shadow:0 0 20px gray; 
+  -moz-box-shadow: 0 0 20px gray; 
+  box-shadow:0 0 20px gray;
+}
