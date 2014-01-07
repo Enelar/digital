@@ -60,3 +60,12 @@ function DeferRender( ejs, data )
   setTimeout(func, 0);
   return div;
 }
+
+function MakeModal( modal_selector, obj )
+{
+  $(obj)
+    .attr('data-toggle', 'modal')
+    .attr('data-target', modal_selector)
+    .css({cursor: 'pointer'});
+  return obj;
+}
