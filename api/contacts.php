@@ -1,12 +1,12 @@
 <?php
 
-class delivery extends api
+class contacts extends api
 {
   protected function Reserve()
   {
     return array
     (
-      "design" => "pages/delivery",
+      "design" => "pages/contacts",
       "result" => "content"
     );
   }

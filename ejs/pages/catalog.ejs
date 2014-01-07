@@ -1,0 +1,36 @@
+<%
+%>
+<ul data-mark='catalog-list'>
+<%
+for (k in catalog)
+{
+  item = catalog[k];
+%>
+  <li data-content=<%= item.name %>>
+  <%= item.name %><%= item.price %><%= item.url %>
+  </li>
+<%
+}
+%>
+
+</ul>
+
+
+<%
+phoxy.Defer(function()
+{
+  $("#content ul")
+    .css({"list-style-type" : "none"})
+    .find("li")
+    .prepend(
+    $('<span />')
+      .addClass('glyphicon glyphicon-info-sign')
+      .css({opacity: 0, "margin-left": -20, "margin-right" : 10})
+    , " ")
+    .parent()
+    .find('[data-content]')
+    .popover({trigger: "hover"})
+    .find('span')
+    .css({opacity: 0.8});
+});
+%>
