@@ -1,0 +1,74 @@
+<%
+  var menu_elements =
+  {
+ 
+  };
+  var block_product_menu_elements =
+  {
+  
+  };
+%>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<div class='page_content_wrapper'>
+  <a href='#content' class="sr-only">Skip to main content</a>
+  <div id='header'><%= DeferRender('main/header', {}) %></div>
+  <div id='menu'><%= DeferRender('menu/main', {menu: menu_elements}) %></div>
+  <div id='block_news'><%= DeferRender('main/block_news', {}) %></div>
+  <div id='block_product_menu'><%= DeferRender('main/block_product_menu', {block_product_menu: block_product_menu_elements}) %></div>
+  <div id='block_user_profile'><%= DeferRender('main/block_user_profile', {}) %></div>
+  <div style='padding-top: 50px;'></div>
+  <div class='container' id='content'>
+  </div>
+  <div class='push_footer'></div>
+</div>
+
+<div id="footer" class='footer'>
+  <%= DeferRender('main/footer', {}) %>
+  <div class="container">
+    <p class="muted credit pull-right"><span class="glyphicon glyphicon-copyright-mark"></span> <span>Digital812 2014</span></p>
+  </div>
+</div>
+
+<link href="css/sticky_footer.css" rel="stylesheet" media="screen">
+<link href="css/main.css" rel="stylesheet" media="screen">
+
+<%
+phoxy.Defer(function()
+{
+  function Bruce( text )
+  {
+    return $('<li />').html(text);
+  }
+  
+  var el = $('<div />')
+    .html('Этот сайт создан с использованием следующих инструментов:')
+    .append
+    (
+      $('<ul />')
+        .append
+        (
+          Bruce('<a href="http://requirejs.org">RequireJS</a>'),
+          Bruce('<a href="http://embeddedjs.com">EJS</a>'),
+          Bruce('<a href="http://jquery.com">JQuery</a>'),
+          Bruce('<a href="http://github.com/Enelar/phoxy">Phoxy</a>'),
+          Bruce('<a href="http://getbootstrap.com">Bootstrap</a>'),
+          Bruce('Glyphicons [<a href="http://glyphicons.com">1</a>], [<a href="http://marcoceppi.github.io/bootstrap-glyphicons/">2</a>]'),
+          Bruce('<a href="http://github.com">GitHub</a>')
+        )
+    );
+  
+  $("p span.glyphicon-copyright-mark").css({cursor: 'pointer'})
+    .popover({html: true, placement: "top", content: GetElementCode(el)})
+    .next().on('click', function()
+    {
+      window.location.replace("//exsul.net");
+    });
+    
+}
+);
+%>

@@ -1,0 +1,36 @@
+Условия:
+
+<ul data-mark='delivery-conditions'>
+  <li data-content='Передача товара осуществляется только в помещении - в квартире или офисе.'>Помещение</li>
+  <li data-content='Оплата производится наличными деньгами на месте курьеру.'>Наличные</li>
+  <li data-content='В случае если товар надлежащего качества, и Вы по каким-то причинам передумали его покупать, следует оплатить курьеру стоимость доставки.'>Отказ</li>
+  <li data-content='Оговоренное Вами время доставки с менеджером Интернет-магазина Digital812 может корректироваться в случае сложной дорожной обстановки на путях следования общественного транспорта.'>Время</li>
+</ul>
+
+Доставка не осуществляется в:
+<ul data-mark='delivery-constraight'>
+  <li data-content="Если клиент постоялец">Гостиницы</li>
+  <li data-content="Если клиент военнослужащий">Казармы и военные части</li>
+  <li data-content="Если клиент пациент">Больничные учреждения</li>
+  <li data-content="Если клиент гость">Кафе и рестораны</li>
+  <li>Автостоянки</li>
+</ul>
+
+<%
+phoxy.Defer(function()
+{
+  $("#content ul")
+    .css({"list-style-type" : "none"})
+    .find("li")
+    .prepend(
+    $('<span />')
+      .addClass('glyphicon glyphicon-info-sign')
+      .css({opacity: 0, "margin-left": -20, "margin-right" : 10})
+    , " ")
+    .parent()
+    .find('[data-content]')
+    .popover({trigger: "hover"})
+    .find('span')
+    .css({opacity: 0.8});
+});
+%>

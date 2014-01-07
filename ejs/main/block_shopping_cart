@@ -1,0 +1,11 @@
+<%
+for (var k in block_shopping_cart)
+{
+  if (!header.hasOwnProperty(k))
+    continue;
+  v = block_shopping_cart[k];
+%>
+<%= DeferRender('main/block_shopping_cart_element', {url: v, name: k}) %>
+<%
+}
+%>

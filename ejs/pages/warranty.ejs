@@ -1,0 +1,74 @@
+<div class="jumbotron">
+  <ul class="no_ul_bullets">
+    <li>Европейская сертификация</li>
+    <li>Гарантия <b>1 год</b></li>
+    <li>Все неисправности исправляем бесплатно<sup>*</sup></li>
+    <li>Свой сервис центр</li>
+  </ul>
+</div>
+
+<%
+phoxy.Defer(function()
+{
+  $('#content .jumbotron ul li')
+    .prepend(
+      $('<span />').addClass('glyphicon glyphicon-ok').css({'marginRight': 20})
+    )
+    .find('sup')
+    .parent()
+//    .popover({'trigger': 'hover', 'title': 'Не вызванные нарушением условий эксплуатации', 'content' : 'aa'})
+    .hover
+    (
+      function()
+      {
+        $(this)
+          .find('sup')
+          .fadeOut(30);
+        $("#content [data-mark='warranty-cancellation-conditions']")
+          .addClass('attention_glow');
+      },
+      function()
+      {
+        $(this)
+          .find('sup')
+          .fadeIn(30);
+        $("#content [data-mark='warranty-cancellation-conditions']")
+          .removeClass('attention_glow');      }
+    )
+    .next()
+    .append
+    (
+      " ",
+      MakeModal('#warranty_contacts', $('<span />').addClass('glyphicon glyphicon-earphone'))
+    );
+});
+%>
+
+<div class="modal fade" id="warranty_contacts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Контакты сервис центра</h4>
+      </div>
+      <div class="modal-body">
+        <ul class='no_ul_bullets'>
+          <li><i>Телефон:</i> <a href='tel:+79013010069'>+79013010069</a> (по любым вопросам ремонта)</li>
+          <li><i>Адрес:</i> в вашем гарантийном талоне</li>
+        </ul>
+        <div style='text-align: right;'>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<span class="glyphicon glyphicon-exclamation-sign"></span> Гарантия аннулируется:
+<ul data-mark='warranty-cancellation-conditions'>
+  <li>При отсутствии на гарантийном талоне подписей клиента, продавца и/или печати магазина.</li>
+  <li>При обнаружении механических повреждений или повреждений, вызванных несоблюдением требований хранения или правил эксплуатации телефона (следы ударов, трещины в корпусе, царапины, искривление корпуса из-за перегрева, следы повреждения жидкостями, выдавливание жидкокристаллического дисплея, деформация антенны и пр.)</li>
+  <li>При наличии следов вскрытия и/или нарушении заводских пломб сохранности.</li>
+  <li>При поломке аппарата, в связи с использованием аксессуаров или комплектующих, не одобренных предприятием- изготовителем или торгующей организацией.</li>
+  <li><b>WTF??</b>При повреждениях изделия, вызванных стихией, пожаром, бытовыми факторами и прочими форс-мажорными обстоятельствами, а также действиями третьих лиц.</li>
+<ul>

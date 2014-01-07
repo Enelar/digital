@@ -1,0 +1,34 @@
+<div data-system='login_bar_system_div'></div>
+<%
+if (typeof(uid) == 'undefined')
+  uid = 0;
+var login_button =
+  $('<button />')
+  .addClass("btn btn-default")
+  .append
+  (
+    $('<span />').addClass("glyphicon")
+  ).css('opacity', 0);
+  
+if (uid)
+  login_button.attr('title', "Выйти").find('span').addClass("glyphicon-log-out");
+else
+  login_button.attr('title', "Войти").find('span').addClass("glyphicon-log-in");
+
+phoxy.Defer(function()
+{
+  $('div[data-system="login_bar_system_div"]').replaceWith(login_button);
+  $('#menu').hover
+  (
+    function()
+    {
+      login_button.animate({opacity: 1});
+    }
+    ,
+    function()
+    {
+      login_button.animate({opacity: 0});
+    }
+  );
+});
+%>

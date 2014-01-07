@@ -1,0 +1,98 @@
+<ul class="no_ul_bullets">
+  <li data-mark='contact-address'>
+    <b>
+      <span class='glyphicon glyphicon-map-marker' title="Карта здесь!"></span>
+      <p>г. Санкт-Петербург,</p>
+      <p><big>Улица Ефимова, 4а</big></p>
+    </b>
+  </li>
+</ul>
+
+<%
+phoxy.Defer(function()
+{
+  var obj = 
+    $('#content li[data-mark="contact-address"]')
+      .hover
+      (
+        function()
+        {
+          $(this).find('span').tooltip('show');
+        },
+        function()
+        {
+          $(this).find('span').tooltip('hide');
+        }
+      )
+      .find('span').tooltip();
+    
+  MakeModal("#modal-map", obj);
+}
+);
+%>
+
+<div class="modal fade" id="modal-map" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Контакты сервис центра</h4>
+      </div>
+      <div class="modal-body">
+        <div class="item">	 		
+          <iframe width="576" height="387" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ru/maps?oe=utf-8&amp;client=firefox-a&amp;ie=UTF8&amp;q=Digital812,+%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82-%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD&amp;fb=1&amp;gl=ru&amp;hq=digital812&amp;cid=2133749320483647161&amp;t=m&amp;ll=59.926356,30.320163&amp;spn=0.004161,0.012338&amp;z=16&amp;output=embed"></iframe>
+          <br>
+          <small>
+            <a href="https://maps.google.ru/maps?oe=utf-8&amp;client=firefox-a&amp;ie=UTF8&amp;q=Digital812,+%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82-%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD&amp;fb=1&amp;gl=ru&amp;hq=digital812&amp;cid=2133749320483647161&amp;t=m&amp;ll=59.926356,30.320163&amp;spn=0.004161,0.012338&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">
+              Просмотреть увеличенную карту
+            </a>
+          </small>
+        </div>
+        <div style='text-align: right;'>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="contacts-page"> 	
+  <h1 class="title">Контакты</h1>
+ 	
+  <div class="item"> 		
+    <div class="contacts-content"> 			
+<div class="address"> 	<span class="black-bold-small"></span> 
+  <br>
+ 	<span class="black-bold-large"></span>	 </div>
+ 
+<div class="multichannel-phone"> 	<span class="black-bold-large">+7 (812) 499 49 55</span> 
+  <br>
+ 	<span class="black-bold-small bright-red">Многоканальный</span>	 </div>
+ 
+<div class="time one-line"><span class="black-bold-large">Ежедневно, с 11:00 до 20:00</span> 
+  <br>
+ 		 </div>
+ 
+<div class="phone"> 	<font size="2"><span class="black-bold-large">+7 (812) 922 23 55</span> 
+    <br>
+   	<span class="black-bold-large">+7 (812) 922 23 88 
+      <br>
+     </span><span class="black-bold-small">+7 (812) 988 55 78 
+      <br>
+     </span><span class="black-bold-small">+7 (812) 988 55 79</span> </font> 
+  <br>
+ 
+  <br>
+ 
+  <br>
+ </div>
+ 
+<div class="mail one-line"> 	<span class="black-bold-large"><a href="mailto:info@digital812.ru" title="Электронная почта">info@digital812.ru<script type="text/javascript">
+</script></a></span> </div>
+ 
+<div class="vkontakt one-line"> 	<span class="black-bold-large"><a href="https://vk.com/digital812spb" title="Группа в ВК" target="_blank">Сообщество Вконтакте</a></span> </div>
+ 
+<div class="twitter one-line"> 	<span class="black-bold-large"><a href="https://twitter.com/digital812" title="Twitter" target="_blank">@digital812</a></span></div>
+ 		</div>
+   	</div>
+ 	 	
+ 	 </div>
