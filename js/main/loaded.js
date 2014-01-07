@@ -2,6 +2,11 @@ function OnDesignBoneLoads()
 {
 }
 
+function GetElementCode( el )
+{
+  return $(el).wrapAll('<div></div>').parent().html();
+}
+
 // I know that its crap code, but we hurring
 function DeferRender( ejs, data )
 {
@@ -14,11 +19,6 @@ function DeferRender( ejs, data )
       ret += dictonary.charAt(Math.floor(Math.random() * dictonary.length));
 
     return ret;
-  }
-
-  function GetElementCode( el )
-  {
-    return $(el).wrapAll('<div></div>').parent().html();
   }
 
   var id = GenerateIniqueID();
