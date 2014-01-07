@@ -39,6 +39,11 @@
     </form>
 
     <ul class="nav navbar-nav navbar-right">
+      <li>
+        <form class="navbar-form" data-comment="tools">
+          <%= DeferRender('menu/login_bar', {}) %>
+        </form>
+      </li>
       <%= DeferRender('menu/menu', {menu: menu.right}) %>
     </ul>
   </div><!-- /.navbar-collapse -->
