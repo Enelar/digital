@@ -1,0 +1,24 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>Тип</td>
+      <td>Стоимость</td>
+      <td>Скорость</td>
+    </tr>
+  </thead>
+  <tbody>
+<%
+for (k in prices)
+{
+  v = prices[k];  
+%>
+    <tr>
+      <td><%= v.title %></td>
+      <td><%= v.price %></td>
+      <td><%= v.timing %></td>
+    </tr>
+<%
+}
+%>
+  </tbody>
+</table>
