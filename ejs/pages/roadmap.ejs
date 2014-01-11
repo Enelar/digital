@@ -1,0 +1,62 @@
+<% var as_self_page = location.hash == '#roadmap'; %>
+<div data-mark='roadmap' class='<%= as_self_page ? 'panel panel-default' : '' %>'>
+  <% 
+  if (!as_self_page)
+  {
+    var url = phoxy.Config()['site'] + "#roadmap";
+  %>
+    Прямая ссылка на эту страницу <a href='<%= url %>' target='_blank'><%= url %></a>
+  <%
+  }
+  else
+  {
+  %>
+  <div class='panel-heading'>Как добраться</div>
+    <div class='panel-body'>
+  <%
+  }
+  %>
+      <%= phoxy.DeferRender('pages/map', {}) %>
+      <responsive_image title='Бизнес центр "Мир"' src='/res/img/roadmap/outside.jpg'></responsive_image>
+      <p>При входе внезапно налево, до вывески</p>
+      <responsive_image title='Офис Digital812' src='/res/img/roadmap/inside.jpg' ></responsive_image>
+  <%
+  if (as_self_page)
+  {
+  %>
+    </div>
+  </div>
+  <%
+  }
+  %>
+</div>
+
+<%
+phoxy.Defer(function()
+{
+  $('[data-mark="roadmap"] responsive_image').each(function()
+  {
+    var parent = $('<div \>')
+      .addClass('panel panel-default');
+    parent
+      .append
+      (
+        $('<div \>')
+          .addClass('panel-heading')
+          .css
+          ({
+            'color' : 'white',
+            'background-color' : '#444',
+            'padding' : '2px 5px',
+          })
+          .addClass('color-inverted')
+          .html($(this).attr('title'))
+      );
+
+    InsertParent(this, parent);
+    var src = $(this).attr('src');
+    $(this).replaceTag('<img>', true);
+    parent.find('img').attr('src', src);
+    });
+});
+%>

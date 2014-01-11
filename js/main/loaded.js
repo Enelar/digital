@@ -66,6 +66,51 @@ function MakeModal( modal_selector, obj )
   $(obj)
     .attr('data-toggle', 'modal')
     .attr('data-target', modal_selector)
-    .css({cursor: 'pointer'});
+    .addClass('active');
   return obj;
+}
+
+function InsertParent( me, parent )
+{
+  parent = $(parent);
+  parent.insertBefore(me);
+  
+  me = $(me).detach();  
+  parent.append(me); 
+}
+
+function CorrectPhonesURL()
+{
+  $('[data-mark="phone"]').each(function()
+  {
+    var html = $(this).html();
+    var num = html.replace(/[\D]+/g, '');
+    $(this)
+      .attr('href', 'tel:' + num)
+      .removeAttr('data-mark')
+      .addClass('hipster');
+  });
+}
+
+
+$.fn.replaceTag = function (newTagObj, keepProps)
+{ // http://stackoverflow.com/questions/918792/use-jquery-to-change-an-html-tag/20469901#20469901
+    $this = this;
+    var i, len, $result = jQuery([]), $newTagObj = $(newTagObj);
+    len = $this.length;
+    for (i=0; i<len; i++) {
+        $currentElem = $this.eq(i);
+        currentElem = $currentElem[0];
+        $newTag = $newTagObj.clone();
+        if (keepProps) {//{{{
+            newTag = $newTag[0];
+            newTag.className = currentElem.className;
+            $.extend(newTag.classList, currentElem.classList);
+            $.extend(newTag.attributes, currentElem.attributes);
+        }//}}}
+        $newTag.html(currentElem.innerHTML).replaceAll($currentElem);
+        $result.pushStack($newTag);
+    }
+
+    return this;
 }

@@ -8,6 +8,9 @@
   box-shadow:0 0 20px gray;
 }
 
+.active {
+  cursor: pointer;
+}
 
 .stick_to_footer {
 /* Should be child of #content */
@@ -25,4 +28,30 @@
 }
 .container .credit {
   margin: 20px 0;
+}
+
+a.hipster {
+  color: inherit;
+}
+
+/* Contacts */
+
+[data-mark='contacts'] li {
+  height: 100px;
+}
+
+[data-mark='contacts'] li span.glyphicon {
+  font-size: 3.5em;
+}
+
+[data-mark='contacts'] li [data-mark='icon'] {
+  width: 60px;
+  height: 100%;
+  float: left;
+  text-align: left;
+}
+
+/* Roadmap */
+[data-mark='roadmap'] img {
+  max-width: 100%;
 }
