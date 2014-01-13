@@ -23,7 +23,8 @@
     </li>
     <li data-mark='contact-roadmap'>
       <span class='glyphicon glyphicon-road'></span>
-      <b style='font-size: 2em'>Как добраться</b>
+      <b style='font-size: 2em'>Как добраться</b><br>
+      <b>5 минут от м. Сенная</b>
     </li>
     <li data-mark='contact-other'>
       <span class='glyphicon glyphicon-envelope'></span>
@@ -68,34 +69,22 @@ phoxy.Defer(function()
 );
 %>
 
-<div class="modal fade" id="modal-map" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Контакты сервис центра</h4>
-      </div>
-      <div class="modal-body">
-        <%= phoxy.DeferRender('pages/map', {}) %>
-        <div style='text-align: right;'>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<%=
+phoxy.DeferRender(
+  'pages/modal', 
+  {
+    id: "modal-map",
+    title: "Контакты сервис центра",
+    body: phoxy.DeferRender('pages/map', {})
+  })
+%>
 
-<div class="modal fade" id="modal-roadmap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Как добраться</h4>
-      </div>
-      <div class="modal-body">
-        <%= phoxy.DeferRender('pages/roadmap', {}) %>
-        <div style='text-align: right;'>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<%=
+phoxy.DeferRender(
+  'pages/modal', 
+  {
+    id: "modal-roadmap",
+    title: "Как добраться",
+    body: phoxy.DeferRender('pages/roadmap', {})
+  })
+%>

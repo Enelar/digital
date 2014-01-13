@@ -1,0 +1,9 @@
+<%=
+phoxy.DeferRender(
+  'pages/modal', 
+  {
+    id: "modal-login",
+    title: "Авторизация на сайте",
+    body: phoxy.DeferRender('login/form', {})
+  })
+%>

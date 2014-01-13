@@ -9,6 +9,7 @@ var login_button =
   (
     $('<span />').addClass("glyphicon")
   ).css('opacity', 0);
+MakeModal('#modal-login', login_button, 'login/login_form');
   
 if (uid)
   login_button.attr('title', "Выйти").find('span').addClass("glyphicon-log-out");
@@ -18,17 +19,18 @@ else
 phoxy.Defer(function()
 {
   $('div[data-system="login_bar_system_div"]').replaceWith(login_button);
-  $('#menu').hover
-  (
-    function()
-    {
-      login_button.animate({opacity: 1});
-    }
-    ,
-    function()
-    {
-      login_button.animate({opacity: 0});
-    }
-  );
+  $('#menu')
+    .hover
+    (
+      function()
+      {
+        login_button.animate({opacity: 1});
+      }
+      ,
+      function()
+      {
+        login_button.animate({opacity: 0});
+      }
+    );
 });
 %>

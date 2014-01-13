@@ -61,12 +61,20 @@ function DeferRender( ejs, data )
   return div;
 }
 
-function MakeModal( modal_selector, obj )
+function MakeModal( modal_selector, obj, ejs, data )
 {
-  $(obj)
-    .attr('data-toggle', 'modal')
-    .attr('data-target', modal_selector)
-    .addClass('active');
+  function ActualModalWork()
+  {
+    $(obj)
+      .attr('data-toggle', 'modal')
+      .attr('data-target', modal_selector)
+      .addClass('active');
+  }
+    
+  if (ejs != undefined || $(modal_selector)[0] == undefined)
+    phoxy.ApiAnswer({design: ejs, "data" : data}, phoxy.Defer(ActualModalWork));
+  else
+    ActualModalWork();
   return obj;
 }
 
