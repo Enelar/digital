@@ -9,12 +9,14 @@ var login_button =
   (
     $('<span />').addClass("glyphicon")
   ).css('opacity', 0);
-MakeModal('#modal-login', login_button, 'login/login_form');
   
 if (uid)
   login_button.attr('title', "Выйти").find('span').addClass("glyphicon-log-out");
 else
+{
   login_button.attr('title', "Войти").find('span').addClass("glyphicon-log-in");
+  MakeModal('#modal-login', login_button, 'login/login_form');  
+}
 
 phoxy.Defer(function()
 {

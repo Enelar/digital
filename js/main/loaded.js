@@ -72,7 +72,7 @@ function MakeModal( modal_selector, obj, ejs, data )
   }
     
   if (ejs != undefined || $(modal_selector)[0] == undefined)
-    phoxy.ApiAnswer({design: ejs, "data" : data}, phoxy.Defer(ActualModalWork));
+    phoxy.ApiAnswer({design: ejs, "data" : data}, ActualModalWork);
   else
     ActualModalWork();
   return obj;
