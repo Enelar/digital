@@ -65,10 +65,13 @@ function MakeModal( modal_selector, obj, ejs, data )
 {
   function ActualModalWork()
   {
-    $(obj)
-      .attr('data-toggle', 'modal')
-      .attr('data-target', modal_selector)
-      .addClass('active');
+    phoxy.Appeared(modal_selector, function()
+    {
+      $(obj)
+        .attr('data-toggle', 'modal')
+        .attr('data-target', modal_selector)
+        .addClass('active');
+    });
   }
     
   if (ejs != undefined || $(modal_selector)[0] == undefined)

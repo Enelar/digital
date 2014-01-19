@@ -25,12 +25,12 @@ phoxy.Defer(function()
     (
       function()
       {
-        login_button.animate({opacity: 1});
+        login_button.css({'background-color' : 'red'}).animate({opacity: 1});
       }
       ,
       function()
       {
-        login_button.animate({opacity: 0});
+        login_button.css({'background-color' : 'blue'}).animate({opacity: 0});
       }
     );
 });

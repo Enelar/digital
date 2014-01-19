@@ -1,12 +1,12 @@
 <div class="modal fade" id="<%= id %>" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content" data-mark='modal-content'>
+      <div class="modal-header" data-mark='modal-head'>
         <h4 class="modal-title"><%= title %></h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" data-mark='modal-body'>
         <%= body %>
-        <div style='text-align: right;'>
+        <div style='text-align: right;' data-mark='modal-foot'>
           <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
         </div>
       </div>
