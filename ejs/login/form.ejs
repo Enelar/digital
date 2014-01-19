@@ -1,14 +1,27 @@
-<form method='post' action='api/login/submit'>
+<div data-mark='login-form'>
+  <form method='post' action='api/login/submit'>
 
-  <div class='input group'>
-  <input type='text' class='form-control' placeholder='Логин' />
-  </div>
+    <div class='input group'>
+    <input type='text' class='form-control' placeholder='Логин' />
+    </div>
+    <delimeter ></delimeter>
+    <div class='input group'>
+    <input type='password' class='form-control' placeholder='Пароль' />
+    </div>
+    <delimeter ></delimeter>
+    <delimeter ></delimeter>
+    <button type="submit" class="btn btn-default" data-mark='login-button'>Войти</button>
+  </form>
+</div>
 
-  <div class='input group'>
-  <input type='password' class='form-control' placeholder='Пароль' />
-  </div>
 <%
-  
+phoxy.Defer(function()
+{
+  $('[data-mark="login-form"]')
+    .find('delimeter')
+    .each(function()
+    {
+      $(this).replaceTag('<div style="height: 10px;" data-comment="delimeter" \>');
+    });
+});
 %>
-  <button type='submit' />
-</form>
