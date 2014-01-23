@@ -36,6 +36,8 @@ class import extends api
       array_push($ret, $model);
     }
     
+    $this->Sync($ret);
+  return;
     foreach ($ret as $model)
     {
       $vendor_id = $this->GetVendorId($model['vendor']);
@@ -47,6 +49,14 @@ class import extends api
         db::Query("INSERT INTO phones.model_values(model, value) VALUES ($1, $2)",
           array($model['id'], $id));
       }
+    }
+  }
+  
+  private function Sync()
+  {
+    foreach ($ret as $model)
+    {
+      db::Query("UPDATE phones.models SET price=$2 WHERE id=$1", array((int)$model['id'], (int)$model['price']));
     }
   }
   
