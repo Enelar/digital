@@ -1,0 +1,38 @@
+<div class='input-group'>
+  <input type='text' class='form-control' placeholder='Телефон' data-order-tooltip='С вами свяжется курьер'/>
+  <span class="input-group-addon">Обязательно</span>
+</div>
+
+<div class='input-group'>
+  <input type='text' class='form-control' placeholder='Имя Фамилия' data-order-tooltip='Как к вам обращаться?'/>
+  <span class="input-group-addon">Желательно</span>
+</div>
+
+<span class="input-group-addon"><input type='checkbox' data-mark='delivery-flag'/>Я пока не планирую пользоваться доставкой</span>
+<textarea type='text' class='form-control' placeholder='Адрес доставки' style='height: 115px;' ></textarea>
+<div class='input-group'></div>
+
+
+
+<%
+phoxy.Defer(function()
+{
+  var login = $('#modal-login');
+  login
+    .find("[data-mark='delivery-flag']")
+    .change(function()
+    {
+      var textarea = login.find('textarea');
+      if (!this.checked)
+        textarea.finish().slideDown();
+      else
+        textarea.finish().slideUp();
+    })
+    .parent()
+    .click(function()
+    {
+      var box = $(this).find("input[type='checkbox']");
+      box.prop('checked', !box.prop('checked')).trigger('change');
+    });
+});
+%>

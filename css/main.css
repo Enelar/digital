@@ -59,3 +59,8 @@ a.hipster {
 [data-mark='roadmap'] img {
   max-width: 100%;
 }
+
+/* Login */
+#modal-login form .input-group {
+    margin-bottom: 10px;
+}

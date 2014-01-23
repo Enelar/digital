@@ -10,10 +10,18 @@ var login_button =
   );
   
 if (uid)
-  login_button.attr('title', "Выйти").find('span').addClass("glyphicon-log-out");
+  login_button
+    .attr('title', "Выйти")
+    .tooltip({placement: 'bottom'})
+    .find('span')
+    .addClass("glyphicon-log-out");
 else
 {
-  login_button.attr('title', "Войти").find('span').addClass("glyphicon-log-in");
+  login_button
+    .attr('title', "Войти")
+    .tooltip({placement: 'bottom'})
+    .find('span')
+    .addClass("glyphicon-log-in");
   MakeModal('#modal-login', login_button, 'login/login_form');  
 }
 
@@ -25,12 +33,12 @@ phoxy.Defer(function()
     (
       function()
       {
-        login_button.animate({opacity: 1});
+        login_button.properShow();
       }
       ,
       function()
       {
-        login_button.animate({opacity: 0});
+        login_button.properHide();
       }
     );
 });
