@@ -1,11 +1,36 @@
-<h2><%= title %></h2>
+<h2><%= params.name.v %></h2>
 <div class="row">
   <div class="col-md-6">
-    <img src="http://placehold.it/300x400" />
+<%
+if (typeof(params.picture) == undefined)
+  img = "http://placehold.it/300x400";
+else
+  img = params.picture.v;
+%>
+    <img src="<%= img %>" style="max-width: 300px; max-height: 400px;" />
+  </div>
+  <div class="col-md-6">
+    <table class="table"><tbody>
+<%
+for (k in params)
+{
+  var p = params[k];
+  if (!p.hide)
+  {
+%>
+      <tr>
+        <td><%= k %></td>
+        <td><%= p.v %></td>
+      </tr>
+<%
+  }
+}
+%>
+    </tbody></table>
   </div>
 </div>
 <div class="row" style='margin-top: 10px'>
   <div class='col-md-12'>
-    <%= description %>
+    
   </div>
 </div>
