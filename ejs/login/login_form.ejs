@@ -1,0 +1,23 @@
+<%=
+phoxy.DeferRender(
+  'pages/modal', 
+  {
+    id: "modal-login",
+    title: "Авторизация на сайте",
+    body: phoxy.DeferRender('login/form', {})
+  })
+%>
+
+<%
+phoxy.Appeared('#modal-login form', function()
+{
+  var modal_body = this.parent().parent();
+  var button = 
+    modal_body
+      .find('button[data-mark="login-button"]')
+      .detach();
+  modal_body
+    .find("[data-mark='modal-foot']")
+    .prepend(button);
+});
+%>

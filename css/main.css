@@ -18,6 +18,10 @@
   margin-top: 100px;
 }
 
+.indent {
+  padding-top: 50px;
+}
+
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */

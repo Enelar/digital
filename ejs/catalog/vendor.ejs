@@ -1,0 +1,29 @@
+<div data-mark='catalog'>
+  <div class='row'>
+<%
+var accum = 0;
+var in_line = 4;
+for (var i = 0; i < vendor.length; i++)
+{
+  var p = vendor[i];
+%>
+    <div class='col-md-<%= 12 / in_line %>'>
+      <img src='<%= p.picture %>' style='height: 200px;' />
+      <a href='#item/test?id=<%= p.id %>'><%= p.name %></a>
+      <p><%= p.price %></p>
+    </div>
+
+<%
+  accum++;
+  if (accum == in_line)
+  {
+%>
+  </div>
+  <div class='row'>
+<%
+    accum = 0;
+  }
+}
+%>
+  </div>
+</div>
