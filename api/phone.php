@@ -44,11 +44,24 @@ class phone extends api
     $ret = array();
     foreach ($params as $param)
     {
-      $res = db::Query("SELECT name, hide FROM phones.params WHERE id=$1", array($param), true);
+      $res = db::Query('SELECT name, hide, "group" FROM phones.params WHERE id=$1', array($param), true);
       $res['hide'] = ($res['hide'] == 't');
       $ret[(int)$param] = $res;
     }
     return array("data" => array("types" => $ret));
   }
   
+  protected function GetGroups( )
+  {
+    $res = db::Query("SELECT * FROM phones.param_groups");
+    $ret = array();
+    
+    foreach ($res as $v)
+    {
+      $k = $v['id'];
+      unset($v['id']);
+      $ret[$k] = $v;
+    }
+    return array("data" => array("groups" => $ret));
+  }
 }

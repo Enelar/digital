@@ -1,26 +1,39 @@
-<h2><%= params.name.v %></h2>
+<div id="phone_<%= id %>">
+
+<%
+var binded = params.binded;
+var grouped = params.grouped; 
+%>
+<h2><%= binded.name.v %></h2>
 <div class="row">
   <div class="col-md-6">
 <%
-if (typeof(params.picture) == undefined)
+if (typeof(binded.picture) == undefined)
   img = "http://placehold.it/300x400";
 else
-  img = params.picture.v;
+  img = binded.picture.v;
 %>
     <img src="<%= img %>" style="max-width: 300px; max-height: 400px;" />
   </div>
   <div class="col-md-6">
-    <table class="table"><tbody>
+    <table class="table table-hover table-condensed"><tbody>
 <%
-for (k in params)
+for (g in grouped)
 {
-  var p = params[k];
-  if (!p.hide)
+  var group = grouped[g];
+  var group_title = phone_info.groups[g].title;
+%>
+    <tr style='background-color: #999;'>
+      <td colspan="2" data-value="<%= group_title %>" data-mark='phone-group-inditifier'></td>
+    </tr>
+<%
+  for (k in group)
   {
+    var v = group[k];
 %>
       <tr>
         <td><%= k %></td>
-        <td><%= p.v %></td>
+        <td><%= v %></td>
       </tr>
 <%
   }
@@ -33,4 +46,28 @@ for (k in params)
   <div class='col-md-12'>
     
   </div>
+</div>
+
+<%
+phoxy.Defer(function()
+{
+  $('#phone_' + id)
+    .find('table')
+    .find("td[data-mark='phone-group-inditifier']")
+    .hover
+    (
+      function()
+      {
+        var th = $(this);
+        th.html(th.attr('data-value'));
+      },
+      function()
+      {
+        $(this).html('');
+      }
+    );
+  
+});
+%>
+
 </div>

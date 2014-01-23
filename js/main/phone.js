@@ -1,7 +1,8 @@
 var phone_info = 
 {
   params : {},
-  values : {}
+  values : {},
+  groups : {},
 }
 
 function BindPhoneInfo(answer, callback)
@@ -10,6 +11,9 @@ function BindPhoneInfo(answer, callback)
   {
     BindPhoneInfo(answer, callback);
   };
+  
+  if (!phone_info.groups.loaded)
+    return RequestGroups(SelfFunctor);
   
   var i;
 
@@ -32,18 +36,33 @@ function BindPhoneInfo(answer, callback)
   if (params_to_request.length)
     return RequestParams(params_to_request, SelfFunctor);
   
-  var binded = {};
+  var binded = {}, raw = {}, grouped = {};
   
   for (i = 0; i < answer.data.params.length; i++)
   {
     var id = parseInt(answer.data.params[i]);
     var value = phone_info.values[id];
     var param = phone_info.params[value.k];
+    var group = param.group;
+    var name = param.name;
     
-    binded[param.name] = {v: value.v, hide: param.hide};
+    if (group == undefined)
+      group = 0;
+    
+    binded[name] = {v: value.v, hide: param.hide, group: group};
+    raw[name] = value.v;
+    if (!param.hide)
+    {
+      if (grouped[group] == undefined)
+        grouped[group] = {};
+      grouped[group][name] = raw[name];
+    }
   }
   
-  answer.data.params = binded;
+  answer.data.params.raw = raw;
+  answer.data.params.binded = binded;
+  answer.data.params.grouped = grouped;
+  
   callback(answer);
 }
 
@@ -53,6 +72,20 @@ function ToGetArr( ids )
   for (var i = 0; i < ids.length; i++)
     ret += "a[]=" + ids[i] + "&";
   return ret;
+}
+
+function RequestGroups(callback)
+{
+  if (phone_info.groups.length)
+    callback();
+  function Callback(data)
+  {
+    for (var k in data.data.groups)
+      phone_info.groups[k] = data.data.groups[k];
+    phone_info.groups.loaded = true;
+    callback();
+  }
+  phoxy.AJAX('phone/GetGroups', Callback);
 }
 
 function RequestValues(ids, callback)

@@ -28,6 +28,10 @@ class item extends api
       "result" => "content",
     );
     $m = LoadModule('api', 'phone', true);
-    return array_merge($t, $m->Reserve($id));
+    $ret = array_merge($t, $m->Reserve($id));
+    
+    $ret['data']['id'] = (int)$id;
+    
+    return $ret;
   }
 }
