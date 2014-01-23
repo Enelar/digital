@@ -54,6 +54,50 @@ function CorrectPhonesURL()
   });
 }
 
+$.fn.properHide = function ()
+{
+  $this = this;
+  var i, len, $result = jQuery([]);
+  len = $this.length;
+  for (i=0; i<len; i++) {
+    $currentElem = $this.eq(i);
+    $currentElem
+      .animate(
+      {
+        opacity: 0
+      },
+      500,
+      function()
+      {
+        $currentElem.css({visibility: 'hidden'})
+      });
+      
+    $result.pushStack($currentElem);
+  }
+
+  return this;
+}
+
+$.fn.properShow = function ()
+{ 
+  $this = this;
+  var i, len, $result = jQuery([]);
+  len = $this.length;
+  for (i=0; i<len; i++) {
+    $currentElem = $this.eq(i);
+    $currentElem
+      .finish()
+      .css({visibility: 'visible'})
+      .animate(
+      {
+        opacity: 1
+      });
+      
+    $result.pushStack($currentElem);
+  }
+
+  return this;
+}
 
 $.fn.replaceTag = function (newTagObj, keepProps)
 { // http://stackoverflow.com/questions/918792/use-jquery-to-change-an-html-tag/20469901#20469901

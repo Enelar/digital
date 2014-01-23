@@ -8,7 +8,7 @@ new db("dbname=digital host=localhost user=postgres");
 function phoxy_conf()
 {
   $ret = phoxy_default_conf();
-
+  $ret['cache_global'] = '10m';
   return $ret;
 }
 
