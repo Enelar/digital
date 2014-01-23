@@ -10,4 +10,10 @@ class main extends api
       "routeline" => "OnDesignBoneLoads",
     );
   }
+  
+  protected function Home()
+  {
+    $catalog = LoadModule('api', 'catalog', true);
+    return $catalog->Root();
+  }
 }

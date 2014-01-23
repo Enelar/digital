@@ -1,0 +1,9 @@
+<%
+for (k in vendors)
+{
+  var v = vendors[k];
+%>
+  <a href='#catalog/vendor/?name=<%= v.name %>'><%= v.name %></a><br>
+<%
+}
+%>

@@ -25,4 +25,32 @@ class catalog extends api
       "data" => array("catalog" => $test_mobile_catalog),
     );
   }
+  
+  protected function Root()
+  {
+    $res = db::Query("SELECT * FROM phones.vendor");
+    return array(
+      "design" => "catalog/vendor_select",
+      "result" => "content",
+      "data" => array("vendors" => $res)
+    );
+  }
+  
+  protected function Vendor( $name )
+  {
+    $res = db::Query(
+      "SELECT id, price, (quantity > 0) as available FROM phones.models WHERE vendor=(SELECT id FROM phones.vendor WHERE name=$1)",
+      array($name));
+    $phone = LoadModule('api', 'phone');
+    foreach ($res as &$r)
+    {
+      $i = $phone->GetMinimalInfo($r['id']);
+      $r = array_merge($r, $i); 
+    }
+    return array(
+      "design" => "catalog/vendor",
+      "result" => "content",
+      "data" => array("vendor" => $res)
+    );
+  }
 }

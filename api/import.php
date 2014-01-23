@@ -18,7 +18,16 @@ class import extends api
       
       $params = array();
       array_push($params, array('name' => 'picture', 'value' => (string)$offer->picture));      
-      array_push($params, array('name' => 'name', 'value' => (string)$offer->name));
+      
+      array_push(
+        $params, 
+        array(
+          'name' => 'name',
+          'value' => 
+            (string)$offer->name == '' ?
+            (string)$offer->model :
+            (string)$offer->name
+        ));
       
       foreach ($offer->param as $param)
         array_push($params, array('name' => (string)$param['name'], 'value' => (string)$param));
