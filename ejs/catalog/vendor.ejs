@@ -1,16 +1,31 @@
-<div data-mark='catalog'>
+<div data-mark='catalog' class='catalog'>
+  <div style='width: 100%;'>
+    <b><%= catalog %></b>
+    <div style='float: right;'>
+      <input type="checkbox" class="switch-mini" id='galery-mode'>
+      Режим галереи
+    </div>
+  </div>
   <div class='row'>
 <%
 var accum = 0;
-var in_line = 4;
+var in_line = 3;
 for (var i = 0; i < vendor.length; i++)
 {
   var p = vendor[i];
 %>
     <div class='col-md-<%= 12 / in_line %>'>
-      <img src='<%= p.picture %>' style='height: 200px;' />
-      <a href='#item/test?id=<%= p.id %>'><%= p.name %></a>
-      <p><%= p.price %></p>
+      <div class='row item-cell' style='height: 200px;'>
+        <div class='col-md-12 item-picture' style='overflow: hidden;'>
+          <img src='<%= p.picture %>' style='max-height: 100%; min-height: 60%;' />
+        </div>
+        <div class='col-md-7 item-popover-info'>
+          <a class='hipster' href='#item/test?id=<%= p.id %>'><%= p.name %></a><br>
+          <div class="badge"><%= p.price %></div>
+          <br><br>
+          <button class='btn btn-danger'>Купить</button>
+        </div>
+      </div>
     </div>
 
 <%
@@ -18,7 +33,7 @@ for (var i = 0; i < vendor.length; i++)
   if (accum == in_line)
   {
 %>
-  </div>
+  </div><hr>
   <div class='row'>
 <%
     accum = 0;
@@ -27,3 +42,39 @@ for (var i = 0; i < vendor.length; i++)
 %>
   </div>
 </div>
+
+<%
+phoxy.Defer(function()
+{
+  var cells = $('#content .catalog .item-cell');
+  var elements = cells.find('.item-popover-info');
+  
+  elements.hide();
+  
+  function EnableGalery()
+  {
+    cells
+      .hover(function()
+      {
+        $(this).find('.item-popover-info').animate({height: 'toggle'});
+      });    
+    elements.slideUp();
+  }
+  function DisableGalery()
+  {
+    cells.off('mouseenter mouseleave');
+    elements.slideDown();
+  }
+
+  $('#galery-mode')
+    .bootstrapSwitch()
+    .change(function()
+    {
+      if (this.checked)
+        EnableGalery();
+      else
+        DisableGalery();
+    })
+    .trigger('change');
+});
+%>

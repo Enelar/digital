@@ -50,7 +50,7 @@ class catalog extends api
     return array(
       "design" => "catalog/vendor",
       "result" => "content",
-      "data" => array("vendor" => $res)
+      "data" => array("vendor" => $res, "catalog" => (count($res) ? $name : ''))
     );
   }
 }

@@ -64,3 +64,30 @@ a.hipster {
 #modal-login form .input-group {
     margin-bottom: 10px;
 }
+
+/* Catalog */
+.catalog div.badge {
+  font-size: 18px;
+  background-color: #2cb82c;
+  margin-top: 10px;
+}
+
+.catalog .row {
+}
+
+.catalog .item-cell {
+  position: relative;
+  margin: 5px 0px;
+  border: 1px;
+}
+
+.catalog .item-cell .item-picture {
+  position: absolute;
+}
+
+.catalog .item-cell .item-popover-info {
+  position: absolute;
+  height: 100%;
+  right: 0px;
+  background-color: #F8F8F8;
+}
