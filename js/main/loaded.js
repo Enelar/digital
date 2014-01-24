@@ -1,5 +1,20 @@
 function OnDesignBoneLoads()
 {
+  function GoogleAnalysticsEvent()
+  {
+    try
+    {
+      _gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
+    } catch (e)
+    {
+    }  
+  }
+
+  GoogleAnalysticsEvent();
+  $(window).bind('hashchange', function()
+  {
+    GoogleAnalysticsEvent();
+  });
 }
 
 function GetElementCode( el )
