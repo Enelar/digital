@@ -1,0 +1,50 @@
+Storage page
+
+<div class='row' id='storage-input-place'>
+  <div class='col-md-6' style='display: inline-block;'>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Артикул" id='model' data-minimal-length-valid='10' data-rpc='SearchByModel'>
+      <span class="input-group-addon">
+        <button class='btn btn-default'>
+          <span class='glyphicon glyphicon-search'></span>
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <div class='col-md-6' style='display: inline-block;'>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="IMEI" id='imei' data-minimal-length-valid='15' data-rpc='SearchByIMEI'>
+      <span class="input-group-addon">
+        <button class='btn btn-default'>
+          <span class='glyphicon glyphicon-search'></span>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+<div>
+Buttons
+</div>
+<div id='about_place'></div>
+  
+<%
+phoxy.Defer(function()
+{
+  $('#storage-input-place input')
+    .keypress(function(event)
+    {
+      if (event.which != 13)
+        return;
+      if ($(this).val().length < $(this).attr('data-minimal-length-valid'))
+        return;
+      $(this).trigger('query');
+    })
+    .on('query', function()
+    {
+      var rpc = $(this).attr('data-rpc');
+      var value = $(this).val();
+      phoxy.ApiRequest('admin/storage/' + rpc + '?q=' + value);
+    });
+});
+%>

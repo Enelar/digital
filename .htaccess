@@ -1,4 +1,6 @@
 DirectoryIndex load.html
+Options -Indexes
+ErrorDocument 403 /404.php
 
 <IfModule mod_rewrite.c>
 #Deny From All
