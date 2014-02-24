@@ -4,3 +4,6 @@
 [submodule "pgsql_php"]
 	path = pgsql_php
 	url = https://github.com/Enelar/pgsql_php
+[submodule "bootstrap-select"]
+	path = bootstrap-select
+	url = https://github.com/silviomoreto/bootstrap-select

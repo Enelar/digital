@@ -1,0 +1,23 @@
+<%
+if (typeof(list) == 'undefined')
+{
+%>
+<%= phoxy.DeferRender('admin/storage_unbinded_model_list', 'admin/storage/GetUnbindedModelList') %>
+<%
+}
+else
+{
+%>
+<select id='model_list'>
+<%
+  for (var k in list)
+  {
+    var v = list[k];
+    
+%>
+<option value='<%= v.id %>'><%= v.name %></option>
+<%
+  }
+}
+%>
+</select>

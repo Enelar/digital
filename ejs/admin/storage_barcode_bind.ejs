@@ -1,0 +1,34 @@
+<div id='barcode_bind_console'>
+  <div class='row'>
+    <div class='col-md-6'>
+      <%= phoxy.DeferRender('admin/storage_unbinded_model_list', {}) %>
+    </div>
+  </div>
+
+  <button id='barcode_button_place' class='hidden'>Связать артикул и модель</button>
+</div>
+
+<%
+phoxy.Appeared('#model_list', function()
+{
+  $('#barcode_button_place')
+    .removeClass('hidden')
+    .click(function()
+    {
+      var model = $('#model_list').val();
+      var barcode = $('#model').val();
+      function CallbackBinded(data)
+      {
+        if (data.binded != true)
+        {
+          alert('Something went wrong');
+          return;
+        }
+        $('#barcode_bind_console').remove();
+      }
+      
+      phoxy.ApiRequest('admin/storage/BindBarcodeAndModel?barcode=' + barcode + '&model=' + model, CallbackBinded);
+    })
+    ;
+});
+%>

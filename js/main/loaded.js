@@ -1,5 +1,38 @@
+
 function OnDesignBoneLoads()
 {
+  phoxy.Appeared('#phoxy_ajax_active', function ()
+  {
+    $('#phoxy_ajax_active').css({'display': 'block'});
+    phoxy.plugin_ajax_nesting_level = 0;
+    var phoxy_AJAX = phoxy.AJAX;
+    phoxy.AJAX = function(a, cb, params)
+    {
+      phoxy.plugin_ajax_nesting_level++;
+      if (phoxy.plugin_ajax_nesting_level >= 1)
+        $('#phoxy_ajax_active').stop(true).animate({'opacity': 1});
+      function CallbackHook()
+      {
+        phoxy.plugin_ajax_nesting_level--;
+        if (phoxy.plugin_ajax_nesting_level < 0)
+          phoxy.plugin_ajax_nesting_level = 0;
+        if (phoxy.plugin_ajax_nesting_level == 0)
+          $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
+        cb.apply(this, arguments);
+      }
+      return phoxy_AJAX(a, CallbackHook, params);
+    }
+  });
+  var phoxy_DeferRender = phoxy.DeferRender;
+  phoxy.DeferRender = function(a, b, c)
+  {
+    var res = phoxy_DeferRender(a, b, c);
+    var id = $(res).attr('id');
+    phoxy.Defer(function () {
+      $('#' + id).html($('<img />').attr('src', 'res/loading.gif'));
+    });
+    return res;
+  }
 }
 
 function GetElementCode( el )
