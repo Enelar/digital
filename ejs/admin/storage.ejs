@@ -50,9 +50,10 @@ phoxy.Defer(function()
       );
     });
   $('#storage-input-place input')
-    .keypress(function(event)
+    .keyup(function(event)
     {
-      $(this).data('tooltip', false);
+      $(this).tooltip('destroy');
+      $('#admin_place').html('');
       if (event.which != 13)
         return;
       if ($(this).val().length < $(this).attr('data-minimal-length-valid'))
