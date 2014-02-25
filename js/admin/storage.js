@@ -7,7 +7,7 @@ function SearchByModel(res)
   }
   else
   {
-    $('#model').data('tooltip', false);
+    $('#model').tooltip('destroy');
     $('#buttons').html('');
   }
 }
@@ -21,7 +21,7 @@ function SearchByIMEI(res)
     {
       $('#model').focus();
       $('#link-button').show();
-      $('#imei').data('tooltip', false);
+      $('#imei').tooltip('destroy');
     }, 1000);
   }
 }
@@ -31,7 +31,7 @@ function BindImeiAndModel(res)
   if (res.data.binded == true)
   {
     $('#link-button').hide();
-    $('#imei').data('tooltip', false);
+    $('#imei').tooltip('destroy');
   }
 }
 
