@@ -100,15 +100,20 @@ class storage extends api
     WITH name_param AS
     (
       SELECT id FROM phones.params WHERE name='name' LIMIT 1
+    ), modelid AS
+    (
+      SELECT * FROM storage.barcodes WHERE barcode=$1 LIMIT 1
     )
     SELECT
       * 
     FROM
       phones.model_params
     WHERE 
-      phones.model_params.param =
-        (SELECT id FROM name_param) 
-    ", array(), true);
+      param =
+        (SELECT id FROM name_param)
+      AND
+      model = (SELECT model FROM modelid)
+    ", array($id), true);
     
     return array(
       "data" => array("name" => $res['value']),
