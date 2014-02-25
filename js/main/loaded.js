@@ -1,4 +1,4 @@
-
+  
 function OnDesignBoneLoads()
 {
   phoxy.Appeared('#phoxy_ajax_active', function ()
@@ -33,6 +33,22 @@ function OnDesignBoneLoads()
     });
     return res;
   }
+
+  function GoogleAnalysticsEvent()
+  {
+    try
+    {
+      _gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
+    } catch (e)
+    {
+    }  
+  }
+
+  GoogleAnalysticsEvent();
+  $(window).bind('hashchange', function()
+  {
+    GoogleAnalysticsEvent();
+  });
 }
 
 function GetElementCode( el )
