@@ -1,0 +1,13 @@
+<table border='1'>
+  <th>Status</th>
+  <th>Time</th>
+<%
+for (var k in log)
+{
+  var v = log[k];
+%>
+<%= phoxy.DeferRender('admin/storage_imei_row_draw', {row: v}, undefined, '<tr><td>') %>
+<%  
+}
+%>
+</table>

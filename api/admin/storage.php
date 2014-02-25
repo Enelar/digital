@@ -2,6 +2,16 @@
 
 class storage extends api
 {
+  public function __construct()
+  {
+    $this->addons = 
+      array(
+        "cache" => 
+          array("no" => "global")
+      );
+    parent::__construct();
+  }
+  
   protected function Reserve()
   {
     return array(
@@ -14,31 +24,47 @@ class storage extends api
   {
     $lot = db::Query("SELECT * FROM storage.lot WHERE imei=$1", array($q), true);    
 
-    $ret = array(
+    $data = array(
       'known' => count($lot) > 0,
       'lot' => $lot,
     );
     
-    return array(
+    $ret = array(
       "script" => "admin/storage",
       "routeline" => "SearchByIMEI",
-      "data" => $ret
+      "data" => $data
     );
+    
+    if ($data['known'])
+    {
+      $ret['design'] = 'admin/storage_lot_admin';
+      $ret['result'] = 'admin_place';
+    }
+    
+    return $ret;
   }
   
   protected function SearchByModel($q)
   {
     $barcode = db::Query("SELECT * FROM storage.barcodes WHERE barcode=$1", array($q), true);
-    $ret = array(
+    $data = array(
       'known' => count($barcode) > 0,
       'barcode' => $barcode
     );
     
-    return array(
+    $ret = array(
       "script" => "admin/storage",
       "routeline" => "SearchByModel",
-      "data" => $ret
+      "data" => $data
     );
+    
+    if ($data['known'])
+    {
+      $ret['design'] = 'admin/storage_model_admin';
+      $ret['result'] = 'admin_place';
+    }
+
+    return $ret;
   }
   
   protected function BindImeiAndModel( $imei, $model )
@@ -66,6 +92,37 @@ class storage extends api
         "binded" => true
       )
     );
+  }
+  
+  protected function GetModelName($id)
+  {
+    $res = db::Query("
+    WITH name_param AS
+    (
+      SELECT id FROM phones.params WHERE name='name' LIMIT 1
+    )
+    SELECT
+      * 
+    FROM
+      phones.model_params
+    WHERE 
+      phones.model_params.param =
+        (SELECT id FROM name_param) 
+    ", array(), true);
+    
+    return array(
+      "data" => array("name" => $res['value']),
+      "cache" => array("global" => "1d")
+    );
+  }
+  
+  protected function GetStatusName($id)
+  {
+    $res = db::Query("SELECT name FROM storage.statuses WHERE id=$1", array($id), true);
+    return array(
+      "data" => array("status" => $res['name']),
+      "cache" => array("global" => "1d")
+    );    
   }
   
   protected function GetUnbindedModelList()
@@ -105,5 +162,11 @@ class storage extends api
         "list" => $ret
       )
     );
+  }
+  
+  protected function GetLotLog( $id )
+  {
+    $arr = db::Query("SELECT * FROM storage.lot_log WHERE imei=$1 ORDER BY snap DESC", array($id));
+    return array("data" => array("log" => $arr));
   }
 }

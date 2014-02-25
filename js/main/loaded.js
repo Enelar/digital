@@ -24,9 +24,9 @@ function OnDesignBoneLoads()
     }
   });
   var phoxy_DeferRender = phoxy.DeferRender;
-  phoxy.DeferRender = function(a, b, c)
+  phoxy.DeferRender = function()
   {
-    var res = phoxy_DeferRender(a, b, c);
+    var res = phoxy_DeferRender.apply(this, arguments);
     var id = $(res).attr('id');
     phoxy.Defer(function () {
       $('#' + id).html($('<img />').attr('src', 'res/loading.gif'));

@@ -17,6 +17,8 @@ function SwitchToReg()
   reg_fields = root
     .find("[data-mark='additional-reg-fields']");
   if (reg_fields.html() == '')
+  {
+    reg_btn.button('loading');
     reg_fields
       .slideUp()
       .html
@@ -26,9 +28,11 @@ function SwitchToReg()
           {},
           function ()
           {
+            reg_btn.button('reset');
             reg_fields.slideDown();
           })
       );
+  }
   else
     reg_fields.slideDown();
   

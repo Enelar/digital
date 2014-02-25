@@ -1,0 +1,30 @@
+<%
+if (typeof(status) == 'string' && status != "")
+{
+%>
+<%= status %>
+<%
+}
+else if (typeof(id) != 'undefined')
+{
+  if (id === null)
+  {
+  %>
+  NULL
+  <%
+  }
+  else
+  {
+  %>
+<%= phoxy.DeferRender('admin/storage_status_from_id', 'admin/storage/GetStatusName?status=' + id) %>
+<%
+  }
+}
+else
+{
+%>
+undefined
+<%
+}
+%>
+

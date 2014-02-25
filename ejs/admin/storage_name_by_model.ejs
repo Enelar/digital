@@ -1,0 +1,21 @@
+<%
+if (typeof(name) == 'string')
+{
+%>
+<%= name %>
+<%
+}
+else if (typeof(id) != 'undefined' && !!id)
+{
+%>
+<%= phoxy.DeferRender('admin/storage_name_by_model', 'admin/storage/GetModelName?model=' + id) %>
+<%
+}
+else
+{
+%>
+undefined
+<%
+}
+%>
+

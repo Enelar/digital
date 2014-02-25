@@ -30,6 +30,7 @@ Storage page
 <div id="buttons">
 Buttons
 </div>
+<div id='admin_place'></div>
 <div id='about_place'></div>
   
 <%
@@ -39,7 +40,6 @@ phoxy.Defer(function()
     .hide()
     .click(function()
     {
-      alert(1);
       phoxy.ApiRequest(
         'admin/storage/BindImeiAndModel?imei=' +
         $('#imei').val() +
