@@ -1,8 +1,11 @@
 <tr>
   <td>
-<%= phoxy.DeferRender('admin/storage_status_from_id', {id: row.status}) %>
+<%= typeof(row.snap) != 'undefined' ? row.snap : '%TIME%' %>
   </td>
   <td>
-<%= typeof(row.snap) != 'undefined' ? row.snap : '%TIME%' %>
+<%= row.price %>
+  </td>
+  <td>
+<%= phoxy.DeferRender('admin/storage_status_from_id', {id: row.status}) %>
   </td>
 </tr>

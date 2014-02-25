@@ -1,2 +1,35 @@
+<button id="button_lot_reg" class="btn btn-primary">Поставить на учет</button>
+<button id="button_lot_unreg" class="btn btn-primary">Снять с учета</button>
+<button id="button_lot_sell" class="btn btn-primary">Продать</button>
+
 <b><%= phoxy.DeferRender('admin/storage_name_by_model', {id: lot.model}) %></b><hr>
 <%= phoxy.DeferRender('admin/storage_draw_model_log', 'admin/storage/GetLotLog?id='+lot.imei) %>
+
+<%
+phoxy.Defer(function()
+{
+  function ButtonQuery(query)
+  {
+    phoxy.AJAX(query, function()
+    {
+      $('#imei').trigger('query');
+    });  
+  }
+  
+  $('#button_lot_reg').click(function()
+  {
+    ButtonQuery("admin/storage/UpdateStatus?imei=" + ($('#imei').val()) + "&status=11");
+  });
+  
+  $('#button_lot_unreg').click(function()
+  {
+    ButtonQuery("admin/storage/UpdateStatus?imei=" + ($('#imei').val()) + "&status=10");
+  });
+  
+  $('#button_lot_sell').click(function()
+  {
+    var price = prompt("Введите сумму продажи", "0");    
+    ButtonQuery("admin/storage/UpdateStatus?imei=" + ($('#imei').val()) + "&status=3&price=" + price);
+  });
+});
+%>

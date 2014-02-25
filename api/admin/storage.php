@@ -169,4 +169,9 @@ class storage extends api
     $arr = db::Query("SELECT * FROM storage.lot_log WHERE imei=$1 ORDER BY snap DESC", array($id));
     return array("data" => array("log" => $arr));
   }
+  
+  protected function UpdateStatus( $imei, $status, $price = NULL )
+  {
+    db::Query("UPDATE storage.lot SET status=$2, price=$3 WHERE imei=$1", array($imei, $status, $price), true);
+  }
 }
