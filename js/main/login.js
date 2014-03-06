@@ -19,6 +19,7 @@ function SwitchToReg()
   if (reg_fields.html() == '')
   {
     reg_btn.button('loading');
+    root.find('button').prop('disabled', true);
     reg_fields
       .slideUp()
       .html
@@ -29,6 +30,7 @@ function SwitchToReg()
           function ()
           {
             reg_btn.button('reset');
+            root.find('button').prop('disabled', false);
             reg_fields.slideDown();
           })
       );

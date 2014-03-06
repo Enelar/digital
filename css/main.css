@@ -8,7 +8,7 @@
   box-shadow:0 0 20px gray;
 }
 
-.active {
+.active_element {
   cursor: pointer;
 }
 

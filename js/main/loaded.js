@@ -61,7 +61,7 @@ function DeferRender( ejs, data )
   return phoxy.DeferRender(ejs, data);
 }
 
-function MakeModal( modal_selector, obj, ejs, data )
+function MakeModal( modal_selector, obj, ejs, data, callback )
 {
   function ActualModalWork()
   {
@@ -70,7 +70,10 @@ function MakeModal( modal_selector, obj, ejs, data )
       $(obj)
         .attr('data-toggle', 'modal')
         .attr('data-target', modal_selector)
-        .addClass('active');
+        .addClass('active_element')
+        ;
+      if (typeof(callback) == 'function')
+        callback(obj, modal_selector);
     });
   }
     

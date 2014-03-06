@@ -3,7 +3,8 @@
 if (typeof(uid) == 'undefined')
   uid = 0;
 var login_button =
-  $('<button type="submit" class="btn btn-default" style="opacity: 0" />')
+  $('<button type="button" class="btn btn-default" style="opacity: 0" />')
+  .prop('disabled', true)
   .append
   (
     $('<span />').addClass("glyphicon")
@@ -22,7 +23,13 @@ else
     .tooltip({placement: 'bottom'})
     .find('span')
     .addClass("glyphicon-log-in");
-  MakeModal('#modal-login', login_button, 'login/login_form');  
+  MakeModal('#modal-login', login_button, 'login/login_form', undefined, function()
+  {
+    phoxy.Appeared(login_button, function()
+    {
+      login_button.prop('disabled', false)
+    });
+  });  
 }
 
 phoxy.Defer(function()
