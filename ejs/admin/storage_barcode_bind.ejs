@@ -6,6 +6,9 @@
   </div>
 
   <button id='barcode_button_place' class='hidden'>Связать артикул и модель</button>
+  
+  <input id='new_model' placeholder='Имя новой модели' />
+  <button id='new_model_button'>Создать новую модель</button>
 </div>
 
 <%
@@ -30,5 +33,15 @@ phoxy.Appeared('#model_list', function()
       phoxy.ApiRequest('admin/storage/BindBarcodeAndModel?barcode=' + barcode + '&model=' + model, CallbackBinded);
     })
     ;
+    
+  $('#new_model_button').click(function()
+  {
+    var name = $('#new_model').val();
+    var barcode = $('#model').val();
+    phoxy.AJAX('admin/storage/CreateModel?barcode=' + barcode + '&name=' + name, function()
+    {
+      $('#model').trigger('query');
+    });
+  });
 });
 %>

@@ -47,22 +47,29 @@ class storage extends api
   protected function SearchByModel($q)
   {
     $barcode = db::Query("SELECT * FROM storage.barcodes WHERE barcode=$1", array($q), true);
+
     $data = array(
       'known' => count($barcode) > 0,
-      'barcode' => $barcode
     );
     
     $ret = array(
       "script" => "admin/storage",
       "routeline" => "SearchByModel",
-      "data" => $data
     );
     
     if ($data['known'])
     {
+      $data['model'] = $barcode['model'];
+      $data['barcode'] = $barcode['barcode'];    
+    
       $ret['design'] = 'admin/storage_model_admin';
       $ret['result'] = 'admin_place';
+
+      $count = db::Query("SELECT count(*) FROM storage.lot WHERE status != 10 AND status != 3 AND model=$1", array($q), true);
+      $data['count'] = $count['count'];
     }
+    
+    $ret["data"] = $data;
 
     return $ret;
   }
@@ -100,15 +107,20 @@ class storage extends api
     WITH name_param AS
     (
       SELECT id FROM phones.params WHERE name='name' LIMIT 1
+    ), modelid AS
+    (
+      SELECT * FROM storage.barcodes WHERE barcode=$1 LIMIT 1
     )
     SELECT
       * 
     FROM
       phones.model_params
     WHERE 
-      phones.model_params.param =
-        (SELECT id FROM name_param) 
-    ", array(), true);
+      param =
+        (SELECT id FROM name_param)
+      AND
+      model = (SELECT model FROM modelid)
+    ", array($id), true);
     
     return array(
       "data" => array("name" => $res['value']),
@@ -173,5 +185,24 @@ class storage extends api
   protected function UpdateStatus( $imei, $status, $price = NULL )
   {
     db::Query("UPDATE storage.lot SET status=$2, price=$3 WHERE imei=$1", array($imei, $status, $price), true);
+  }
+  
+  protected function CreateModel( $barcode, $name )
+  {
+    $name = db::Query("
+    WITH name_param AS
+    (
+      SELECT id FROM phones.params WHERE name='name' LIMIT 1
+    ) INSERT INTO phones.param_values(param, value) VALUES ((SELECT id FROM name_param), $1) RETURNING id",
+    array($name), true);
+    
+    $model = db::Query("INSERT INTO phones.models(price) VALUES (0) RETURNING id", array(), true);
+    $attr = db::Query("INSERT INTO phones.model_values(model, value) VALUES ($1, $2)", array($model['id'], $name['id']));
+    
+    $bind = db::Query("INSERT INTO storage.barcodes(model, barcode) VALUES ($1, $2)", array($model['id'], $barcode));
+    
+    return array(
+      'data' => array('model' => $model['id'])
+    );
   }
 }
