@@ -1,25 +1,35 @@
 requirejs.config({
   baseUrl: 'js'
 });
-  
+ 
 function OnDesignBoneLoads()
 {
+  phoxy.plugin = {};
   phoxy.Appeared('#phoxy_ajax_active', function ()
   {
     $('#phoxy_ajax_active').css({'display': 'block'});
-    phoxy.plugin_ajax_nesting_level = 0;
+    phoxy.plugin.ajax = {};
+    
+    phoxy.plugin.ajax.nesting_level = 0;
+    phoxy.plugin.ajax.active = [];
+    phoxy.plugin.ajax.active_id = 0;
+    $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
+    
     var phoxy_AJAX = phoxy.AJAX;
     phoxy.AJAX = function(a, cb, params)
     {
-      phoxy.plugin_ajax_nesting_level++;
-      if (phoxy.plugin_ajax_nesting_level >= 1)
+      phoxy.plugin.ajax.nesting_level++;
+      var my_id = phoxy.plugin.ajax.active_id++;
+      phoxy.plugin.ajax.active[my_id] = arguments;
+      if (phoxy.plugin.ajax.nesting_level >= 1)
         $('#phoxy_ajax_active').stop(true).animate({'opacity': 1});
       function CallbackHook()
       {
-        phoxy.plugin_ajax_nesting_level--;
-        if (phoxy.plugin_ajax_nesting_level < 0)
-          phoxy.plugin_ajax_nesting_level = 0;
-        if (phoxy.plugin_ajax_nesting_level == 0)
+        phoxy.plugin.ajax.nesting_level--;
+        delete phoxy.plugin.ajax.active[my_id];
+        if (phoxy.plugin.ajax.nesting_level < 0)
+          phoxy.plugin.ajax.nesting_level = 0;
+        if (phoxy.plugin.ajax.nesting_level == 0)
           $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
         cb.apply(this, arguments);
       }

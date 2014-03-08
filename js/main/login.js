@@ -138,3 +138,8 @@ function RegistrationSuccessfull( data, cb )
   }
 }
 
+function LoginSoftReset()
+{
+  phoxy.ApiAnswer({reset: location.hash});
+}
+

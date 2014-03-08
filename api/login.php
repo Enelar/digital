@@ -29,7 +29,7 @@ class login extends api
         if ($uid)
         {
           $_SESSION['uid'] = $uid;
-          return array("data" => array("uid" => $uid, "reset" => true));
+          return ["data" => ["uid" => $uid], "routeline" => "LoginSoftReset"];
         }
 
         if (isset($_POST['password_repeat']) && strlen($_POST['password_repeat']) > 0)

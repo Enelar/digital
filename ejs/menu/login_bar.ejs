@@ -1,7 +1,10 @@
 <div data-system='login_bar_system_div'></div>
 <%
 if (typeof(uid) == 'undefined')
+  uid = sessionStorage['uid'];
+if (typeof(uid) == 'undefined')
   uid = 0;
+  
 var login_button =
   $('<button type="button" class="btn btn-default" style="opacity: 0" />')
   .prop('disabled', true)
@@ -11,16 +14,22 @@ var login_button =
   );
   
 if (uid)
+{
   login_button
     .attr('title', "Выйти")
-    .tooltip({placement: 'bottom'})
     .find('span')
-    .addClass("glyphicon-log-out");
+    .addClass("glyphicon-log-out")
+    .prop('disabled', false)
+    .click(function()
+    {
+      sessionStorage.removeItem('uid');
+      phoxy.ApiAnswer({reset: location.hash});
+    });
+}
 else
 {
   login_button
     .attr('title', "Войти")
-    .tooltip({placement: 'bottom'})
     .find('span')
     .addClass("glyphicon-log-in");
   MakeModal('#modal-login', login_button, 'login/login_form', undefined, function()
@@ -28,13 +37,15 @@ else
     phoxy.Appeared(login_button, function()
     {
       login_button.prop('disabled', false)
-    });
+    });  
   });  
 }
 
 phoxy.Defer(function()
 {
   $('div[data-system="login_bar_system_div"]').replaceWith(login_button);
+  
+  login_button.tooltip({placement: 'bottom'});
   $('#menu')
     .hover
     (
