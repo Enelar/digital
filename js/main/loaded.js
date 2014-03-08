@@ -119,6 +119,28 @@ function CorrectPhonesURL()
   });
 }
 
+function ToggleProper(trigger, target)
+{
+  trigger = $(trigger);  
+  if (typeof(target) == 'undefined')
+    target = trigger;
+  target = $(target);
+  
+  trigger
+    .hover
+    (
+      function()
+      {
+        target.properShow();
+      }
+      ,
+      function()
+      {
+        target.properHide();
+      }
+    );
+}
+
 $.fn.properHide = function ()
 {
   $this = this;

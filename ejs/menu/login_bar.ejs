@@ -23,6 +23,21 @@ if (uid)
       sessionStorage.removeItem('uid');
       phoxy.ApiAnswer({reset: location.hash});
     });
+
+  phoxy.Appeared(login_button, function()
+  {
+    phoxy.AJAX('login/profile', function(data)
+    {
+      name = $('<a />')
+        .attr('href', '#profile')
+        .html(data.data.surname)
+        .properHide();
+
+      $('<li />').html(name).insertBefore(login_button.parents('li').first());
+
+      ToggleProper('#menu', name);
+    });
+  });
 }
 else
 {
@@ -45,18 +60,6 @@ phoxy.Defer(function()
   $('div[data-system="login_bar_system_div"]').replaceWith(login_button);
   
   login_button.tooltip({placement: 'bottom'});
-  $('#menu')
-    .hover
-    (
-      function()
-      {
-        login_button.properShow();
-      }
-      ,
-      function()
-      {
-        login_button.properHide();
-      }
-    );
+  ToggleProper('#menu', login_button);
 });
 %>

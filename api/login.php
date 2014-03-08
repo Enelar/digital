@@ -56,7 +56,7 @@ class login extends api
   {
     global $_POST;
     global $_SESSION;
-    session_start();
+    if (!isset($_SESSION)) session_start();
 
     $fallback_return_instructions = 
       array(
@@ -148,13 +148,15 @@ class login extends api
   private function MakeLogin( $uid )
   {
     global $_SESSION;
+    if (!isset($_SESSION)) session_start();
     $_SESSION['uid'] = $uid;
     return $this->UID();
   }
   
   public function UID()
   {
-    global $_SESSION;
+    global $_SESSION;    
+    if (!isset($_SESSION)) session_start();
     return $_SESSION['uid'];  
   }
   
