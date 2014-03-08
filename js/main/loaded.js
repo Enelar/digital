@@ -1,3 +1,6 @@
+requirejs.config({
+  baseUrl: 'js'
+});
   
 function OnDesignBoneLoads()
 {

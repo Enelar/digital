@@ -1,21 +1,24 @@
+  <div class='input-group'>
+    <input name='password_repeat' type='password' class='form-control' placeholder='Пароль' data-order-tooltip='Необходим что бы следить выполнением заказа' />
+    <span class="input-group-addon">Повторить</span>
+  </div>
+
 <div class='input-group'>
-  <input type='text' class='form-control' placeholder='Телефон' data-order-tooltip='С вами свяжется курьер'/>
+  <input name='phone' type='text' class='form-control' placeholder='Телефон' data-order-tooltip='С вами свяжется курьер'/>
   <span class="input-group-addon">Обязательно</span>
 </div>
 
 <div class='input-group'>
-  <input type='text' class='form-control' placeholder='Имя Фамилия' data-order-tooltip='Как к вам обращаться?'/>
+  <input name='creditals' type='text' class='form-control' placeholder='Имя Фамилия' data-order-tooltip='Как к вам обращаться?'/>
   <span class="input-group-addon">Желательно</span>
 </div>
 
 <div class="input-group-addon">
-  <input type='checkbox' data-mark='delivery-flag'/>
+  <input name='delivery_flag' type='checkbox' data-mark='delivery-flag'/>
   <span>Я пока не планирую пользоваться доставкой</span>  
 </div>
-<textarea type='text' class='form-control' placeholder='Адрес доставки' style='height: 115px;' ></textarea>
+<textarea name='delivery_address' type='text' class='form-control' placeholder='Адрес доставки' style='height: 115px;' ></textarea>
 <div class='input-group'></div>
-
-
 
 <%
 phoxy.Defer(function()

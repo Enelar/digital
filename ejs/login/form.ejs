@@ -2,26 +2,26 @@
   <form method='post' action='api/login/submit'>
 
     <div class='input-group'>    
-      <input type='text' class='form-control' placeholder='Почта' data-order-tooltip='Сюда придет письмо с номером заказа'/>
+      <input name='email' type='text' class='form-control' placeholder='Почта' data-order-tooltip='Сюда придет письмо с номером заказа'/>
       <span class="input-group-addon"></span>
     </div>
     <div class='input-group'>
-      <input type='password' class='form-control' placeholder='Пароль' data-order-tooltip='Необходим что бы следить выполнением заказа' />
+      <input name='password' type='password' class='form-control' placeholder='Пароль' data-order-tooltip='Необходим что бы следить выполнением заказа' />
       <span class="input-group-addon"></span>
     </div>
+    <input name='back_url' type='hidden' />
     <div data-mark='additional-reg-fields'></div>
     <delimeter ></delimeter>
     <delimeter ></delimeter>
-    <button type="button" class="btn btn-info" data-mark='switch-to-reg' data-loading-text="Загрузка">Регистрация</button>
-    <button type="submit" class="btn btn-default" data-mark='login-button'>Войти</button>
+    <button type="button" class="btn btn-info" data-mark='switch-to-reg' data-loading-text="Загрузка" disabled>Регистрация</button>
+    <button type="button" class="btn btn-default" data-mark='action-button' disabled>Войти</button>
   </form>
 </div>
 
 <%
-phoxy.Defer(function()
+phoxy.Appeared('#modal-login [data-mark="login-form"]', function()
 {
-  var form = $('[data-mark="login-form"]');
-
+  var form = $(this);
   form
     .find('delimeter')
     .each(function()
@@ -33,6 +33,50 @@ phoxy.Defer(function()
     .click(function()
     {
       SwitchToReg();
-    });
+    })
+    .prop('disabled', false);
+      
+  phoxy.Appeared('#modal-login form', function()
+  {
+    var form = $(this);
+    var action_button = form.find("[data-mark='action-button']");
+  
+    function FormSubmitedCallback(data)
+    {
+      console.log("Form submited", arguments);
+      
+      if (typeof(data.data.success) != 'undefined' && data.data.success)
+      {
+        action_button.prop('disabled', false);
+        $('#login-error-place').html('');
+      }
+      if (typeof(data.data.uid) != 'undefined')
+        sessionStorage['uid'] = data.data.uid;
+      phoxy.ApiAnswer.call(this, data);
+    }
+      
+    var opt = {
+      beforeSubmit: CheckLoginForm,
+      success: FormSubmitedCallback,
+      url: "api/login/submit",
+      type: "post",
+      dataType: "json"
+    };
+  
+    action_button
+      .on('query', function()
+      {
+        $(this).prop('disabled', true);
+        $('#login-error-place')
+          .html($('<img />').attr('src', 'res/loading.gif'));
+        $('#modal-login form [name="back_url"]').val(location.hash.substr(1));
+        $('#modal-login form').ajaxForm(opt).submit();
+      })
+      .click(function()
+      {
+        $(this).trigger('query');
+      })
+      .prop('disabled', false);
+  });
 });
 %>
