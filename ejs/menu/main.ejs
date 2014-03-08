@@ -1,16 +1,18 @@
 <nav class="navbar navbar-default" role="navigation">
 
-  <div class="navbar-header">
+  <div class="navbar-header dropdown">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">
+    
+    <a class="navbar-brand " href="#">
       <img id='phoxy_ajax_active' src='res/loading.gif' style='display: inline; float: left;'/> 
       Digital 812
     </a>
+    <%= phoxy.DeferRender('catalog/menu', {}) %>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -34,12 +36,15 @@
     <%= DeferRender('menu/menu', {menu: menu.left}) %>
     </ul>
 
-    <form class="navbar-form navbar-right" role="search">
-      <div class="form-group">
+    <ul class="nav navbar-nav navbar-form navbar-right">
+      <li>
+        <form role='search'></form>
         <input type="text" class="form-control" placeholder="Поиск в каталоге">
-      </div>
-      <button type="submit" class="btn btn-default" style="visibility: hidden;"><span class='glyphicon glyphicon-search'></span></button>
-    </form>
+        <button type="button" class="btn btn-default" style="visibility: hidden;"><span class='glyphicon glyphicon-search'></span></button>
+      </li>
+      <li> <% // Button will be moved here %>
+      </li>
+    </ul>
 
     <ul class="nav navbar-nav navbar-right">
       <li>
@@ -58,10 +63,20 @@ phoxy.Defer(function()
 {
   var form = $("#menu form[role='search']");
 
-  var button = form.find("button");
-  var input = form.find("input[type='text']");
+  var button = form.parent().find("button");
+  var input = form.parent().find("input[type='text']");
+  
+  
+  button = button
+    .prop('disabled', true)
+    .css({'margin-left': '5px'})
+    .detach();
 
-  form.css('z-index', 0);
+  form.parent().next().append(button);  
+
+  form.remove();
+
+  input.tooltip({title: "Функция в разработке, простите", placement: 'bottom'});
 
   input.on("focusin", function()
   {

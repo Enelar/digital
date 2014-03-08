@@ -1,9 +1,13 @@
+<%
+var title = "<div id='login-title' style='display: inline;'>Авторизация</div> на сайте"
+  + "<div id='login-error-place' style='display: inline; float: right;'></div>";
+%>
 <%=
 phoxy.DeferRender(
   'pages/modal', 
   {
     id: "modal-login",
-    title: "<div id='login-title' style='display: inline;'>Авторизация</div> на сайте",
+    title: title,
     body: phoxy.DeferRender('login/form')
   })
 %>
@@ -24,7 +28,7 @@ phoxy.Appeared('#modal-login form', function()
       .prepend(button);
     return button;
   }
-  Reattach('button[data-mark="login-button"]');
+  Reattach('button[data-mark="action-button"]');
   Reattach('button[data-mark="switch-to-reg"]').css({'float': 'left'});
 });
 %>

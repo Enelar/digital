@@ -1,45 +1,65 @@
 <div data-system='login_bar_system_div'></div>
 <%
 if (typeof(uid) == 'undefined')
+  uid = sessionStorage['uid'];
+if (typeof(uid) == 'undefined')
   uid = 0;
+  
 var login_button =
-  $('<button type="submit" class="btn btn-default" style="opacity: 0" />')
+  $('<button type="button" class="btn btn-default" style="opacity: 0" />')
   .append
   (
     $('<span />').addClass("glyphicon")
   );
   
 if (uid)
+{
   login_button
     .attr('title', "Выйти")
-    .tooltip({placement: 'bottom'})
     .find('span')
-    .addClass("glyphicon-log-out");
+    .addClass("glyphicon-log-out")
+    .click(function()
+    {
+      sessionStorage.removeItem('uid');
+      phoxy.ApiAnswer({reset: location.hash});
+    });
+
+  phoxy.Appeared(login_button, function()
+  {
+    phoxy.AJAX('login/profile', function(data)
+    {
+      name = $('<a />')
+        .attr('href', '#profile')
+        .html(data.data.surname)
+        .properHide();
+
+      $('<li />').html(name).insertBefore(login_button.parents('li').first());
+
+      ToggleProper('#menu', name);
+    });
+  });
+}
 else
 {
   login_button
     .attr('title', "Войти")
-    .tooltip({placement: 'bottom'})
     .find('span')
-    .addClass("glyphicon-log-in");
-  MakeModal('#modal-login', login_button, 'login/login_form');  
+    .addClass("glyphicon-log-in")
+    .prop('disabled', true);
+  MakeModal('#modal-login', login_button, 'login/login_form', undefined, function()
+  {
+    phoxy.Appeared(login_button, function()
+    {
+      login_button.prop('disabled', false)
+    });  
+  });  
 }
 
 phoxy.Defer(function()
 {
   $('div[data-system="login_bar_system_div"]').replaceWith(login_button);
-  $('#menu')
-    .hover
-    (
-      function()
-      {
-        login_button.properShow();
-      }
-      ,
-      function()
-      {
-        login_button.properHide();
-      }
-    );
+  
+  login_button.tooltip({placement: 'bottom'});
+  ToggleProper('#menu', login_button);
 });
 %>

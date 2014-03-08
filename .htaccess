@@ -6,6 +6,9 @@ ErrorDocument 403 /404.php
 #Deny From All
 RewriteEngine on
 
+RewriteRule ^api/catalog/phones$ api/catalog/_phone [L,QSA]
+RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 

@@ -13,7 +13,7 @@ class main extends api
   
   protected function Home()
   {
-    $catalog = LoadModule('api', 'catalog', true);
-    return $catalog->Root();
+    $catalog = LoadModule('api', 'news', true);
+    return $catalog->Reserve();
   }
 }
