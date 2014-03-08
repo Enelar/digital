@@ -1,16 +1,18 @@
 <nav class="navbar navbar-default" role="navigation">
 
-  <div class="navbar-header">
+  <div class="navbar-header dropdown">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
       <span class="sr-only">Toggle navigation</span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">
+    
+    <a class="navbar-brand " href="#">
       <img id='phoxy_ajax_active' src='res/loading.gif' style='display: inline; float: left;'/> 
       Digital 812
     </a>
+    <%= phoxy.DeferRender('catalog/menu', {}) %>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
