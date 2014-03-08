@@ -35,6 +35,15 @@ phoxy.Appeared('#modal-login [data-mark="login-form"]', function()
       SwitchToReg();
     })
     .prop('disabled', false);
+  
+  form
+    .find('input')
+    .keyup(function(e)
+    {
+      if (e.which != 13)
+        return;
+      $("#modal-login [data-mark='action-button']").trigger('click');
+    });
       
   phoxy.Appeared('#modal-login form', function()
   {
