@@ -1,0 +1,37 @@
+<input type='checkbox' checked/> Доставка<br>
+<span data-mark='delivery_properties'>
+  <input type='checkbox' checked /> Адрес не изменился<br>
+  <textarea>
+  </textarea>
+</span>
+
+<button type='button' class='btn btn-default'>Наличные</button><br>
+<button type='button' class='btn btn-default'>VISA/Mastercard</button><br>
+<button type='button' class='btn btn-default'>Bitcoin</button><br>
+
+<%
+phoxy.Defer(function()
+{
+  var ancor = $("span[data-mark='delivery_properties']");
+    
+  ancor
+    .find('input')
+    .change(function()
+    {      
+      if (!$(this).is(":checked"))
+        ancor.find('textarea').slideUp();
+      else
+        ancor.find('textarea').slideDown();
+    });
+  
+  ancor
+    .prev()
+    .change(function()
+    {
+      if (!$(this).is(":checked"))
+        ancor.slideUp();
+      else
+        ancor.slideDown();
+    });
+});
+%>

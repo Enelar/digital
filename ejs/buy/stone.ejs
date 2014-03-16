@@ -22,4 +22,24 @@ phoxy.Appeared('#phone_order_' + id + '_' + ancor_id, function()
       });
   });
 });
+
+phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
+{
+  var that = this;
+  $(this).click(function()
+  {
+    $(this).prop('disabled', true);
+    if (window.uid)
+    {
+      phoxy.AJAX('api/buy/Reserve?id=' + id, function()
+      {
+        var parent = $(that).parent();
+        parent
+          .html(
+            phoxy.DeferRender('buy/method', {})
+          );
+      });
+    }
+  });
+});
 %>
