@@ -27,4 +27,20 @@ class _phone extends api
       "data" => array("vendor" => $res, "catalog" => (count($res) ? $name : ''))
     );  
   }
+  
+  protected function Item( $id )
+  {
+    $t = array
+    (
+      "design" => "catalog/item",
+      "result" => "content",
+    );
+    
+    $m = LoadModule('api', 'phone', true);
+    $ret = array_merge($t, $m->Reserve($id));
+    
+    $ret['data']['id'] = (int)$id;
+    
+    return $ret;  
+  }
 }

@@ -1,0 +1,25 @@
+<%
+  var ancor_id = phoxy.GenerateUniqueID();
+%>
+
+<div id='<%= ancor_id %>'></div>
+<button type='button' id='phone_order_<%= id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Телефон</button>
+
+<button type='button' id='online_order_<%= id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Онлайн</button>
+
+<%
+phoxy.Appeared('#' + ancor_id, function()
+{
+  $(document)
+    .on('click', '#phone_order_' + id + '_' + ancor_id, function()
+    {
+      $('#phone_order_' + id + '_' + ancor_id).html("test");
+    });
+
+  $(document)
+    .on('click', '#online_order_' + id + '_' + ancor_id, function()
+    {
+      $('#phone_order_' + id + '_' + ancor_id).html("test");
+    });  
+});
+%>

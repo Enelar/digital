@@ -8,6 +8,7 @@ RewriteEngine on
 
 RewriteRule ^api/catalog/phones$ api/catalog/_phone [L,QSA]
 RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
+RewriteRule ^api\/catalog\/(\w+)\/(\d+)\/([^\/]*)$ api/catalog/_phone/item?id=$2 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
