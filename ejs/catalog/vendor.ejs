@@ -46,6 +46,7 @@ for (var i = 0; i < vendor.length; i++)
 <%= phoxy.Defer(function()
 {
   var content = $('#vendor_temp_id_for_stone');
+  var delay = 0;
   $("#content")
     .find(".catalog")
     .find(".item-cell")
@@ -53,28 +54,44 @@ for (var i = 0; i < vendor.length; i++)
     .find("[role='buy']")
     .each(function()
     {
-      var that = this;
-      function RenderedCallback()
+      var that = this;    
+      phoxy.Defer(function()
       {
-        var content = $(that).find("[role='popover_temp']");
+        function Bind(that)
+        {
+          $(that).unbind();
+          $(that)
+            .click(function()
+            {
+              $(that)
+                .unbind()
+                .click(function()
+                {
+                  $(that)
+                    .next()
+                    .popover('destroy')
+                    .remove();
+                  Bind(that);
+                });
 
-        $(that)
-          .popover(
-          {
-            html: true,
-            title: "Способ покупки",
-            content: content.html()
-          });
-
-        content.remove();
-      }
-      
-      $(this)
-        .append(
-          $("<div role='popover_temp' \>")
-            .addClass('hidden')
-            .html(phoxy.DeferRender('buy/stone', {id: $(this).attr('value')}, RenderedCallback))
-        );
+              phoxy.Fancy('buy/stone', {id: $(this).attr('value')}, function(html)
+              {
+                $(that)
+                  .after(
+                    $('<div />')
+                    .popover(
+                    {
+                      html: true,
+                      title: "Способ покупки",
+                      content: html
+                    })
+                  );
+                $(that).next().popover('show');
+              });
+            });
+        }
+        Bind(that);
+      }, delay += 100);
     });
 
   content.remove();

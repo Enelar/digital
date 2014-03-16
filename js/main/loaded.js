@@ -1,6 +1,11 @@
 requirejs.config({
   baseUrl: 'js'
 });
+
+function AJAXImage()
+{
+  return $('<img />').attr('src', 'res/loading.gif');
+}
  
 function OnDesignBoneLoads()
 {
@@ -42,7 +47,7 @@ function OnDesignBoneLoads()
     var res = phoxy_DeferRender.apply(this, arguments);
     var id = $(res).attr('id');
     phoxy.Defer(function () {
-      $('#' + id).html($('<img />').attr('src', 'res/loading.gif'));
+      $('#' + id).html(AJAXImage());
     });
     return res;
   }
