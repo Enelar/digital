@@ -11,9 +11,39 @@
     <a class="navbar-brand " href="#">
       <img id='phoxy_ajax_active' src='res/loading.gif' style='display: inline; float: left;'/> 
       Digital 812
+      <span class="caret"></span>
     </a>
     <%= phoxy.DeferRender('catalog/menu', {}) %>
   </div>
+<%
+phoxy.Defer(function()
+{
+  var repeat = true;
+  
+  function Animate(obj)
+  {
+    obj
+      .animate({opacity: 1}, 500)
+      .animate({opacity: 0}, 500, function()
+      {
+        if (repeat)
+          Animate(obj);
+      });
+  }
+  
+  var brand = $('#menu div.navbar-header a.navbar-brand');
+  Animate(brand.find('span'));
+  
+  brand
+    .hover(
+      function()
+      {
+        repeat = false;
+      }
+    );
+    
+});
+%>  
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

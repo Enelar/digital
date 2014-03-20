@@ -95,4 +95,30 @@ class phone extends api
     }
     return array("data" => array("groups" => $ret));
   }
+  
+  public function GetVendor( $id )
+  {
+    $res = db::Query("SELECT * FROM phones.vendor WHERE id=(SELECT vendor FROM phones.models WHERE id=$1)",
+      array($id), true);
+    if (!count($res))
+      return ["name" => "undef"];
+    return $res;
+  }
+
+  public function GetCompiledPhoneValues( $id )
+  {
+    $res = db::Query('
+WITH values AS
+(
+	SELECT value FROM phones.model_values WHERE model=$1
+)
+SELECT values.value as id, name, param_values.value FROM values, param_values, params 
+WHERE 
+param_values.id = "values"."value" 
+AND
+params.id = param_values.param',
+      array($id));
+
+    return $res;
+  }
 }
