@@ -47,7 +47,8 @@ for (var i = 0; i < vendor.length; i++)
   </div>
 </div>
 <div id='vendor_temp_id_for_stone'>
-<%= phoxy.Defer(function()
+<%
+phoxy.Defer(function()
 {
   var content = $('#vendor_temp_id_for_stone');
   var delay = 0;
@@ -100,6 +101,7 @@ for (var i = 0; i < vendor.length; i++)
 
   content.remove();
 })
+
 %>
 </div>
 <%
