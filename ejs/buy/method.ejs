@@ -1,37 +1,40 @@
-<input type='checkbox' checked/> Доставка<br>
-<span data-mark='delivery_properties'>
-  <input type='checkbox' checked /> Адрес не изменился<br>
-  <textarea>
-  </textarea>
+<% did = phoxy.GenerateUniqueID(); %>
+<ancor id='<%= did %>'></ancor>
+<%
+/*
+<span id='< %= did % >'>
+  <input type="checkbox" data-size="mini" data-mark='delivery-enabled'> Доставка<br>
+  <span data-mark='delivery_properties'>
+    <input type='checkbox' checked /> Адрес не изменился<br>
+    <textarea>
+    </textarea>
+  </span>
 </span>
+*/
+%>
 
-<button type='button' class='btn btn-default'>Наличные</button><br>
-<button type='button' class='btn btn-default'>VISA/Mastercard</button><br>
-<button type='button' class='btn btn-default'>Bitcoin</button><br>
+<button type='button' class='btn btn-default' disabled>Наличные</button><br>
+<button type='button' class='btn btn-default' disabled>VISA/Mastercard</button><br>
+<button type='button' class='btn btn-default' disabled>Bitcoin</button><br>
 
 <%
-phoxy.Defer(function()
+phoxy.Appeared('#' + did, function()
 {
-  var ancor = $("span[data-mark='delivery_properties']");
-    
-  ancor
-    .find('input')
-    .change(function()
-    {      
-      if (!$(this).is(":checked"))
-        ancor.find('textarea').slideUp();
-      else
-        ancor.find('textarea').slideDown();
-    });
+  var span = $('#' + did);
   
-  ancor
-    .prev()
-    .change(function()
+  span
+    .next()
+    .prop('disabled', false)
+    .click(function()
     {
-      if (!$(this).is(":checked"))
-        ancor.slideUp();
-      else
-        ancor.slideDown();
+      phoxy.AJAX('buy/Registered?id=' + model, function()
+      {
+        span
+          .parents('.popover')
+          .first()
+          .prev()
+          .popover('hide');
+      });
     });
 });
 %>

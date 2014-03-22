@@ -42,8 +42,11 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
     }
     else
     {
-      var item_href = $(this).parents('.item-cell').find('a');
-      location.hash = item_href.attr('href');
+      if (typeof(stayhere) == 'undefined' || stayhere != true)
+      {
+        var item_href = $(this).parents('.item-cell').find('a');
+        location.hash = item_href.attr('href');
+      }
       
       $('#menu li button[data-target="#modal-login"]').trigger('click');
     }

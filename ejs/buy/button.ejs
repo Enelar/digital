@@ -1,0 +1,47 @@
+<% did = phoxy.GenerateUniqueID() %>
+<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= id %>'>Купить</button>
+
+<%
+if (typeof(stayhere) == 'undefined')
+  stayhere = false;
+phoxy.Defer(function()
+{
+  var that = $("#" + did);
+  
+  function Bind(that)
+  {
+    $(that).unbind();
+    $(that)
+      .click(function()
+      {
+        $(that)
+          .unbind()
+          .click(function()
+          {
+            $(that)
+              .next()
+              .popover('destroy')
+              .remove();
+            Bind(that);
+          });
+
+        phoxy.Fancy('buy/stone', {id: id, stayhere: stayhere}, function(html)
+        {
+          $(that)
+            .after(
+              $('<div />')
+              .popover(
+              {
+                html: true,
+                title: "Способ покупки",
+                content: html
+              })
+            );
+          $(that).next().popover('show');
+        });
+      });
+  }
+  
+  Bind(that);
+});
+%>

@@ -29,7 +29,7 @@ phoxy.Appeared('#' + divid, function()
         .find('.popover-content')
         .slideUp(1000);
       
-      phoxy.AJAX('api/buy/RequestCallback?phone='+div.val()+'&id='+id, function()
+      phoxy.AJAX('buy/RequestCallback?phone='+div.val()+'&id='+id, function()
       {
         popover
           .find('.popover-title')

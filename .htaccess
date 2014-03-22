@@ -29,7 +29,7 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
 <FilesMatch ".(ejs|css|js)$">
 #debug 
-  Header set Cache-Control "public, max-age=3600"
+  Header set Cache-Control "public, max-age=60"
 </FilesMatch>
 
 <FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|pdf)$">

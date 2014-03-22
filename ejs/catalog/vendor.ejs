@@ -16,11 +16,15 @@ for (var i = 0; i < vendor.length; i++)
 %>
     <div class='col-md-<%= 12 / in_line %>'>
       <div class='row item-cell' style='height: 200px;'>
-        <div class='col-md-12 item-picture' style='overflow: hidden;'>
-          <img src='<%= p.picture %>' style='max-height: 100%; min-height: 60%;' />
+        <div class='col-md-12 item-picture' style='overflow: hidden; height: inherit; width: 100%;'>
+          <a href='#catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'>
+            <img src='<%= p.picture %>' style='height: 100%; max-width: inherit;' />
+          </a>
         </div>
         <div class='col-md-7 item-popover-info'>
-          <a class='hipster' href='#catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'><%= p.name %></a><br>
+          <a class='hipster' 
+             style='font-family: Gill sans-serif;'
+             href='#catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'><%= p.name %></a><br>
           <div class="badge"><%= p.price %></div>
           <br><br>
           <button role='buy' class='btn btn-danger' value='<%= p.id %>'>Купить</button>

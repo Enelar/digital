@@ -157,6 +157,7 @@ class login extends api
   {
     global $_SESSION;    
     if (!isset($_SESSION)) session_start();
+    phoxy_protected_assert($_SESSION['uid'] > 0, ["error" => "Необходима регистрация"]);
     return $_SESSION['uid'];  
   }
   
