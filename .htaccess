@@ -33,7 +33,8 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 </FilesMatch>
 
 <FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|pdf)$">
-  Header set Cache-Control "public, max-age=2592000"
+#debug  Header set Cache-Control "public, max-age=2592000"
+  Header set Cache-Control "public, max-age=3600"
 </FilesMatch>
 
 Header unset Pragma
