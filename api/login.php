@@ -200,7 +200,7 @@ class login extends api
       (\"to\", \"from\", \"reply\", subj, body)
       VALUES
       ($1, $2, $3, $4, $5)",
-      [$email, "regbot@{$site}", "support@{$site}", 'Регистрация на Digital812', "
+      [$email, "info@{$site}", "info@{$site}", 'Регистрация на Digital812', "
 Спасибо за регистрацию в нашем магазине!
 
 Для активации вашего профиля, пожалуйста пройдите по следующей ссылке:

@@ -91,7 +91,7 @@ class xml extends api
   private function Offers($root)
   {
     $ph = LoadModule('api', 'phone');
-    $phones = db::Query('SELECT * FROM phones.models WHERE vendor != 5');
+    $phones = db::Query('SELECT * FROM phones.models WHERE vendor != 580');
     
     foreach ($phones as $phone)
     {
@@ -103,7 +103,7 @@ class xml extends api
       $offer->setAttribute('type', 'vendor.model');
       $offer->setAttribute('available', $phone['quantity'] > 0 ? 'true' : 'false');
       
-      $url = phoxy_conf()['site']."#catalog/{$vendor}/{$phone['id']}/{$minimal['name']}";
+      $url = phoxy_conf()['site']."?utm_source=yandex_market&utm_medium=cpc&utm_campaign=default#catalog/{$vendor}/{$phone['id']}/".(urlencode($minimal['name']));
       $offer->createElement('url')->createTextNode($url);
       $offer->createElement('price')->createTextNode($phone['price']);
       
@@ -113,8 +113,8 @@ class xml extends api
       $offer->createElement('picture')->createTextNode((phoxy_conf()['site'])."{$minimal['picture']}");
       
       $offer->createElement('store')->createTextNode($phone['quantity'] > 0 ? 'true' : 'false');
-      $offer->createElement('pickup')->createTextNode($phone['quantity'] > 0 ? 'true' : 'false');
-      $offer->createElement('delivery')->createTextNode($phone['quantity'] > 0 ? 'true' : 'false');
+      $offer->createElement('pickup')->createTextNode('true');
+      $offer->createElement('delivery')->createTextNode('true');
 
       $offer->createElement('vendor')->createTextNode("{$vendor}");
       $offer->createElement('model')->createTextNode("{$minimal['name']}");
