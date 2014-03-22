@@ -2,7 +2,8 @@
 
 <%
 var binded = params.binded;
-var grouped = params.grouped; 
+var grouped = params.grouped;
+$('title').first().html(binded.name.v);
 %>
 <h2><%= binded.name.v %></h2>
 <div class="row">
