@@ -1,0 +1,40 @@
+<% did = phoxy.GenerateUniqueID(); %>
+<ancor id='<%= did %>'></ancor>
+<%
+/*
+<span id='< %= did % >'>
+  <input type="checkbox" data-size="mini" data-mark='delivery-enabled'> Доставка<br>
+  <span data-mark='delivery_properties'>
+    <input type='checkbox' checked /> Адрес не изменился<br>
+    <textarea>
+    </textarea>
+  </span>
+</span>
+*/
+%>
+
+<button type='button' class='btn btn-default' disabled>Наличные</button><br>
+<button type='button' class='btn btn-default' disabled>VISA/Mastercard</button><br>
+<button type='button' class='btn btn-default' disabled>Bitcoin</button><br>
+
+<%
+phoxy.Appeared('#' + did, function()
+{
+  var span = $('#' + did);
+  
+  span
+    .next()
+    .prop('disabled', false)
+    .click(function()
+    {
+      phoxy.AJAX('buy/Registered?id=' + model, function()
+      {
+        span
+          .parents('.popover')
+          .first()
+          .prev()
+          .popover('hide');
+      });
+    });
+});
+%>

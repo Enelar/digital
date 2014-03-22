@@ -1,3 +1,4 @@
+<% $('title').first().html('Digital812 Каталог ' + catalog) %>
 <div data-mark='catalog' class='catalog'>
   <div style='width: 100%;'>
     <b><%= catalog %></b>
@@ -16,14 +17,18 @@ for (var i = 0; i < vendor.length; i++)
 %>
     <div class='col-md-<%= 12 / in_line %>'>
       <div class='row item-cell' style='height: 200px;'>
-        <div class='col-md-12 item-picture' style='overflow: hidden;'>
-          <img src='<%= p.picture %>' style='max-height: 100%; min-height: 60%;' />
+        <div class='col-md-12 item-picture' style='overflow: hidden; height: inherit; width: 100%;'>
+          <a href='#catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'>
+            <img src='<%= p.picture %>' style='height: 100%; max-width: inherit;' />
+          </a>
         </div>
         <div class='col-md-7 item-popover-info'>
-          <a class='hipster' href='#item/test?id=<%= p.id %>'><%= p.name %></a><br>
+          <a class='hipster' 
+             style='font-family: Gill sans-serif;'
+             href='#catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'><%= p.name %></a><br>
           <div class="badge"><%= p.price %></div>
           <br><br>
-          <button class='btn btn-danger'>Купить</button>
+          <button role='buy' class='btn btn-danger' value='<%= p.id %>'>Купить</button>
         </div>
       </div>
     </div>
@@ -42,7 +47,64 @@ for (var i = 0; i < vendor.length; i++)
 %>
   </div>
 </div>
+<div id='vendor_temp_id_for_stone'>
+<%
+phoxy.Defer(function()
+{
+  var content = $('#vendor_temp_id_for_stone');
+  var delay = 0;
+  $("#content")
+    .find(".catalog")
+    .find(".item-cell")
+    .find(".item-popover-info")
+    .find("[role='buy']")
+    .each(function()
+    {
+      var that = this;    
+      phoxy.Defer(function()
+      {
+        function Bind(that)
+        {
+          $(that).unbind();
+          $(that)
+            .click(function()
+            {
+              $(that)
+                .unbind()
+                .click(function()
+                {
+                  $(that)
+                    .next()
+                    .popover('destroy')
+                    .remove();
+                  Bind(that);
+                });
 
+              phoxy.Fancy('buy/stone', {id: $(this).attr('value')}, function(html)
+              {
+                $(that)
+                  .after(
+                    $('<div />')
+                    .popover(
+                    {
+                      html: true,
+                      title: "Способ покупки",
+                      content: html
+                    })
+                  );
+                $(that).next().popover('show');
+              });
+            });
+        }
+        Bind(that);
+      }, delay += 100);
+    });
+
+  content.remove();
+})
+
+%>
+</div>
 <%
 phoxy.Defer(function()
 {
@@ -76,5 +138,6 @@ phoxy.Defer(function()
         DisableGalery();
     })
     .trigger('change');
+
 });
 %>

@@ -1,9 +1,15 @@
 requirejs.config({
   baseUrl: 'js'
 });
+
+function AJAXImage()
+{
+  return $('<img />').attr('src', 'res/loading.gif');
+}
  
 function OnDesignBoneLoads()
 {
+  /* Плагин для фокси */
   phoxy.plugin = {};
   phoxy.Appeared('#phoxy_ajax_active', function ()
   {
@@ -42,11 +48,12 @@ function OnDesignBoneLoads()
     var res = phoxy_DeferRender.apply(this, arguments);
     var id = $(res).attr('id');
     phoxy.Defer(function () {
-      $('#' + id).html($('<img />').attr('src', 'res/loading.gif'));
+      $('#' + id).html(AJAXImage());
     });
     return res;
   }
 
+  /* Аналитика */
   function GoogleAnalysticsEvent()
   {
     try
@@ -62,6 +69,29 @@ function OnDesignBoneLoads()
   {
     GoogleAnalysticsEvent();
   });
+  
+  /* Комментарии и отзывы */
+  window._ues = {
+  host:'digittal812.userecho.com',
+  forum:'30927',
+  lang:'ru',
+  tab_icon_show:false,
+  tab_corner_radius:0,
+  tab_font_size:20,
+  tab_image_hash:'0L7RgdGC0LDQstC40YLRjCDQvtGC0LfRi9Cy',
+  tab_chat_hash:'0YfQsNGC',
+  tab_alignment:'right',
+  tab_text_color:'#FFFFFF',
+  tab_text_shadow_color:'#00000055',
+  tab_bg_color:'#9E9BA9',
+  tab_hover_color:'#5EF43F'
+  };
+
+  (function() {
+      var _ue = document.createElement('script'); _ue.type = 'text/javascript'; _ue.async = true;
+      _ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(_ue, s);
+    })();  
 }
 
 function GetElementCode( el )

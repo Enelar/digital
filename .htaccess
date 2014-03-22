@@ -8,6 +8,7 @@ RewriteEngine on
 
 RewriteRule ^api/catalog/phones$ api/catalog/_phone [L,QSA]
 RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
+RewriteRule ^api\/catalog\/(\w+)\/(\d+)\/([^\/]*)$ api/catalog/_phone/item?id=$2 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -28,11 +29,12 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
 <FilesMatch ".(ejs|css|js)$">
 #debug 
-  Header set Cache-Control "public, max-age=3600"
+  Header set Cache-Control "public, max-age=60"
 </FilesMatch>
 
 <FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|pdf)$">
-  Header set Cache-Control "public, max-age=2592000"
+#debug  Header set Cache-Control "public, max-age=2592000"
+  Header set Cache-Control "public, max-age=3600"
 </FilesMatch>
 
 Header unset Pragma

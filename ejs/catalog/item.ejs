@@ -2,11 +2,12 @@
 
 <%
 var binded = params.binded;
-var grouped = params.grouped; 
+var grouped = params.grouped;
+$('title').first().html(binded.name.v);
 %>
 <h2><%= binded.name.v %></h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-6" style='text-align: center;'>
 <%
 if (typeof(binded.picture) == undefined)
   img = "http://placehold.it/300x400";
@@ -14,6 +15,8 @@ else
   img = binded.picture.v;
 %>
     <img src="<%= img %>" style="max-width: 300px; max-height: 400px;" />
+    <br>
+    <%= phoxy.DeferRender('buy/button', {id: id, stayhere: true}) %>
   </div>
   <div class="col-md-6">
     <table class="table table-hover table-condensed"><tbody>
@@ -44,28 +47,20 @@ for (g in grouped)
 </div>
 <div class="row" style='margin-top: 10px'>
   <div class='col-md-12'>
-    
   </div>
 </div>
 
 <%
 phoxy.Defer(function()
 {
+  var val = $('#phone_' + id).attr('data-value');
   $('#phone_' + id)
     .find('table')
     .find("td[data-mark='phone-group-inditifier']")
-    .hover
-    (
-      function()
-      {
-        var th = $(this);
-        th.html(th.attr('data-value'));
-      },
-      function()
-      {
-        $(this).html('');
-      }
-    );
+    .each(function()
+    {
+      $(this).html($(this).attr('data-value'));
+    });
   
 });
 %>

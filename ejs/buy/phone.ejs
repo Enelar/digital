@@ -1,0 +1,52 @@
+Наберите<br>
+<u><i>+7 (812) 499-49-55</i></u><br>
+Или оставьте свой номер<br>
+<input id='<%= divid = phoxy.GenerateUniqueID() %>' />
+
+<%
+phoxy.Appeared('#' + divid, function()
+{
+  var div = $('#' + divid);
+
+  div
+    .keyup(function(event)
+    {
+      if (event.which != 13)
+        return;
+
+      div.prop('disabled', true);
+      var popover = div.parents('.popover').first();
+      
+      popover
+        .find('.popover-title')
+        .html('')
+        .append(
+          AJAXImage,
+          "Сохраняем"          
+        );
+
+      popover
+        .find('.popover-content')
+        .slideUp(1000);
+      
+      phoxy.AJAX('buy/RequestCallback?phone='+div.val()+'&id='+id, function()
+      {
+        popover
+          .find('.popover-title')
+          .html('<b>Успешно!</b>');
+
+        var papa = popover.parents('.popover');
+
+        phoxy.Defer(function()
+        {
+          popover.prev().popover('hide');
+
+          phoxy.Defer(function()
+          {
+            papa.prev().popover('hide');
+          }, 500);
+        }, 2000);
+      });        
+    })
+});
+%>

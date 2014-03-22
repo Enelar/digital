@@ -3,22 +3,29 @@ function ReorganizeAtoLi()
 {
   $('#menu_temp_element')
     .next()
-    .find('.sub-menu > a')
+   // .find('.sub-menu > a')
+    .find('a')
     .wrap('<li />')
     .last()
     .before('<li class="divider"></li>');
 }
 %>
 
+<%/*
 <div id='menu_temp_element'></div>
 <ul class="dropdown-menu">
   <li>
       <a href='#catalog/phones'>Телефоны</a>
       <ul class="dropdown-menu sub-menu">
-        <%= phoxy.DeferRender('catalog/root', undefined, ReorganizeAtoLi) %>
+        < %= phoxy.DeferRender('catalog/root', undefined, ReorganizeAtoLi) % >
       </ul>
   </li>
   <li><a href='#catalog/tablets'>Планшеты</a></li>
 <ul>
 <br>
 <i>Остальное добавим позже</i>
+*/%>
+<div id='menu_temp_element'></div>
+<ul class="dropdown-menu">
+  <%= phoxy.DeferRender('catalog/root', undefined, ReorganizeAtoLi) %>
+<ul>

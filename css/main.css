@@ -101,6 +101,10 @@ a.hipster {
     margin-top: -1px;
 }
 
+.dropdown-menu {
+    visibility: visible;
+}
+
 .dropdown-menu li:hover .sub-menu {
     visibility: visible;
 }
