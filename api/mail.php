@@ -9,14 +9,16 @@ class mail extends api
     $res = db::Query("SELECT * FROM mail.send_tasks WHERE sended IS NULL ORDER BY id ASC LIMIT 1");
     foreach ($res as $task)
     {
-      $headers = 
-        "From: {$task['from']}" . "\r\n" .
-        "Reply-To: {$task['reply']}" . "\r\n" .
-        'X-Mailer: Digital812';    
+      $headers = ["From: {$task['from']}"];
+      if ($task['reply'] != 'NULL')
+        array_push($headers, "Reply-To: {$task['reply']}");
 
-      mail($task['to'], $task['subj'], $task['body'], $headers);
+      mail($task['to'], $task['subj'], $task['body'], implode("\r\n", $headers));
       db::Query("UPDATE mail.send_tasks SET sended=now() WHERE id=$1", array($task['id']));
     }
     $trans->Commit();
+    echo '<META HTTP-EQUIV="REFRESH" CONTENT="10">';
+    echo time();
+    exit();
   }
 }

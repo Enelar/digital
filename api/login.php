@@ -200,7 +200,7 @@ class login extends api
       (\"to\", \"from\", \"reply\", subj, body)
       VALUES
       ($1, $2, $3, $4, $5)",
-      [$email, "info@{$site}", "info@{$site}", 'Регистрация на Digital812', "
+      [$email, "Бот Регистрации <regbot@{$site}>", "Поддержка Digital812 <support@{$site}>", 'Регистрация на Digital812', "
 Спасибо за регистрацию в нашем магазине!
 
 Для активации вашего профиля, пожалуйста пройдите по следующей ссылке:
@@ -244,12 +244,12 @@ class login extends api
     if (!password_verify($email_hash, $hash))
       return $ret_error;
     db::Query("DELETE FROM users.logins WHERE id=$1", [$id]);
-    return ["error" => "Отмена регистрации успешна", "reset" => true];
+    return ["error" => "Отмена регистрации успешна", "reset" => '/#'];
   }
   
   protected function ValidateEmail( $id, $email, $back_url, $hash )
   {
-    $ret_error = ["error" => "Почта уже подтверждена, или еще чего. Но запись не найдена", "reset" => true];
+    $ret_error = ["error" => "Почта уже подтверждена, или еще чего. Но запись не найдена", "reset" => '/#'];
     $row = db::Query("SELECT * FROM users.logins WHERE id=$1", [$id], true);
     if (!count($row))
       return $ret_error;
