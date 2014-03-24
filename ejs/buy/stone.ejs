@@ -14,6 +14,10 @@ phoxy.Appeared('#phone_order_' + id + '_' + ancor_id, function()
   phoxy.Fancy('buy/phone', {id: id}, function(html)
   {  
     $('#phone_order_' + id + '_' + ancor_id)
+      .click(function()
+      {
+        window.gevents.buy._trackEvent('phone', id);
+      })
       .popover(
       {
         html: true,
@@ -31,6 +35,7 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
     $(this).prop('disabled', true);
     if (window.uid)
     {
+      window.gevents.prebuy._trackEvent('online_not_logined', id);
       phoxy.AJAX('buy/Registered?id=' + id, function()
       {
         var parent = $(that).parent();
@@ -46,6 +51,7 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
     }
     else
     {
+      window.gevents.prebuy._trackEvent('online_logined', id);
       if (typeof(stayhere) == 'undefined' || stayhere != true)
       {
         var item_href = $(this).parents('.item-cell').find('a');
