@@ -14,6 +14,7 @@ phoxy.Defer(function()
     $(that)
       .click(function()
       {
+        window.gevents.prebuy._trackEvent('open_stone', id);
         $(that)
           .unbind()
           .click(function()
