@@ -31,13 +31,17 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
     $(this).prop('disabled', true);
     if (window.uid)
     {
-      phoxy.AJAX('api/buy/Reserve?id=' + id, function()
+      phoxy.AJAX('buy/Registered?id=' + id, function()
       {
         var parent = $(that).parent();
         parent
           .html(
-            phoxy.DeferRender('buy/method', {})
+            "Успешно!"
           );
+        phoxy.Defer(function()
+        {
+          parent.parents('.popover').prev().popover('hide');
+        }, 1000);
       });
     }
     else

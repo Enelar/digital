@@ -1,0 +1,70 @@
+<% id = phoxy.GenerateUniqueID() %>
+<ancor id='<%= id %>'></ancor>
+<table border='1'>
+<%
+for (var i = 0; i < pricelist.length; i++)
+{
+  var p = pricelist[i];
+%>
+<tr>
+  <td>
+    <%= p.id %>
+  </td>
+  <td>
+    <%= phoxy.DeferRender('admin/pricelist/model_name_by_id', 'phone/GetMinimalInfo?model=' + p.id) %>
+  </td>
+  <td>
+    <input type='text' data-phone='<%= p.id %>' value='<%= p.price %>' data-mark='price' />
+  </td>
+  <td>
+    <input type='text' data-phone='<%= p.id %>' value='<%= p.quantity %>' data-mark='count' />
+  </td>  
+</tr>
+<%
+}
+
+phoxy.Defer(function()
+{
+  var ancor = $('#' + id);
+  var inputs = ancor.next().find('input');
+  
+  var prices = inputs.filter("[data-mark='price']");
+  var counts = inputs.filter("[data-mark='count']");
+  
+  prices.change(function()
+    {
+      var that = $(this);
+      that.css({'background-color' : 'gray'});
+      phoxy.AJAX('admin/pricelist/UpdatePrice?id=' + that.attr('data-phone') + '&price=' + that.val(), function()
+      {
+        that
+          .css({'background-color' : 'white'})
+          .tooltip({title: "Сохранено"})
+          .tooltip('show');
+
+        phoxy.Defer(function()
+        {
+          that.tooltip('destroy');
+        }, 1000);
+      });
+    });
+
+  counts.change(function()
+    {
+      var that = $(this);
+      that.css({'background-color' : 'gray'});
+      phoxy.AJAX('admin/pricelist/UpdateQuantity?id=' + that.attr('data-phone') + '&count=' + that.val(), function()
+      {
+        that
+          .css({'background-color' : 'white'})
+          .tooltip({title: "Сохранено"})
+          .tooltip('show');
+
+        phoxy.Defer(function()
+        {
+          that.tooltip('destroy');
+        }, 1000);
+      });
+    });
+});
+%>
