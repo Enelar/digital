@@ -1,5 +1,6 @@
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-47477009-3']);
+gevents = {};
 
 window.onerror = function(msg, url, line) {
   var e = new Error('dummy');
@@ -111,7 +112,6 @@ function OnDesignBoneLoads()
   if (location.search.indexOf('utm_source') != -1)
     location = location.pathname + location.hash;
     
-  window.gevents = {};
   var pageTracker = window._gat._getTracker('UA-47477009-3');
   window.gevents.clicks = pageTracker._createEventTracker("Click");
   window.gevents.buy = pageTracker._createEventTracker("Buy");
