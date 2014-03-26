@@ -4,10 +4,11 @@ class phone extends api
 {
   protected function Reserve( $phone )
   {
+    $res = db::Query("SELECT price, quantity > 0 as available FROM phones.models WHERE id=$1", [$phone], true);
     return array(
       "script" => array("js/main/phone.js"),
       "before" => "BindPhoneInfo",
-      "data" => $this->GetParams($phone)['data']
+      "data" => array_merge($this->GetParams($phone)['data'], $res)
     );
   }
   

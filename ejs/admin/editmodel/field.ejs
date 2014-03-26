@@ -1,0 +1,40 @@
+<% did = 'field_'+id+'_'+'param'; %>
+<input 
+	id='<%= did %>'
+	type='text'
+	data-phone='<%= id %>'
+	data-param='<%= param %>'
+	value='<%= value %>'
+	style='background-color: gray;'
+	 />
+
+<%
+phoxy.Defer(function()
+{
+  $('table input')
+	.css({'background-color': 'white'})
+	.unbind()
+	.change(function()
+	{
+	  var phone = $(this).attr('data-phone');
+	  var param = $(this).attr('data-param');
+	  var value = $(this).val();
+	  
+	  phoxy.AJAX(
+		'admin/editmodel/SetParam?phone='
+		+ phone
+		+ '&param='
+		+ param
+		+ '&value='
+		+ encodeURI(value), function()
+		{
+		  $(this).tooltip({'title' : 'Saved'}).tooltip('show');
+		  phoxy.Defer(function()
+		  {
+		    $(this).tooltip('destroy');
+		  }, 1000);
+		});
+	});
+}, 500);
+
+%>

@@ -1,0 +1,19 @@
+<h1><%= name %></h1>
+<table border='1'>
+<%
+for (var k in params)
+{
+  var v = params[k];
+%>
+<tr>
+  <td>
+    <%= phoxy.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
+  </td>
+  <td>
+    <%= phoxy.DeferRender('admin/editmodel/field', {id: id, param: k, value: v}) %>
+  </td>
+</tr>
+<%
+}
+%>
+</table>

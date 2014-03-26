@@ -6,7 +6,16 @@ ErrorDocument 403 /404.php
 #Deny From All
 RewriteEngine on
 
+RewriteCond %{HTTP_HOST} ^www [NC] 
+RewriteRule ^(.*)$ http://digital812.ru/$1 [L,R=302,QSA] 
+
+#RewriteRule ^phones/apple(.*)$ /\#!catalog/phones/Apple$1 [NE,L,R=302,QSA]
+#RewriteRule ^phones/nokia(.*)$ /\#!catalog/phones/Nokia$1 [NE,L,R=302,QSA]
+#RewriteRule ^phones/htc(.*)$ /\#!catalog/phones/HTC$1 [NE,L,R=302,QSA]
+#RewriteRule ^phones/lg(.*)$ /\#!catalog/phones/LG$1 [NE,L,R=302,QSA]
+
 RewriteRule ^api/catalog/phones$ api/catalog/_phone [L,QSA]
+RewriteRule ^api/catalog/phones/(.*)/$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api\/catalog\/(\w+)\/(\d+)\/([^\/]*)$ api/catalog/_phone/item?id=$2 [L,QSA]
 

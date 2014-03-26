@@ -1,5 +1,10 @@
-<% did = phoxy.GenerateUniqueID() %>
-<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= id %>'>Купить</button>
+<% 
+did = phoxy.GenerateUniqueID()
+if (typeof(available) == 'undefined')
+  available = 't';
+%>
+<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= id %>'>
+<%= available == 't' ? 'Купить' : 'Заказать' %></button>
 
 <%
 if (typeof(stayhere) == 'undefined')

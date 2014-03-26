@@ -28,7 +28,7 @@ for (var i = 0; i < vendor.length; i++)
              href='#!catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'><%= p.name %></a><br>
           <div class="badge"><%= p.price %></div>
           <br><br>
-          <button role='buy' class='btn btn-danger' value='<%= p.id %>'>Купить</button>
+          <button role='buy' class='btn btn-danger' value='<%= p.id %>'><%= p.available == 't' ? 'Купить' : 'Заказать' %></button>
         </div>
       </div>
     </div>
