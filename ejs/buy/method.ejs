@@ -26,6 +26,7 @@
 <%
 phoxy.Appeared('#' + did, function()
 {
+  window.gevents.prebuy._trackEvent('online_easy', id);
   var span = $('#' + did);
   
   span
@@ -39,6 +40,7 @@ phoxy.Appeared('#' + did, function()
     .prop('disabled', false)
     .click(function()
     {
+      window.gevents.buy._trackEvent('online_easy', id);
       var parent = span.parent();
       var phone = parent.find("input[name='phone']").val();
       var mail = parent.find("input[name='mail']").val();
