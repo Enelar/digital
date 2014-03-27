@@ -4,7 +4,6 @@ class editmodel extends api
 {
   protected function Reserve()
   {
-	header('Pragma: no-cache');
     $res = db::Query("SELECT id FROM phones.models ORDER BY id ASC");
     $ret = [];
     foreach ($res as $row)
@@ -12,7 +11,8 @@ class editmodel extends api
     return [
       "design" => "admin/editmodel/list",
       "result" => "content",
-      "data" => ["models" => $ret]
+      "data" => ["models" => $ret],
+      "cache" => ["no" => "global"]
     ];
   }
   
@@ -39,13 +39,11 @@ class editmodel extends api
   
   public function ModelParamValue( $phone, $param )
   {
-	header('Pragma: no-cache');
-	return ["data" => ["value" => "NULL"]];
+	return ["data" => ["value" => "NULL"], "cache" => ["no" => "global"]];
   }
   
   protected function Model( $id )
   {
-	header('Pragma: no-cache');
 	$res = LoadModule('api/admin', 'editmodel')->Params();
     
     $ret = [];
@@ -63,7 +61,8 @@ class editmodel extends api
     return [
       "design" => "admin/editmodel/body",
       "result" => "content",
-      "data" => ["params" => $ret, "id" => (int)$id]
+      "data" => ["params" => $ret, "id" => (int)$id],
+      "cache" => ["no" => "global"]
     ];
   }
   

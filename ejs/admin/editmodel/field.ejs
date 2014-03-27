@@ -16,9 +16,10 @@ phoxy.Defer(function()
 	.unbind()
 	.change(function()
 	{
-	  var phone = $(this).attr('data-phone');
-	  var param = $(this).attr('data-param');
-	  var value = $(this).val();
+	  var that = $(this);
+	  var phone = that.attr('data-phone');
+	  var param = that.attr('data-param');
+	  var value = that.val();
 	  
 	  phoxy.AJAX(
 		'admin/editmodel/SetParam?phone='
@@ -28,10 +29,12 @@ phoxy.Defer(function()
 		+ '&value='
 		+ encodeURI(value), function()
 		{
-		  $(this).tooltip({'title' : 'Saved'}).tooltip('show');
+		  that
+		    .tooltip({title: "Сохранено"})
+        .tooltip('show');
 		  phoxy.Defer(function()
 		  {
-		    $(this).tooltip('destroy');
+		    that.tooltip('destroy');
 		  }, 1000);
 		});
 	});

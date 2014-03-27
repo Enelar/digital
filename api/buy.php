@@ -21,4 +21,21 @@ class buy extends api
       [$id, $login->UID()], true);
     return ["date" => [$res]];
   }
+  
+  protected function Unregistered( $model, $phone, $mail, $delivery )
+  {
+    $res = db::Query("INSERT INTO orders.unregistered(model, phone, email, delivery) VALUES ($1, $2, $3, $4) RETURNING id AS trans",
+      [$model, $phone, $mail, $delivery], true);
+    $ph = LoadModule('api', 'phone');
+    $minimal = $ph->GetMinimalInfo($model);  
+    db::Query("INSERT INTO mail.send_tasks(\"to\", subj, body, \"from\") 
+    VALUES ('ks78@inbox.ru, info@digital812.ru, digital812.shop@gmail.com, 1390375@mail.ru', $1, $2, 'Робот Заказов <orderbot@digital812.ru>')",
+    ["Заказ #{$res['trans']} (онлайн): {$minimal['name']}",
+"Пользователь заказал {$minimal['name']}.
+Оставил следующие данные:
+Телефон: {$phone}
+Почта: {$mail}
+Доставка: {$delivery}"]);      
+    return ["date" => [$res]];
+  }
 }

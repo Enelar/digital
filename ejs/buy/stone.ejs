@@ -33,6 +33,9 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
   $(this).click(function()
   {
     $(this).prop('disabled', true);
+    $(that).parent().html(phoxy.DeferRender('buy/method', {id: id}));
+    //$(that).popover
+    /*
     if (window.uid)
     {
       window.gevents.prebuy._trackEvent('online_not_logined', id);
@@ -60,6 +63,7 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
       
       $('#menu li button[data-target="#modal-login"]').trigger('click');
     }
+    */
   });
 });
 %>
