@@ -68,16 +68,22 @@ class editmodel extends api
   
   protected function SetParam( $phone, $param, $value )
   {
-	header('Pragma: no-cache');
+    header('Pragma: no-cache');
     $res = db::Query("SELECT id FROM phones.param_values WHERE param=$1 AND value=$2",
-		[$param, $value], true);
-	if (!count($res))
-		$res = db::Query("INSERT INTO phones.param_values(param, value) VALUES ($1, $2) RETURNING id",
-		[$param, $value], true);
-	if (!count(db::Query("SELECT * FROM phones.model_params WHERE model=$1 AND param=$2", [$phone, $param], true)))
-		$query = "INSERT INTO phones.model_values(model, value) VALUES ($1, $2)";
-	else
-		$query = "UPDATE phones.model_values SET value=$2 WHERE model=$1";
-	db::Query($query, [$phone, $res['id']]);
+      [$param, $value], true);
+    if (!count($res))
+      $res = db::Query("INSERT INTO phones.param_values(param, value) VALUES ($1, $2) RETURNING id",
+        [$param, $value], true);
+        
+    
+
+    $count = db::Query("SELECT * FROM phones.model_params WHERE model=$1 AND param=$2", [$phone, $param], true);
+    var_dump([$phone, $count['id'], $res['id']]);
+    if (!count($count))
+      $query = "INSERT INTO phones.model_values(model, value) VALUES ($1, $2)";
+    else
+      $query = "UPDATE phones.model_values SET value=$3 WHERE model=$1 AND value=$2";
+    db::Query($query, [$phone, $count['id'], $res['id']]);
+    return ["cache" => ["no" => "global"]];
   }
 }
