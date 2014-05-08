@@ -1,9 +1,9 @@
 <%
-for (var k in menu)
+for (var k in this.menu)
 {
-  if (!menu.hasOwnProperty(k))
+  if (!this.menu.hasOwnProperty(k))
     continue;
-  v = menu[k];
+  v = this.menu[k];
 %>
   <li>
     <%= DeferRender('menu/menu_element', {url: v, name: k}) %>

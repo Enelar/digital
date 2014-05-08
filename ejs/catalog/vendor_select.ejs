@@ -1,7 +1,7 @@
 <%
-for (k in vendors)
+for (k in this.vendors)
 {
-  var v = vendors[k];
+  var v = this.vendors[k];
 %>
   <a href='#!catalog/phones/<%= v.name %>'><%= v.name %></a>
 <%

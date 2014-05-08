@@ -3,12 +3,12 @@ did = phoxy.GenerateUniqueID()
 if (typeof(available) == 'undefined')
   available = 't';
 %>
-<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= id %>'>
-<%= available == 't' ? 'Купить' : 'Заказать' %></button>
+<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= this.id %>'>
+<%= this.available == 't' ? 'Купить' : 'Заказать' %></button>
 
 <%
-if (typeof(stayhere) == 'undefined')
-  stayhere = false;
+if (typeof(this.stayhere) == 'undefined')
+  this.stayhere = false;
 phoxy.Defer(function()
 {
   var that = $("#" + did);

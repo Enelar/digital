@@ -2,9 +2,9 @@
 %>
 <ul data-mark='catalog-list'>
 <%
-for (k in catalog)
+for (k in this.catalog)
 {
-  item = catalog[k];
+  item = this.catalog[k];
 %>
   <li data-content=<%= item.name %>>
   <%= item.name %><%= item.price %><%= item.url %>
