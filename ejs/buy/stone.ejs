@@ -13,10 +13,10 @@ phoxy.Appeared('#phone_order_' + this.id + '_' + ancor_id, function()
 {
   phoxy.Fancy('buy/phone', {id: this.id}, function(html)
   {  
-    $('#phone_order_' + this.id + '_' + ancor_id)
+    $('#phone_order_' + __context.id + '_' + ancor_id)
       .click(function()
       {
-        window.gevents.buy._trackEvent('phone', this.id);
+        window.gevents.buy._trackEvent('phone', __context.id);
       })
       .popover(
       {
