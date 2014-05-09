@@ -9,7 +9,7 @@ class buy extends api
     $ph = LoadModule('api', 'phone');
     $minimal = $ph->GetMinimalInfo($id);  
     db::Query("INSERT INTO mail.send_tasks(\"to\", subj, body, \"from\") 
-    VALUES ('ks78@inbox.ru, info@digital812.ru, digital812.shop@gmail.com, 1390375@mail.ru', $1, $2, 'Робот Заказов <orderbot@digital812.ru>')",
+    VALUES ('scladless@gmail.com', $1, $2, 'Робот Заказов <orderbot@scladless.com>')",
     ["Заказ #{$res['trans']} (перезвонить): {$minimal['name']}", "Пользователь заказал {$minimal['name']}. Попросил перезвонить {$phone}."]);
     return ["date" => [$res]];
   }
@@ -29,7 +29,7 @@ class buy extends api
     $ph = LoadModule('api', 'phone');
     $minimal = $ph->GetMinimalInfo($model);  
     db::Query("INSERT INTO mail.send_tasks(\"to\", subj, body, \"from\") 
-    VALUES ('ks78@inbox.ru, info@digital812.ru, digital812.shop@gmail.com, 1390375@mail.ru', $1, $2, 'Робот Заказов <orderbot@digital812.ru>')",
+    VALUES ('scladless@gmail.com', $1, $2, 'Робот Заказов <orderbot@scladless.com>')",
     ["Заказ #{$res['trans']} (онлайн): {$minimal['name']}",
 "Пользователь заказал {$minimal['name']}.
 Оставил следующие данные:

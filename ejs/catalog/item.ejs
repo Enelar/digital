@@ -1,8 +1,8 @@
-<div id="phone_<%= id %>">
+<div id="phone_<%= this.id %>">
 
 <%
-var binded = params.binded;
-var grouped = params.grouped;
+var binded = this.params.binded;
+var grouped = this.params.grouped;
 $('title').first().html(binded.name.v);
 %>
 <h2><%= binded.name.v %></h2>
@@ -17,9 +17,9 @@ else
     <img src="<%= img %>" style="max-width: 300px; max-height: 400px;" />
     <br>
     <div class='catalog' style='display: inline-block;'>  
-      <div class='badge'><%= price %></div>
+      <div class='badge'><%= this.price %></div>
     </div>
-    <%= phoxy.DeferRender('buy/button', {id: id, stayhere: true, available: available}) %>
+    <%= phoxy.DeferRender('buy/button', {id: this.id, stayhere: true, available: this.available}) %>
   </div>
   <div class="col-md-6">
     <table class="table table-hover table-condensed"><tbody>
@@ -27,7 +27,7 @@ else
 for (g in grouped)
 {
   var group = grouped[g];
-  var group_title = phone_info.groups[g].title;
+  var group_title = window['phone_info'].groups[g].title;
 %>
     <tr style='background-color: #999;'>
       <td colspan="2" data-value="<%= group_title %>" data-mark='phone-group-inditifier'></td>
@@ -56,8 +56,8 @@ for (g in grouped)
 <%
 phoxy.Defer(function()
 {
-  var val = $('#phone_' + id).attr('data-value');
-  $('#phone_' + id)
+  var val = $('#phone_' + this.id).attr('data-value');
+  $('#phone_' + this.id)
     .find('table')
     .find("td[data-mark='phone-group-inditifier']")
     .each(function()

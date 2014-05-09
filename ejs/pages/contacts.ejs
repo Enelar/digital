@@ -5,14 +5,14 @@
     <li data-mark='contact-address'>
       <span class='glyphicon glyphicon-map-marker' title="Карта здесь!"></span>        
       <b>
-        <p>г. Санкт-Петербург,</p>
-        <p><big>Улица Ефимова, 4а</big></p>
+        <p>г. Санкт-Петербург</p>
+        <p><big>Пока офиса нет</big></p>
       </b>
     </li>
     <li data-mark='contact-phone'>
       <span class='glyphicon glyphicon-earphone'></span>
       <b>
-        <p><a data-mark='phone'>+7 (812) 499 49 55</a> (мобильный)</p>
+        <p><a data-mark='phone'>00000</a> (не существует)</p>
         <font color='darkslategray'>Многоканальный</font>
       </b>
     </li>
@@ -26,14 +26,14 @@
     <li data-mark='contact-roadmap'>
       <span class='glyphicon glyphicon-road'></span>
       <b style='font-size: 2em'>Как добраться</b><br>
-      <b>5 минут от м. Сенная</b>
+      <b>позвонить</b>
     </li>
     <li data-mark='contact-other'>
       <span class='glyphicon glyphicon-envelope'></span>
       <b>
-        <a href='mailto:info@digital812.ru' class='hipster'>info@digital.ru</a><br>
-        <a href="https://vk.com/digital812spb" class='hipster' target="_blank">Вконтакте</a><br>
-        <a href="https://twitter.com/digital812" class='hipster' target="_blank">Twitter</a>
+        <a href='mailto:info@digital812.ru' class='hipster'>info@scladless.com</a><br>
+        <a href="https://vk.com/" class='hipster' target="_blank">Вконтакте</a><br>
+        <a href="https://twitter.com/" class='hipster' target="_blank">Twitter</a>
       </b>
     </li>
   </ul>
@@ -58,8 +58,8 @@ phoxy.Defer(function()
     )
     .find('span').tooltip('show');
     
-  MakeModal("#modal-map", map);
-  MakeModal("#modal-roadmap", base.find('li[data-mark="contact-roadmap"]'));
+  //MakeModal("#modal-map", map);
+  //MakeModal("#modal-roadmap", base.find('li[data-mark="contact-roadmap"]'));
   
   base.find('span.glyphicon').each(function()
   {

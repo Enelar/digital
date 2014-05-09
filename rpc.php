@@ -3,7 +3,7 @@
 error_reporting(E_ALL); ini_set('display_errors','On');
 
 include_once('pgsql_php/connect.php');
-new db("dbname=digital host=localhost user=postgres");
+new db("dbname=scladless host=localhost user=postgres");
 
 function phoxy_conf()
 {
@@ -15,7 +15,7 @@ function phoxy_conf()
 if (isset($_GET['api']) && $_GET['api'][0] == '!')
 {
   header('HTTP/1.1 302 Found');
-  header('Location: http://digital812.ru/api/' . substr($_GET['api'], 1));
+  header('Location: http://scladless.com/api/' . substr($_GET['api'], 1));
   exit();
 }
 
