@@ -37,11 +37,11 @@ phoxy.Appeared('#' + divid, function()
 
         var papa = popover.parents('.popover');
 
-        phoxy.Defer(function()
+        this.Defer(function()
         {
           popover.prev().popover('hide');
 
-          phoxy.Defer(function()
+          this.Defer(function()
           {
             papa.prev().popover('hide');
           }, 500);

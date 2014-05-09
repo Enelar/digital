@@ -61,8 +61,8 @@ class xml extends api
     $root->setAttribute('date', date('o-m-d H:i'));
     
     $shop = $root->createElement('shop');
-    $shop->createElement('name')->createTextNode('digital812.ru');
-    $shop->createElement('company')->createTextNode('digital812.ru');
+    $shop->createElement('name')->createTextNode('scladless.com');
+    $shop->createElement('company')->createTextNode('scladless.com');
     $shop->createElement('url')->createTextNode(phoxy_conf()['site']);
     
     $currencies = $shop->createElement('currencies');

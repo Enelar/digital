@@ -26,7 +26,7 @@
 <%
 phoxy.Appeared('#' + did, function()
 {
-  window.gevents.prebuy._trackEvent('online_easy', id);
+  window.gevents.prebuy._trackEvent('online_easy', this.id);
   var span = $('#' + did);
   
   span
@@ -40,7 +40,7 @@ phoxy.Appeared('#' + did, function()
     .prop('disabled', false)
     .click(function()
     {
-      window.gevents.buy._trackEvent('online_easy', id);
+      window.gevents.buy._trackEvent('online_easy', this.id);
       var parent = span.parent();
       var phone = parent.find("input[name='phone']").val();
       var mail = parent.find("input[name='mail']").val();
@@ -49,7 +49,7 @@ phoxy.Appeared('#' + did, function()
       $(this).prop('disabled', true);
 
       phoxy.AJAX(
-        'buy/Unregistered?id=' + id +
+        'buy/Unregistered?id=' + this.id +
         '&phone=' + encodeURI(phone) +
         '&mail=' + encodeURI(mail) +
         '&delivery=' + encodeURI(delivery), function()
@@ -58,7 +58,7 @@ phoxy.Appeared('#' + did, function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        phoxy.Defer(function()
+        this.Defer(function()
         {
           span
             .tooltip('destroy')

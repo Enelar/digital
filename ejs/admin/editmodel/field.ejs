@@ -9,7 +9,7 @@
 	 />
 
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   $('table input')
 	.css({'background-color': 'white'})
@@ -32,7 +32,7 @@ phoxy.Defer(function()
 		  that
 		    .tooltip({title: "Сохранено"})
         .tooltip('show');
-		  phoxy.Defer(function()
+		  this.Defer(function()
 		  {
 		    that.tooltip('destroy');
 		  }, 1000);

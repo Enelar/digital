@@ -23,7 +23,7 @@ for (var i = 0; i < pricelist.length; i++)
 <%
 }
 
-phoxy.Defer(function()
+this.Defer(function()
 {
   var ancor = $('#' + id);
   var inputs = ancor.next().find('input');
@@ -42,7 +42,7 @@ phoxy.Defer(function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        phoxy.Defer(function()
+        this.Defer(function()
         {
           that.tooltip('destroy');
         }, 1000);
@@ -60,7 +60,7 @@ phoxy.Defer(function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        phoxy.Defer(function()
+        this.Defer(function()
         {
           that.tooltip('destroy');
         }, 1000);

@@ -49,7 +49,7 @@ for (var i = 0; i < this.vendor.length; i++)
 </div>
 <div id='vendor_temp_id_for_stone'>
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   var content = $('#vendor_temp_id_for_stone');
   var delay = 0;
@@ -61,7 +61,7 @@ phoxy.Defer(function()
     .each(function()
     {
       var that = this;    
-      phoxy.Defer(function()
+      this.Defer(function()
       {
         function Bind(that)
         {
@@ -107,7 +107,7 @@ phoxy.Defer(function()
 %>
 </div>
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   var cells = $('#content .catalog .item-cell');
   var elements = cells.find('.item-popover-info');
