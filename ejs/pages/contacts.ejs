@@ -20,19 +20,13 @@
         <font color='darkslategray'>Гарантия, претензии</font>
       </b>
     </li>
-<% /*
+
     <li data-mark='contact-work-hours'>
       <span class='glyphicon glyphicon-time'></span>
       <b>
         <p>Ежедневно с 11:00 до 20:00</p>
         <p>Доставка с 10:00 до 22:00</p>
       </b>
-    </li>
-
-    <li data-mark='contact-roadmap'>
-      <span class='glyphicon glyphicon-road'></span>
-      <b style='font-size: 2em'>Как добраться</b><br>
-      <b>позвонить</b>
     </li>
 
     <li data-mark='contact-other'>
@@ -77,24 +71,4 @@ this.Defer(function()
   CorrectPhonesURL();
 }
 );
-%>
-
-<%=
-phoxy.DeferRender(
-  'pages/modal', 
-  {
-    id: "modal-map",
-    title: "Контакты сервис центра",
-    body: phoxy.DeferRender('pages/map', {})
-  })
-%>
-
-<%=
-phoxy.DeferRender(
-  'pages/modal', 
-  {
-    id: "modal-roadmap",
-    title: "Как добраться",
-    body: phoxy.DeferRender('pages/roadmap', {})
-  })
 %>
