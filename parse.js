@@ -39,11 +39,11 @@ function ExtractFromPage( url, extract, cb )
     }
     else 
     {
-      console.log(url);
+      //console.log(url);
       page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", 
         function() 
         {
-          console.log(page.content.length);
+          //console.log(page.content.length);
           var res = page.evaluate(extract);
           cb(res);
         });

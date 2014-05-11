@@ -18,42 +18,53 @@ class editmodel extends api
   
   protected function ModelById( $id )
   {
-    $res = db::Query("SELECT value as name FROM phones.model_params WHERE model=$1 AND param=171", [$id], true);
+    $res = db::Query("SELECT value as name FROM phones.model_params WHERE model=$1 AND param=1", [$id], true);
     if (!count($res))
-	  $res['name'] = 'unset';
-	return ["data" => $res];
+      $res['name'] = 'unset';
+    return ["data" => $res];
+  }
+  
+  protected function ColorById( $id )
+  {
+    $res = db::Query("SELECT value as name FROM phones.model_params WHERE model=$1 AND param=102", [$id], true);
+    if (!count($res))
+      $res['name'] = 'unset';
+    return ["data" => $res];
   }
   
   protected function StringByParam( $id )
   {
-	$res = db::Query("SELECT name FROM phones.params WHERE id=$1", [$id], true);
+    $res = db::Query("SELECT name FROM phones.params WHERE id=$1", [$id], true);
     if (!count($res))
-	  $res['name'] = 'unset';
+      $res['name'] = 'unset';
     return ["data" => $res];
   }
   
   protected function Params()
   {
-	return ["data" => ["params" => db::Query("SELECT id, name FROM phones.params WHERE name != 'picture' ORDER BY id")]];
+    return ["data" => ["params" => db::Query("SELECT id, name FROM phones.params WHERE name != 'picture' ORDER BY id")]];
   }
   
-  public function ModelParamValue( $phone, $param )
+  protected function ModelParamValue( $phone, $param )
   {
-	return ["data" => ["value" => "NULL"], "cache" => ["no" => "global"]];
+    $res = db::Query("SELECT value as name FROM phones.model_params WHERE model=$1 AND param=$2", [$phone, $param], true);
+    if (!count($res))
+      $res['name'] = 'unset';
+    return ["data" => $res];
   }
   
   protected function Model( $id )
   {
-	$res = LoadModule('api/admin', 'editmodel')->Params();
+    $res = LoadModule('api/admin', 'editmodel')->Params();
     
     $ret = [];
     
     foreach ($res['params'] as $row)
-    {	  
-	  $res = db::Query("SELECT value FROM phones.model_params WHERE model=$1 AND param=$2", [$id, $row['id']], true);
+    {
+      $res = db::Query("SELECT value FROM phones.model_params WHERE model=$1 AND param=$2", [$id, $row['id']], true);
 
-	  if (!count($res))
-		$res['value'] = '>=NULL=<';
+      if (!count($res))
+        $res['value'] = '>=NULL=<';
 
       $ret[$row['id']] = $res['value'];
     }

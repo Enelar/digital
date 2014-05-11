@@ -1,10 +1,10 @@
-<% did = 'field_'+id+'_'+'param'; %>
+<% did = 'field_'+this.id+'_'+'param'; %>
 <input 
 	id='<%= did %>'
 	type='text'
-	data-phone='<%= id %>'
-	data-param='<%= param %>'
-	value='<%= value %>'
+	data-phone='<%= this.id %>'
+	data-param='<%= this.param %>'
+	value='<%= this.value %>'
 	style='background-color: gray;'
 	 />
 

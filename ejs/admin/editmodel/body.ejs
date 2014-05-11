@@ -1,16 +1,16 @@
-<h1><%= name %></h1>
+<h1><%= this.name %></h1>
 <table border='1'>
 <%
-for (var k in params)
+for (var k in this.params)
 {
-  var v = params[k];
+  var v = this.params[k];
 %>
 <tr>
   <td>
     <%= phoxy.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
   </td>
   <td>
-    <%= phoxy.DeferRender('admin/editmodel/field', {id: id, param: k, value: v}) %>
+    <%= phoxy.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
   </td>
 </tr>
 <%

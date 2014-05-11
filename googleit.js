@@ -33,7 +33,7 @@ page.evaluate(function()
     console.log(page.content);
 //                page.render(output);
     phantom.exit();
-   }, 5000);
+   }, 3000);
  }
 });
 
