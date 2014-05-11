@@ -76,7 +76,7 @@ class phone extends api
     $ret = array();
     foreach ($params as $param)
     {
-      $res = db::Query('SELECT name, hide, "group" FROM phones.params WHERE id=$1', array($param), true);
+      $res = db::Query('SELECT name, hide, "group", type FROM phones.params WHERE id=$1', array($param), true);
       $res['hide'] = ($res['hide'] == 't');
       $ret[(int)$param] = $res;
     }

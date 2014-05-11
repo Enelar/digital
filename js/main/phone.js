@@ -45,11 +45,12 @@ function BindPhoneInfo(answer, callback)
     var param = phone_info.params[value.k];
     var group = param.group;
     var name = param.name;
+    var type = param.type;
     
     if (group == undefined)
       group = 0;
     
-    binded[name] = {v: value.v, hide: param.hide, group: group};
+    binded[name] = {v: value.v, hide: param.hide, group: group, type: param.type};
     raw[name] = value.v;
     if (!param.hide)
     {
