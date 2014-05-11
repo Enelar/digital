@@ -28,7 +28,7 @@ class catalog extends api
   
   protected function Root()
   {
-    $res = db::Query("SELECT * FROM phones.vendor");
+    $res = db::Query("SELECT * FROM phones.vendor ORDER BY id ASC");
     return array(
       "design" => "catalog/vendor_select",
       "result" => "content",

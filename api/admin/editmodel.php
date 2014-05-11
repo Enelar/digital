@@ -89,12 +89,16 @@ class editmodel extends api
     
 
     $count = db::Query("SELECT * FROM phones.model_params WHERE model=$1 AND param=$2", [$phone, $param], true);
-    var_dump([$phone, $count['id'], $res['id']]);
+    //var_dump([$phone, $count['id'], $res['id']]);
     if (!count($count))
-      $query = "INSERT INTO phones.model_values(model, value) VALUES ($1, $2)";
+      db::Query(
+        "INSERT INTO phones.model_values(model, value) VALUES ($1, $2)",
+        [$phone, $res['id']]);
     else
-      $query = "UPDATE phones.model_values SET value=$3 WHERE model=$1 AND value=$2";
-    db::Query($query, [$phone, $count['id'], $res['id']]);
+      db::Query(
+        "UPDATE phones.model_values SET value=$3 WHERE model=$1 AND value=$2", 
+        [$phone, $count['id'], $res['id']]);
+
     return ["cache" => ["no" => "global"]];
   }
 }

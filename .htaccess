@@ -37,7 +37,8 @@ RewriteRule ^(.*)$ http://digital812.ru/ [R=302]
 </IfModule>
 
 <FilesMatch "load.html$">
-  Header set Cache-Control "public, max-age=2592000"
+#  Header set Cache-Control "public, max-age=2592000"
+  Header set Cache-Control "public, max-age=3600"
 </FilesMatch>
 
 <FilesMatch ".(ejs|css|js)$">
