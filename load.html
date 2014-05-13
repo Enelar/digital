@@ -16,6 +16,11 @@ document.location = "http://www.google.ru/intl/ru/chrome/";
 <![endif]-->
 </head>
 <body>
+<script type="text/javascript">
+// ClickTale top
+var WRInitTime=(new Date()).getTime();
+</script>
+
   <div id='no_js_warning' class='hidden'>
     <div id='preload_please_wait' style='visibility: hidden;'>
       <img src='res/loading.gif' /> Loading...
@@ -24,17 +29,28 @@ document.location = "http://www.google.ru/intl/ru/chrome/";
       Включите Javascript!
     </div>
   </div>
+
 <script type="text/javascript">
 document.getElementById('preload_js_enable_warning').style.visibility = 'hidden';
 document.getElementById('preload_please_wait').style.visibility = 'visible';
+</script>
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); 
-})();
+<script type="text/javascript">
+// segment
+window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+window.analytics.load("dlvbmyxiah");
+window.analytics.page();
 </script>
 <script phoxy="main" data-main="phoxy" src="phoxy_loader.js" type="text/javascript"></script>
+
+  
+<script type='text/javascript'>
+// Clicktale bottom
+document.write(unescape("%3Cscript%20src='"+
+(document.location.protocol=='https:'?
+"https://cdnssl.clicktale.net/www07/ptc/f6fc9bd4-ed2e-407e-a16b-826055b6c565.js":
+"http://cdn.clicktale.net/www07/ptc/f6fc9bd4-ed2e-407e-a16b-826055b6c565.js")+"'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
 </body>
 </html>
 
