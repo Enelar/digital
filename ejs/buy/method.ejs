@@ -1,9 +1,6 @@
-<% did = phoxy.GenerateUniqueID(); %>
-<ancor id='<%= did %>'></ancor>
-
 <input type='text' placeholder='Телефон' name='phone' style='width: 100%;'/>
 <input type='text' placeholder='Почта' name='mail' style='width: 100%;'/>
-<textarea placeholder='Адрес доставки(если нужна)' name='delivery' style='width: 100%; height: 50px'></textarea>
+<textarea placeholder='Адрес доставки' name='delivery' style='width: 100%; height: 50px'></textarea>
 
 <%
 /*
@@ -24,10 +21,10 @@
 <button type='button' class='btn btn-default' disabled>Bitcoin</button><br>
 
 <%
-phoxy.Appeared('#' + did, function()
+this.Defer(function()
 {
   window.gevents.prebuy._trackEvent('online_easy', this.id);
-  var span = $('#' + did);
+  var span = this.first();
   
   span
     .parents('.popover')
@@ -40,7 +37,7 @@ phoxy.Appeared('#' + did, function()
     .prop('disabled', false)
     .click(function()
     {
-      window.gevents.buy._trackEvent('online_easy', this.id);
+      window.gevents.buy._trackEvent('online_easy', __context.id);
       var parent = span.parent();
       var phone = parent.find("input[name='phone']").val();
       var mail = parent.find("input[name='mail']").val();
@@ -49,7 +46,7 @@ phoxy.Appeared('#' + did, function()
       $(this).prop('disabled', true);
 
       phoxy.AJAX(
-        'buy/Unregistered?id=' + this.id +
+        'buy/Unregistered?id=' + __context.id +
         '&phone=' + encodeURI(phone) +
         '&mail=' + encodeURI(mail) +
         '&delivery=' + encodeURI(delivery), function()
@@ -58,7 +55,7 @@ phoxy.Appeared('#' + did, function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        this.Defer(function()
+        __context.Defer(function()
         {
           span
             .tooltip('destroy')

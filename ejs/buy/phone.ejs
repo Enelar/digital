@@ -28,8 +28,8 @@ phoxy.Appeared('#' + divid, function()
       popover
         .find('.popover-content')
         .slideUp(1000);
-      
-      phoxy.AJAX('buy/RequestCallback?phone='+div.val()+'&id='+id, function()
+      debugger;
+      phoxy.AJAX('buy/RequestCallback?phone='+div.val()+'&id='+__context.id, function()
       {
         popover
           .find('.popover-title')
@@ -37,7 +37,7 @@ phoxy.Appeared('#' + divid, function()
 
         var papa = popover.parents('.popover');
 
-        this.Defer(function()
+        __context.Defer(function()
         {
           popover.prev().popover('hide');
 

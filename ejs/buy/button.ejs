@@ -19,7 +19,7 @@ this.Defer(function()
     $(that)
       .click(function()
       {
-        window.gevents.prebuy._trackEvent('open_stone', this.id);
+        window.gevents.prebuy._trackEvent('open_stone', __context.id);
         $(that)
           .unbind()
           .click(function()
@@ -31,7 +31,7 @@ this.Defer(function()
             Bind(that);
           });
 
-        phoxy.Fancy('buy/stone', {id: this.id, stayhere: this.stayhere}, function(html)
+        phoxy.Fancy('buy/stone', {id: __context.id, stayhere: __context.stayhere}, function(html)
         {
           $(that)
             .after(
