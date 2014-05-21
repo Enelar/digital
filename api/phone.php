@@ -42,7 +42,7 @@ class phone extends api
       "data" => array(
         "picture" => $this->GetValueByName($id, "picture"),
         "name" => $this->GetValueByName($id, "name"),
-        "colour" => $this->GetValueByName($id, "colour"),
+        "colour" => $this->GetValueByName($id, "Цвет"),
       )
     );
   }
