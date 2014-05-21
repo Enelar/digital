@@ -42,7 +42,7 @@ class editmodel extends api
   
   protected function Params()
   {
-    return ["data" => ["params" => db::Query("SELECT id, name FROM phones.params WHERE name != 'picture' ORDER BY id")]];
+    return ["data" => ["params" => db::Query("SELECT id, name FROM phones.params ORDER BY id")]];
   }
   
   protected function ModelParamValue( $phone, $param )
