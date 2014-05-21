@@ -27,8 +27,12 @@ class phone extends api
     )
     SELECT value FROM all_that_type_values, all_model_values WHERE all_that_type_values.id=all_model_values.id
     ", array($field, $phone), true);
+    
     if (!count($res))
-      return null;
+      if ($field != 'picture')
+        return null;
+      else
+        return "res/img/phones/{$phone}.jpg";
     return $res['value'];
   }
   
