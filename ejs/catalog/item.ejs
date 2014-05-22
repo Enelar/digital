@@ -7,12 +7,12 @@ $('title').first().html(binded.name.v);
 %>
 <h2><%= binded.name.v %> <%= binded['Цвет'].v %></h2>
 <div class="row">
-  <div class="col-md-6" style='text-align: center;'>
+  <div class="col-md-5" style='text-align: center;'>
 <%
 if (typeof(binded.picture) == 'undefined')
-  img = "res/img/phones/" + this.id + ".jpg"; //"http://placehold.it/300x400";
+  var img = "res/img/phones/" + this.id + ".jpg"; //"http://placehold.it/300x400";
 else
-  img = binded.picture.v;
+  var img = binded.picture.v;
 %>
     <img src="<%= img %>" style="max-width: 300px; max-height: 400px;" />
     <br>
@@ -21,8 +21,8 @@ else
     </div>
     <%= phoxy.DeferRender('buy/button', {id: this.id, stayhere: true, available: this.available}) %>
   </div>
-  <div class="col-md-6">
-    <%= this.DeferRender('catalog/item_properties', this) %>
+  <div class="col-md-7">
+    <%= this.DeferRender('catalog/tabbed_item_prop.ejs', this) %>
   </div>
 </div>
 <div class="row" style='margin-top: 10px'>
