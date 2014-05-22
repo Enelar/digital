@@ -1,0 +1,97 @@
+<%
+debugger;
+var binded = this.params.binded;
+var grouped = this.params.grouped;
+
+this.Defer(function()
+{
+debugger;
+  var prop = this.first().children().first();
+  var tab = prop.next();
+  
+  for (g in grouped)
+  {
+    var group = grouped[g];
+    var group_title = window['phone_info'].groups[g].title;
+    
+    var id = phoxy.GenerateUniqueID();
+    var group_div = $('<div></div>').attr('id', id);
+    group_div.append
+    (
+      $('<div></div>').html(group_title)
+    );
+    
+    var tab_div = 
+      $('<div></div>')
+        .tooltip(
+        {
+          'title' : group_title, 
+          'placement' : 'right',
+          'trigger': 'none'
+        });
+    tab_div.attr('link', id).html(group_title);
+    for (k in group)
+    {
+      var v = group[k];
+      var type = binded[k].type;
+      
+      var param = $('<div></div>');
+      var key = $('<div></div>').html(k);
+      var val = $('<div></div>').html(v);
+      
+      if (type == 'bool')
+        val.html(v == 't' ? 'Есть' : 'Нет');
+      param.append(key, val);
+        
+      group_div.append(param);
+    }
+    
+    prop.append(group_div);
+    tab.append(tab_div);
+    
+    tab_div.hover(function()
+    {
+      prop
+        .children()
+        .finish()
+        .slideUp();
+      $('#' + $(this).attr('link'))
+        .finish()
+        .slideDown();
+    },
+    function() {});
+  }
+  
+  prop
+    .children()
+    .children()
+    .addClass('row')
+    .children()
+    .addClass('col-md-6');
+  tab
+    .children()
+    .css(
+    {
+      'min-width': '20px',
+      height: '20px',
+      'background-color': 'gray',
+      'margin-top': '10px',
+      'padding-left' : '20px',
+      'display': 'inline'
+    })
+    .wrap('<div></div>')
+    .each(function()
+    {
+      $(this)      
+        .parent()
+        .append($(this).html());
+      $(this).html('');
+    });
+});
+%>
+<div class='row'>
+  <div data-mark='properties' class='col-md-8'>
+  </div>
+  <div data-mark='tabs' class='col-md-4'>
+  </div>
+</div>
