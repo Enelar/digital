@@ -10,7 +10,7 @@ $('title').first().html(binded.name.v);
   <div class="col-md-6" style='text-align: center;'>
 <%
 if (typeof(binded.picture) == 'undefined')
-  img = "http://placehold.it/300x400";
+  img = "res/img/phones/" + this.id + ".jpg"; //"http://placehold.it/300x400";
 else
   img = binded.picture.v;
 %>
