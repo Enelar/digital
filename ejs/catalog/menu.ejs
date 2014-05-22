@@ -1,9 +1,16 @@
 <%
 function ReorganizeAtoLi()
 {
-  $('#menu_temp_element')
-    .next()
-   // .find('.sub-menu > a')
+debugger;
+  this
+    .first()
+    .parent()
+    .append
+    (
+      $('<a></a>')
+        .attr('href', '#!exclusive')
+        .html('Exclusive')
+    )
     .find('a')
     .wrap('<li />')
     .last()
@@ -11,21 +18,6 @@ function ReorganizeAtoLi()
 }
 %>
 
-<%/*
-<div id='menu_temp_element'></div>
-<ul class="dropdown-menu">
-  <li>
-      <a href='#!catalog/phones'>Телефоны</a>
-      <ul class="dropdown-menu sub-menu">
-        < %= phoxy.DeferRender('catalog/root', undefined, ReorganizeAtoLi) % >
-      </ul>
-  </li>
-  <li><a href='#catalog/tablets'>Планшеты</a></li>
-<ul>
-<br>
-<i>Остальное добавим позже</i>
-*/%>
-<div id='menu_temp_element'></div>
 <ul class="dropdown-menu">
   <%= this.DeferRender('catalog/root', undefined, ReorganizeAtoLi) %>
 <ul>
