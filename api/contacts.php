@@ -10,4 +10,14 @@ class contacts extends api
       "result" => "content"
     );
   }
+  
+  protected function Juridical()
+  {
+    return array
+    (
+      "design" => "pages/juridical",
+      "result" => "content"
+    );
+  }
+
 }
