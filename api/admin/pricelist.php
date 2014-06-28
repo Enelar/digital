@@ -20,4 +20,26 @@ class pricelist extends api
     return db::Query("SELECT * FROM phones.models WHERE id=$1", [$id], true);
     return ["cache" => ["no" => "global"]];
   }
+
+  protected function Import( )
+  {
+    global $_POST;
+    global $_FILES;    
+
+    if (!count($_FILES))
+    {
+      return
+      [
+        "design" => "admin/pricelist/import",
+        "result" => "content",
+      ];
+    }
+
+    var_dump($_FILES);
+    include('simple-excel-php/src/SimpleExcel/SimpleExcel.php');
+    //use SimpleExcel\SimpleExcel;
+
+    $excel = new SimpleExcel\SimpleExcel();
+    $excel->loadFile($_FILES['pricelist']['tmp_name'], 'XML');
+  }
 }
