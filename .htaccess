@@ -7,7 +7,7 @@ ErrorDocument 403 /404.php
 RewriteEngine on
 
 RewriteCond %{HTTP_HOST} ^www [NC] 
-RewriteRule ^(.*)$ http://digital812.ru/$1 [L,R=302,QSA] 
+RewriteRule ^(.*)$ http://scladless.com/$1 [L,R=302,QSA] 
 
 #RewriteRule ^phones/apple(.*)$ /\#!catalog/phones/Apple$1 [NE,L,R=302,QSA]
 #RewriteRule ^phones/nokia(.*)$ /\#!catalog/phones/Nokia$1 [NE,L,R=302,QSA]
