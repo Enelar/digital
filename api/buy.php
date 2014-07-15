@@ -12,7 +12,7 @@ class buy extends api
     db::Query("INSERT INTO mail.send_tasks(\"to\", subj, body, \"from\") 
     VALUES ('scladless@gmail.com', $1, $2, 'Робот Заказов <orderbot@scladless.com>')",
     ["Заказ #{$res['trans']} (перезвонить): {$minimal['name']} {$minimal['colour']} ", "Пользователь заказал {$minimal['name']} {$minimal['colour']} . Попросил перезвонить {$phone}."]);
-    $this->SendSMS("{$phone}\n{$minimal['name']} {$minimal['colour']}");
+    LoadModule('api', 'sms')->SendToManager("{$phone}\n{$minimal['name']} {$minimal['colour']}");
     return ["date" => [$res]];
   }
   
@@ -39,47 +39,7 @@ class buy extends api
 Телефон: {$phone}
 Почта: {$mail}
 Доставка: {$delivery}"]);
-    $this->SendSMS("{$phone}\n{$minimal['name']} {$minimal['colour']}\n{$delivery}");
+    LoadModule('api', 'sms')->SendToManager("{$phone}\n{$minimal['name']} {$minimal['colour']}\n{$delivery}");
     return ["date" => [$res]];
-  }
-
-  private function BuildSignature($params, $password)
-  {
-    ksort($params);
-    $url = '';
-    if (!is_array($params))
-      return $url;
-    foreach($params as $key => $value)
-      $url .= $key . "=" . urlencode($value) . "&";
-    $signature = md5($url . "&password=". urlencode($password));
-    return $signature;
-  }
-
-  protected function SendSMS( $message, $from = "enelar" )
-  {
-    $post =
-    [
-      "action" => "send",
-      "number" => "+79218567808,+79213243303",
-      "senderid" => $from,
-      "message" => $message,
-      "username" => "enelar",
-      "type" => "json",
-    ];
-    $post['signature'] = $this->BuildSignature($post, "interteimat");
-
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL,"http://api.comtube.ru/scripts/api/sms.php");
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    $server_output = curl_exec ($ch);
-
-    curl_close ($ch);
-    $obj = json_decode($server_output, true);
-    return $obj;
   }
 }
