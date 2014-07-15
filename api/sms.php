@@ -4,10 +4,10 @@ class sms extends api
 {
   public function SendToManager( $message )
   {
-    return $this->SendSMS("+79218567808,+79213243303", $message);
+    return $this->SendTo("+79218567808,+79213243303", $message);
   }
 
-  public function SendSMS( $to, $message, $from = "enelar" )
+  public function SendTo( $to, $message, $from = "enelar" )
   {
     $post =
     [
