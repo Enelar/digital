@@ -16,7 +16,7 @@ phoxy.Appeared('#phone_order_' + this.id + '_' + ancor_id, function()
     $('#phone_order_' + __context.id + '_' + ancor_id)
       .click(function()
       {
-        window.gevents.buy._trackEvent('phone', __context.id);
+        //window.gevents.buy._trackEvent('phone', __context.id);
       })
       .popover(
       {
@@ -38,7 +38,7 @@ phoxy.Appeared('#online_order_' + this.id + '_' + ancor_id, function()
     /*
     if (window.uid)
     {
-      window.gevents.prebuy._trackEvent('online_not_logined', __context.id);
+      //window.gevents.prebuy._trackEvent('online_not_logined', __context.id);
       phoxy.AJAX('buy/Registered?id=' + this.id, function()
       {
         var parent = $(that).parent();
@@ -46,7 +46,7 @@ phoxy.Appeared('#online_order_' + this.id + '_' + ancor_id, function()
           .html(
             "Успешно!"
           );
-        __context.Defer(function()
+        phoxy.Defer(function()
         {
           parent.parents('.popover').prev().popover('hide');
         }, 1000);
@@ -54,7 +54,7 @@ phoxy.Appeared('#online_order_' + this.id + '_' + ancor_id, function()
     }
     else
     {
-      window.gevents.prebuy._trackEvent('online_logined', __context.id);
+      //window.gevents.prebuy._trackEvent('online_logined', __context.id);
       if (typeof(stayhere) == 'undefined' || stayhere != true)
       {
         var item_href = $(this).parents('.item-cell').find('a');

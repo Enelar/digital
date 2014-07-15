@@ -23,7 +23,7 @@
 <%
 this.Defer(function()
 {
-  window.gevents.prebuy._trackEvent('online_easy', this.id);
+  //window.gevents.prebuy._trackEvent('online_easy', this.id);
   var span = this.first();
   
   span
@@ -37,7 +37,7 @@ this.Defer(function()
     .prop('disabled', false)
     .click(function()
     {
-      window.gevents.buy._trackEvent('online_easy', __context.id);
+      //window.gevents.buy._trackEvent('online_easy', __context.id);
       var parent = span.parent();
       var phone = parent.find("input[name='phone']").val();
       var mail = parent.find("input[name='mail']").val();
@@ -55,7 +55,7 @@ this.Defer(function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        __context.Defer(function()
+        phoxy.Defer(function()
         {
           span
             .tooltip('destroy')
