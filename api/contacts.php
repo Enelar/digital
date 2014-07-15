@@ -16,7 +16,18 @@ class contacts extends api
     return array
     (
       "design" => "pages/juridical",
-      "result" => "content"
+      "result" => "content",
+      "data" => ["super" => true],      
+    );
+  }
+
+  protected function Juridic()
+  {
+    return array
+    (
+      "design" => "pages/juridical",
+      "result" => "content",
+      "data" => ["super" => true],
     );
   }
 
