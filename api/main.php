@@ -7,7 +7,7 @@ class main extends api
     return array(
       "design" => "main/body",
       "script" => ["main/loaded"],
-      "routeline" => "OnDesignBoneLoads",
+      "before" => "OnDesignBoneLoads",
     );
   }
   

@@ -24,6 +24,7 @@ phantom.addCookie({
   'path'     : '/',                /* required property */
   'expires'  : (new Date()).getTime() + (1000 * 60 * 60)   /* <-- expires in 1 hour */
 });
+console.log('Unable to load the address!');
 
 function ExtractFromPage( url, extract, cb )
 {

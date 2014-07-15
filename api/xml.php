@@ -91,7 +91,7 @@ class xml extends api
   private function Offers($root)
   {
     $ph = LoadModule('api', 'phone');
-    $phones = db::Query('SELECT * FROM phones.models WHERE vendor != 580');
+    $phones = db::Query('SELECT * FROM phones.models WHERE ym = true');
     
     foreach ($phones as $phone)
     {

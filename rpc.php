@@ -15,7 +15,8 @@ function phoxy_conf()
 if (isset($_GET['api']) && $_GET['api'][0] == '!')
 {
   header('HTTP/1.1 302 Found');
-  header('Location: http://scladless.com/api/' . substr($_GET['api'], 1));
+  $site = phoxy_conf()['site'];
+  header('Location: {$site}/api/' . substr($_GET['api'], 1));
   exit();
 }
 

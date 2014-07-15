@@ -1,7 +1,3 @@
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-50812191-1']);
-gevents = {};
-
 window.onerror = function(msg, url, line) {
   var e = new Error('dummy');
   if (typeof(e.stack) == 'undefined')
@@ -12,7 +8,7 @@ window.onerror = function(msg, url, line) {
       .split('\n');
 
   var preventErrorAlert = false;
-  window._gaq.push(['_trackEvent', 'JS Error', msg, stack + ' -> (' + url + ") : " + line, 0, true]);
+//  window._gaq.push(['_trackEvent', 'JS Error', msg, stack + ' -> (' + url + ") : " + line, 0, true]);
   return preventErrorAlert;
 };
 
@@ -70,31 +66,27 @@ function OnDesignBoneLoads()
     });
     return res;
   }
-
-  /* Аналитика */
-  function GoogleAnalysticsEvent()
-  {
-    try
-    {
-      window._gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
-    } catch (e)
-    {
-    }  
-  }
-
-  GoogleAnalysticsEvent();
-  $(window).bind('hashchange', function()
-  {
-    GoogleAnalysticsEvent();
-  });
  
   if (location.search.indexOf('utm_source') != -1)
     location = location.pathname + location.hash;
-    
-  var pageTracker = window._gat._getTracker('UA-50812191-1');
-  window.gevents.clicks = pageTracker._createEventTracker("Click");
-  window.gevents.buy = pageTracker._createEventTracker("Buy");
-  window.gevents.prebuy = pageTracker._createEventTracker("PreBuy");
+  
+  var phoxy_ChangeHash = phoxy.ChangeHash;
+  phoxy.ChangeHash = function(hash)
+  {
+    TrackPage(hash);
+    return phoxy_ChangeHash.apply(this, arguments);
+  }
+  TrackPage(location.hash);
+  arguments[1]();
+}
+
+function TrackPage( hash )
+{
+  function Unify( url )
+  {
+    return  url.replace("#!", "#");
+  }
+  window.analytics.page({ path: Unify(hash), url: Unify(location.href) });
 }
 
 function GetElementCode( el )

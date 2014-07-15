@@ -21,7 +21,7 @@ class pricelist extends api
     return ["cache" => ["no" => "global"]];
   }
 
-  protected function Import( )
+  protected function import( )
   {
     global $_POST;
     global $_FILES;    
@@ -36,10 +36,5 @@ class pricelist extends api
     }
 
     var_dump($_FILES);
-    include('simple-excel-php/src/SimpleExcel/SimpleExcel.php');
-    //use SimpleExcel\SimpleExcel;
-
-    $excel = new SimpleExcel\SimpleExcel();
-    $excel->loadFile($_FILES['pricelist']['tmp_name'], 'XML');
   }
 }

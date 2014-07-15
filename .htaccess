@@ -32,7 +32,7 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://digital812.ru/ [R=302]
+RewriteRule ^(.*)$ http://scladless.com/ [R=302]
 
 </IfModule>
 
