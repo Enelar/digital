@@ -1,41 +1,20 @@
-<h1><%= this.name %></h1>
-<div class='row'>
-  <div class='col-md-6'>
-<table border='1' id='editshit'>
+<table border='1' id='marketshit'>
 <%
-for (var k in this.params)
+for (var i = 0; i < this.keys.length; i++)
 {
-  var v = this.params[k];
 %>
-<tr>
-  <td>
-    <%= this.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
-  </td>
-  <td>
-    <%= this.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
-  </td>
-</tr>
+  <tr>
+    <td>
+      <%= this.keys[i] %>
+    </td>
+    <td>
+      <%= this.values[i] %>
+    </td>
+  </tr>
 <%
 }
 %>
-</table>
-  </div>
-  <div class='col-md-6'>
-    <a>Скачать инфу с маркета</a>
-  </div>
 </div>
-
-<%
-var ymid = this.params[3];
-this.Defer(function()
-{
-  this.first().parent().find('div a').click(function()
-  {
-    $(this).parent().html(phoxy.DeferRender('ym/ModelSpec?0='+ymid));
-  })
-})
-
-%>
 
 <%
 function trim (str) {
@@ -51,8 +30,8 @@ function trim (str) {
 this.DeferCascade(function()
 {
   debugger;
-  var $tbody = $('#editshit tbody');
-  $tbody.find('tr:gt(4)').sort(function(a,b)
+  var $tbody = $('#marketshit tbody');
+  $tbody.find('tr').sort(function(a,b)
   { 
     var tda = $(a).find('td:eq(0)').text(); // can replace 1 with the column you want to sort on
     var tdb = $(b).find('td:eq(0)').text(); // this will sort on the second column

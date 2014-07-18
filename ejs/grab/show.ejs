@@ -1,0 +1,16 @@
+<%
+debugger;
+console.log(this);
+%>
+<div>
+<h4><%= this.url %></h4>
+<img src="data:image/png;base64,<%= this.shot %>" />
+<%= this.body %>
+</div>
+
+<%
+this.Defer(function()
+{
+  this.first().find('form').attr('action', 'api/grab/insider/Capcha');
+})
+%>

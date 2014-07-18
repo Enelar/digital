@@ -134,3 +134,13 @@ a.hipster {
     top: 11px;
     left: -6px;
 }
+
+.catalog:not(.galery) .item-picture:hover {
+  transform: translate(-117px,0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.catalog:not(.galery) .item-picture {
+  transform: translate(-1px,0);
+  transition: transform 1s ease-in-out;
+}

@@ -4,7 +4,7 @@ class editmodel extends api
 {
   protected function Reserve()
   {
-    $res = db::Query("SELECT id FROM phones.models ORDER BY id ASC");
+    $res = db::Query("SELECT id FROM phones.models WHERE show=true ORDER BY id ASC");
     $ret = [];
     foreach ($res as $row)
       array_push($ret, $row['id']);

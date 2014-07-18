@@ -7,7 +7,7 @@ class sms extends api
     return $this->SendTo("+79218567808,+79213243303", $message);
   }
 
-  public function SendTo( $to, $message, $from = "enelar" )
+  protected function SendTo( $to, $message, $from = "scladless" )
   {
     $post =
     [

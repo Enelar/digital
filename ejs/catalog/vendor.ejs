@@ -11,11 +11,12 @@
 <%
 var accum = 0;
 var in_line = 3;
+var z_index = 30;
 for (var i = 0; i < this.vendor.length; i++)
 {
   var p = this.vendor[i];
 %>
-    <div class='col-md-<%= 12 / in_line %>'>
+    <div class='col-md-<%= 12 / in_line %>' style='z-index: <%= z_index++ %>'>
       <div class='row item-cell' style='height: 200px;'>
         <div class='col-md-12 item-picture' style='overflow: hidden; height: inherit; width: 100%;'>
           <a href='#!catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %>'>
@@ -93,7 +94,8 @@ this.Defer(function()
                     {
                       html: true,
                       title: "Способ покупки",
-                      content: html
+                      content: html,
+                      container: 'body',
                     })
                   );
                 $(that).next().popover('show');
@@ -119,6 +121,7 @@ this.Defer(function()
   
   function EnableGalery()
   {
+    $('#content .catalog').addClass('galery');
     cells
       .hover(function()
       {
@@ -128,6 +131,7 @@ this.Defer(function()
   }
   function DisableGalery()
   {
+    $('#content .catalog').removeClass('galery');
     cells.off('mouseenter mouseleave');
     elements.slideDown();
   }

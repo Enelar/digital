@@ -10,11 +10,11 @@ model = system.args[2];
 
 
 var page = require('webpage').create();
-
-page.onResourceError = function(resourceError)
-{
-  page.reason = resourceError.errorString;
-  page.reason_url = resourceError.url;
+page.settings.resourceTimeout = 5000; // 5 seconds
+page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36';
+page.onResourceTimeout = function(e) {
+  console.log('timeout');
+  phantom.exit(1);
 };
 
 phantom.addCookie({
@@ -24,18 +24,31 @@ phantom.addCookie({
   'path'     : '/',                /* required property */
   'expires'  : (new Date()).getTime() + (1000 * 60 * 60)   /* <-- expires in 1 hour */
 });
-console.log('Unable to load the address!');
+
+var fs = require('fs');
+var CookieJar = "/tmp/cookiejar.json";
+var pageResponses = {};
+page.onResourceReceived = function(response) {
+    pageResponses[response.url] = response.status;
+    fs.write(CookieJar, JSON.stringify(phantom.cookies), "w");
+};
+if(fs.isFile(CookieJar))
+    Array.prototype.forEach.call(JSON.parse(fs.read(CookieJar)), function(x){
+        phantom.addCookie(x);
+    });
+
 
 function ExtractFromPage( url, extract, cb )
 {
+  rurl = url;
   page.open(url, function (status) 
   {
     if (status !== 'success')
     {
-      console.log('Unable to load the address!');
       console.log(status);
       console.log(page.reason);
       console.log(page.reason_url);
+      console.log('LOAD_FAIL');
       phantom.exit();
     }
     else 
@@ -56,11 +69,12 @@ var handlers = [];
 var cur_handler = 0;
 
 var ret;
+var rurl;
 
 handlers.push(function()
 {
   ExtractFromPage(
-    'http://market.yandex.ru/offers.xml?how=aprice&modelid=' + model, 
+    'http://market.yandex.ru/offers.xml?how=aprice&page=2&modelid=' + model, 
     function ()
     {
       var res = {};
@@ -77,7 +91,7 @@ handlers.push(function()
         {
           res.shops.push($(this).html());
         });
-        
+      res.success = $('.b-model-tabs').size();
       return res;
     },
     function (res)
@@ -95,7 +109,7 @@ handlers.push(function()
     {
       var res = {};
       res.avg = $('.price__int').html().replace('&nbsp;', '');
-
+      res.success = $('.b-model-tabs').size();
       return res;
     },
     function (res)
@@ -126,7 +140,7 @@ handlers.push(function()
         {
           res.values.push($(this).html());
         });
-        
+      res.success = $('.b-model-tabs').size();  
       return res;
     },
     function (res)
@@ -138,6 +152,9 @@ handlers.push(function()
 
 function Exit()
 {
+  ret.body = page.content;
+  ret.shot = page.renderBase64('PNG');
+  ret.url = rurl;
   console.log(JSON.stringify(ret));
   phantom.exit();
 };

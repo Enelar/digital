@@ -2,16 +2,16 @@
 <ancor id='<%= id %>'></ancor>
 <table border='1'>
 <%
-for (var i = 0; i < pricelist.length; i++)
+for (var i = 0; i < this.pricelist.length; i++)
 {
-  var p = pricelist[i];
+  var p = this.pricelist[i];
 %>
 <tr>
   <td>
     <%= p.id %>
   </td>
   <td>
-    <%= phoxy.DeferRender('admin/pricelist/model_name_by_id', 'phone/GetMinimalInfo?model=' + p.id) %>
+    <%= this.DeferRender('admin/pricelist/model_name_by_id', 'phone/GetMinimalInfo?model=' + p.id) %>
   </td>
   <td>
     <input type='text' data-phone='<%= p.id %>' value='<%= p.price %>' data-mark='price' />
@@ -42,7 +42,7 @@ this.Defer(function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        this.Defer(function()
+        phoxy.Defer(function()
         {
           that.tooltip('destroy');
         }, 1000);
@@ -60,7 +60,7 @@ this.Defer(function()
           .tooltip({title: "Сохранено"})
           .tooltip('show');
 
-        this.Defer(function()
+        phoxy.Defer(function()
         {
           that.tooltip('destroy');
         }, 1000);

@@ -25,7 +25,7 @@ class delivery extends api
           array
           (
             "title" => "В пределах КАД",
-            "price" => 250,
+            "price" => 0,
             "timing" => "В день заказа/на следующий день"
           ),
           array
