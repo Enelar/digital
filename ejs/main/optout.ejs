@@ -1,0 +1,48 @@
+<%
+function MakeWholeSiteCute()
+{
+  $('body').addClass('cutie-kitten');
+}
+%>
+
+<%=
+this.DeferRender
+(
+  'pages/modal', 
+  {
+    id: "optout-modal",
+    title: 'Наш сайт еще очень молодой. Дайте нам шанс.',
+    body: this.DeferRender('main/optout_body', {cutification: MakeWholeSiteCute})
+  }
+)
+%>
+
+<%
+if (document.cookie.split('oofb=').length > 1)
+  MakeWholeSiteCute();
+else
+  this.Defer(function()
+  {
+    $('#optout-modal').modal().find('.modal-dialog').addClass('modal-lg');
+
+    var optout = ouibounce
+    ( 
+      undefined,
+      {
+        aggressive: true,
+        timer: 0,
+        callback: function()
+        { 
+          $('#optout-modal').modal('show');
+        }
+      }
+    );
+
+    phoxy.Defer(function()
+    {
+      optout.disable();
+    }, 30000)
+  })
+%>
+
+<link href='http://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic' rel='stylesheet' type='text/css'>

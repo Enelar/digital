@@ -17,7 +17,7 @@ class ym extends api
     [
       'design' => 'grab/model',
       'data' => $parsed,
-      'cache' => '4w',
+      'cache' => ['global' => '4w'],
     ];
   }
   
@@ -118,6 +118,10 @@ WITH old_models AS
         break;
       }
       $parsed = json_decode($ret, true);
+      if ($parsed == 'timeout')
+      {
+        break;
+      }
 
       if (!count($parsed['prices']))
       {
