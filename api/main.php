@@ -35,6 +35,7 @@ class main extends api
         $_POST['mess'],
         $_POST['phone']
       ]);
+    //LoadModule('api', 'sms')->SendTo('+79213243303', "OptOutFeedback");
     return $res['snap'];
   }
 }

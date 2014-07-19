@@ -83,7 +83,7 @@ class ym extends api
   protected function UpdatePrices( $offset = 0 )
   {
     $offset = (int)$offset;
-    $reload = 600000;
+    $reload = 120000; // 2 min is max (720 models)
     $res = db::Query("
 WITH old_models AS
 (
@@ -114,12 +114,14 @@ WITH old_models AS
       if ($ret == '')
       {
         $offset++;
-        $reload = 0;
+        $reload = 1000;
         break;
       }
       $parsed = json_decode($ret, true);
       if ($parsed == 'timeout')
       {
+        $offset++;
+        $reload = 1000;
         break;
       }
 
@@ -128,7 +130,7 @@ WITH old_models AS
         if (!$parsed['success'])
           return;
         $offset++;
-        $reload = 0;
+        $reload = 1000;
         break;
       }
     //  $this->ScoreProxy($proxy, 1);
@@ -147,7 +149,8 @@ WITH old_models AS
           FROM phones.model_params
           WHERE models.id=model AND value=$1
           RETURNING models.id", [$row['value'], $price]);
-      //var_dump([$row['value'], $price]);
+      var_dump([$row['value'], $price]);
+      var_dump($change);
       break;
       // $change;
     }

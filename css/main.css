@@ -182,6 +182,7 @@ body.cutie-kitten {
 
 .kitten-stuff textarea {
   font-family: 'Marck Script', cursive;
+  font-size: 2rem;
   background-color: transparent;
   min-height: 240px;
   max-height: 240px;

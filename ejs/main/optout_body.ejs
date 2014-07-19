@@ -2,7 +2,7 @@
   <div>
     <h3>Путник, постой!</h3>
     <p>Мы понимаем что сайт мог вам не понравиться.</p>
-    <p>Но <i>пожалуйста</i>, расскажите нам чем. Мы обязательно прислушаемся.</p>
+    <p>Но <i>пожалуйста</i>, расскажите нам, чем. Мы обязательно прислушаемся.</p>
 
     <form action='api/main/OptOutFeedback' method='post'>
       <textarea name='mess' class='form-control' placeholder='Куда : На деревню Дедушке :)'></textarea>
@@ -22,7 +22,9 @@ function setCookie(cname, cvalue, exdays) {
 %>
 <%= this.Defer(function()
 {
-  this.first().find('form').ajaxForm(function()
+  if (typeof $.fn.ajaxForm == 'undefined')
+    return phoxy.Defer(arguments.calee, 50);
+  __context.first().find('form').ajaxForm(function()
   {
     setCookie('oofb', true, 30);
     __context.first().parents('.modal').modal('hide');
