@@ -12,6 +12,7 @@
   <a href='#content' class="sr-only">Skip to main content</a>
   <div id='header'><%= DeferRender('main/header', {}) %></div>
   <div id='menu'><%= DeferRender('menu/main', {}) %></div>
+  <%= this.DeferRender('catalog/better_menu', {}) %>
   <div class='container' id='content'>
   </div>
   <%= this.DeferRender('main/Optout') %>

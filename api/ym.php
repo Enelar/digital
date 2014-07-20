@@ -69,21 +69,17 @@ class ym extends api
     $change = $delta / $percent;
     
     var_dump("{$id} Цена изменилась с $old на $new ($change%)");
+        return;
+
     $change  = round($change, 1);
-    if ($old > 10000)
-    {
-      if (abs($change) > 2)
-        LoadModule('api', 'sms')->SendTo('+79213243303', "{$id} Price $old=>$new ($delta;$change%)");
-    }
-    else
-      if (abs($delta) > 300)
-        LoadModule('api', 'sms')->SendTo('+79213243303', "{$id} Price $old=>$new ($delta;$change%)");
+    if (abs($change) > 10)
+      LoadModule('api', 'sms')->SendTo('+79213243303', "{$id} Price $old=>$new ($delta;$change%)");
   }
 
   protected function UpdatePrices( $offset = 0 )
   {
     $offset = (int)$offset;
-    $reload = 120000; // 2 min is max (720 models)
+    $reload = 10000; // 2 min is max (720 models)
     $res = db::Query("
 WITH old_models AS
 (
@@ -92,7 +88,10 @@ WITH old_models AS
     if (count($res))
       $origin = $res[0]['value'];
     else
+    {
       $offset = 0;
+      $reload = 60000;
+    }
     for ($i = 0; $i < count($res); $i++)
     {
       $row = $res[$i];
