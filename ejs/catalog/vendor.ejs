@@ -1,4 +1,6 @@
 <% $('title').first().html('ScladLess Каталог ' + this.catalog) %>
+<% $('#keywords').attr('content', this.catalog + ', Scladless, Каталог') %>
+<% $('#description').attr('content', 'Каталог телефонов ' + this.catalog) %>
 <div data-mark='catalog' class='catalog'>
   <div style='width: 100%;'>
     <b><%= this.catalog %></b>

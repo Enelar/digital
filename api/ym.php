@@ -40,6 +40,7 @@ class ym extends api
 
   private function ShouldUpdate( $id )
   {
+  ///  return true; // !fast !
     $res = db::Query("SELECT *, (now() - actual < '4 hours'::interval) as cur_day FROM phones.models WHERE id=$1", [$id], true);
     //var_dump($res);
     if ($res['show'] != 't')
@@ -83,8 +84,18 @@ class ym extends api
     $res = db::Query("
 WITH old_models AS
 (
-  SELECT id FROM phones.models WHERE ym=true AND now()-actual>'4 hours'::interval ORDER BY actual ASC
-) SELECT model_params.* FROM phones.model_params, old_models WHERE old_models.id=model_params.model AND param=3 ORDER BY model_params.id LIMIT 10 OFFSET $offset");
+  SELECT id 
+    FROM phones.models 
+    WHERE
+      ym=true ".
+      //AND now()-actual>'0 hours'::interval
+    "ORDER BY actual ASC
+) SELECT model_params.*
+    FROM phones.model_params, old_models 
+    WHERE old_models.id=model_params.model
+      AND param=3
+    ORDER BY model_params.id
+    LIMIT 10 OFFSET $offset");
     if (count($res))
       $origin = $res[0]['value'];
     else
@@ -99,62 +110,62 @@ WITH old_models AS
         break;
       if ($i > 0)
         continue;
-
-    //  var_dump($row);
-      $model = $this->ShouldUpdate($row['model']);
-      if (!$model)
-      {
-        $offset++;
-        $reload = 0;
-        break;
-      }
-      $ret = $this->Grab($row['value']);
-      var_dump($ret);
-      if ($ret == '')
-      {
-        $offset++;
-        $reload = 1000;
-        break;
-      }
-      $parsed = json_decode($ret, true);
-      if ($parsed == 'timeout')
-      {
-        $offset++;
-        $reload = 1000;
-        break;
-      }
-
-      if (!count($parsed['prices']))
-      {
-        if (!$parsed['success'])
-          return;
-        $offset++;
-        $reload = 1000;
-        break;
-      }
-    //  $this->ScoreProxy($proxy, 1);
-      if (count($parsed['prices']) < 4)
-        $price = end($parsed['prices']);
-      else
-        $price = $parsed['prices'][3];
-      $price += 30;
-      if ($price < 1000)
-        LoadModule('api', 'sms')->SendTo('+79213243303', "{$row['model']} Очень низкая цена {$price} (".(json_encode($prices)).")");
-      $this->WarnPrice($row['model'], $model['price'], $price);
-      var_dump("PRICE: $price");
-      $change = db::Query("
-        UPDATE phones.models
-          SET price=$2, actual=now()
-          FROM phones.model_params
-          WHERE models.id=model AND value=$1
-          RETURNING models.id", [$row['value'], $price]);
-      var_dump([$row['value'], $price]);
-      var_dump($change);
-      break;
-      // $change;
+      $reload = $this->UpdateExactly($row['model'], $row['value']);
+      if (!$reload)
+        continue;
     }
+
+    if (!$reload)
+      //$offset += count($res);
+      return $this->UpdatePrices($offset + $i);
+    if ($reload < 10000)
+      $offset++;
     echo "<script language='javascript'>setTimeout(function() { document.location.search='?0=$offset'}, $reload)</script>";
+    var_dump("RELOAD $reload");
     return ["data" => "GRACEFUL", "cache" => ["no" => "global"]];
+  }
+
+  protected function UpdateExactly( $id, $ymid )
+  {
+    $model = $this->ShouldUpdate($id);
+    echo "<br />";
+    if (!$model)
+      return 0;
+    $ret = $this->Grab($ymid);
+    var_dump($ret);
+    if ($ret == '')
+      return 1000;
+    if ($ret == 'timeout')
+      return 1000;
+    $parsed = json_decode($ret, true);
+
+    if (!count($parsed['prices']))
+    {
+      if (!$parsed['success'])
+      {
+        LoadModule('api', 'sms')->SendTo('+79213243303', "ym.php staled.");
+        var_dump("staled");
+        return 1000 * 60 * 60;
+      }
+      return 10000;
+    }
+  //  $this->ScoreProxy($proxy, 1);
+    if (count($parsed['prices']) < 4)
+      $price = end($parsed['prices']);
+    else
+      $price = $parsed['prices'][3];
+    $price += 30;
+    $this->WarnPrice($id, $model['price'], $price);
+    var_dump("PRICE: $price");
+    $change = db::Query("
+      UPDATE phones.models
+        SET price=$2, actual=now()
+        FROM phones.model_params
+        WHERE models.id=model AND value=$1
+        RETURNING models.id", [$ymid, $price]);
+    var_dump([$ymid, $price]);
+    var_dump($change);
+    return 30000;
   }
 
   private function Grab( $id )

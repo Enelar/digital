@@ -23,6 +23,7 @@ if (document.cookie.split('oofb=').length > 1)
 else
   this.Defer(function()
   {
+    return;
     $('#optout-modal').modal().find('.modal-dialog').addClass('modal-lg');
 
     var optout = ouibounce

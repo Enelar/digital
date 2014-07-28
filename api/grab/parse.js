@@ -74,7 +74,7 @@ var rurl;
 handlers.push(function()
 {
   ExtractFromPage(
-    'http://market.yandex.ru/offers.xml?how=aprice&modelid=' + model, // &page=2
+    'http://market.yandex.ru/offers.xml?how=aprice&page=2&modelid=' + model,
     function ()
     {
       var res = {};

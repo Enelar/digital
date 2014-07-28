@@ -43,8 +43,15 @@ class phone extends api
         "picture" => $this->GetValueByName($id, "picture"),
         "name" => $this->GetValueByName($id, "name"),
         "colour" => $this->GetValueByName($id, "Цвет"),
+        "price" => $this->GetCurrentPrice($id),
       )
     );
+  }
+
+  private function GetCurrentPrice( $model )
+  {
+    $res = db::Query("SELECT * FROM phones.models WHERE id=$1", [$model], true);
+    return $res['price'];
   }
 
   protected function GetParams( $id )

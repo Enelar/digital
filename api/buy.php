@@ -13,7 +13,7 @@ class buy extends api
     VALUES ('scladless@gmail.com', $1, $2, 'Робот Заказов <orderbot@scladless.com>')",
     ["Заказ #{$res['trans']} (перезвонить): {$minimal['name']} {$minimal['colour']} ", "Пользователь заказал {$minimal['name']} {$minimal['colour']} . Попросил перезвонить {$phone}."]);
     LoadModule('api', 'sms')->SendTo($phone, "Ваш заказ #{$res['trans']} принят. Мы перезвоним. Обязательно.");
-    LoadModule('api', 'sms')->SendToManager("{$phone}\n{$minimal['name']} {$minimal['colour']}");
+    LoadModule('api', 'sms')->SendToManager("#{$res['trans']}({$minimal['price']}руб)\n{$phone}\n{$minimal['name']} {$minimal['colour']}");
     return ["date" => [$res]];
   }
   
@@ -41,7 +41,7 @@ class buy extends api
 Почта: {$mail}
 Доставка: {$delivery}"]);
     LoadModule('api', 'sms')->SendTo($phone, "Ваш заказ #{$res['trans']} принят. Мы перезвоним. Обязательно.");
-    LoadModule('api', 'sms')->SendToManager("{$phone}\n{$minimal['name']} {$minimal['colour']}\n{$delivery}");
+    LoadModule('api', 'sms')->SendToManager("#{$res['trans']}({$minimal['price']}руб)\n{$phone}\n{$minimal['name']} {$minimal['colour']}\n{$delivery}");
     return ["date" => [$res]];
   }
 }
