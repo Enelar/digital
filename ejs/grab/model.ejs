@@ -1,0 +1,48 @@
+<table border='1' id='marketshit'>
+<%
+for (var i = 0; i < this.keys.length; i++)
+{
+%>
+  <tr>
+    <td>
+      <%= this.keys[i] %>
+    </td>
+    <td>
+      <%= this.values[i] %>
+    </td>
+  </tr>
+<%
+}
+%>
+</div>
+
+<%
+function trim (str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
+this.DeferCascade(function()
+{
+  debugger;
+  var $tbody = $('#marketshit tbody');
+  $tbody.find('tr').sort(function(a,b)
+  { 
+    var tda = $(a).find('td:eq(0)').text(); // can replace 1 with the column you want to sort on
+    var tdb = $(b).find('td:eq(0)').text(); // this will sort on the second column
+            // if a < b return 1
+    tda = trim(tda);
+    tdb = trim(tdb);
+    return tda < tdb ? -1 
+           // else if a > b return 1
+           : tda > tdb ? 1 
+           // else they are equal - return 0    
+           : 0;           
+  }).appendTo($tbody);
+})
+%>

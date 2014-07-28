@@ -10,13 +10,13 @@
     
     <a class="navbar-brand " href="#" style='color: #666;'>
       <img id='phoxy_ajax_active' src='res/loading.gif' style='display: inline; float: left;'/> 
-      Digital 812
+      ScladLess Beta
       <span class="caret"></span>
     </a>
-    <%= phoxy.DeferRender('catalog/menu', {}) %>
+    <%= this.DeferRender('catalog/menu', {}) %>
   </div>
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   var repeat = true;
   
@@ -53,7 +53,7 @@ phoxy.Defer(function()
       {
         left :
         {
-          "Гарантия" : "#!warranty",        
+         // "Гарантия" : "#!warranty",        
           "Доставка" : "#!delivery",
          // "Качество" : "#!quality",
         },
@@ -88,7 +88,7 @@ phoxy.Defer(function()
 
 <%
 
-phoxy.Defer(function()
+this.Defer(function()
 {
   var form = $("#menu form[role='search']");
 

@@ -6,7 +6,16 @@ ErrorDocument 403 /404.php
 #Deny From All
 RewriteEngine on
 
+RewriteCond %{HTTP_HOST} ^www [NC] 
+RewriteRule ^(.*)$ http://scladless.com/$1 [L,R=302,QSA] 
+
+#RewriteRule ^phones/apple(.*)$ /\#!catalog/phones/Apple$1 [NE,L,R=302,QSA]
+#RewriteRule ^phones/nokia(.*)$ /\#!catalog/phones/Nokia$1 [NE,L,R=302,QSA]
+#RewriteRule ^phones/htc(.*)$ /\#!catalog/phones/HTC$1 [NE,L,R=302,QSA]
+#RewriteRule ^phones/lg(.*)$ /\#!catalog/phones/LG$1 [NE,L,R=302,QSA]
+
 RewriteRule ^api/catalog/phones$ api/catalog/_phone [L,QSA]
+RewriteRule ^api/catalog/phones/(.*)/$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api\/catalog\/(\w+)\/(\d+)\/([^\/]*)$ api/catalog/_phone/item?id=$2 [L,QSA]
 
@@ -23,12 +32,13 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://digital812.ru/ [R=302]
+RewriteRule ^(.*)$ http://scladless.com/ [R=302]
 
 </IfModule>
 
 <FilesMatch "load.html$">
-  Header set Cache-Control "public, max-age=2592000"
+#  Header set Cache-Control "public, max-age=2592000"
+  Header set Cache-Control "public, max-age=3600"
 </FilesMatch>
 
 <FilesMatch ".(ejs|css|js)$">

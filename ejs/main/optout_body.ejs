@@ -1,0 +1,34 @@
+<div class='kitten-stuff cutie-kitten'>
+  <div>
+    <h3>Путник, постой!</h3>
+    <p>Мы понимаем что сайт мог вам не понравиться.</p>
+    <p>Но <i>пожалуйста</i>, расскажите нам, чем. Мы обязательно прислушаемся.</p>
+
+    <form action='api/main/OptOutFeedback' method='post'>
+      <textarea name='mess' class='form-control' placeholder='Куда : На деревню Дедушке :)'></textarea>
+      <input name='phone' type='text' class='form-control' placeholder='Телефон (по желанию)' />
+      <button class='btn'>Отправить</button>
+    </form>
+  </div>
+</div>
+<%
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+%>
+<%= this.Defer(function()
+{
+  if (typeof $.fn.ajaxForm == 'undefined')
+    return phoxy.Defer(arguments.calee, 50);
+  __context.first().find('form').ajaxForm(function()
+  {
+    setCookie('oofb', true, 30);
+    __context.first().parents('.modal').modal('hide');
+    __context.cutification();
+  });
+})
+%>

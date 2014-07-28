@@ -3,20 +3,20 @@
 %>
 
 <div id='<%= ancor_id %>'></div>
-<button type='button' id='phone_order_<%= id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Телефон</button>
+<button type='button' id='phone_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Телефон</button>
 
-<button type='button' id='online_order_<%= id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Онлайн</button>
+<button type='button' id='online_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Онлайн</button>
 
 <%
 
-phoxy.Appeared('#phone_order_' + id + '_' + ancor_id, function()
+phoxy.Appeared('#phone_order_' + this.id + '_' + ancor_id, function()
 {
-  phoxy.Fancy('buy/phone', {id: id}, function(html)
+  phoxy.Fancy('buy/phone', {id: __context.id}, function(html)
   {  
-    $('#phone_order_' + id + '_' + ancor_id)
+    $('#phone_order_' + __context.id + '_' + ancor_id)
       .click(function()
       {
-        window.gevents.buy._trackEvent('phone', id);
+        //window.gevents.buy._trackEvent('phone', __context.id);
       })
       .popover(
       {
@@ -27,16 +27,19 @@ phoxy.Appeared('#phone_order_' + id + '_' + ancor_id, function()
   });
 });
 
-phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
+phoxy.Appeared('#online_order_' + this.id + '_' + ancor_id, function()
 {
   var that = this;
   $(this).click(function()
   {
     $(this).prop('disabled', true);
+    $(that).parent().html(phoxy.DeferRender('buy/method', {id: __context.id}));
+    //$(that).popover
+    /*
     if (window.uid)
     {
-      window.gevents.prebuy._trackEvent('online_not_logined', id);
-      phoxy.AJAX('buy/Registered?id=' + id, function()
+      //window.gevents.prebuy._trackEvent('online_not_logined', __context.id);
+      phoxy.AJAX('buy/Registered?id=' + this.id, function()
       {
         var parent = $(that).parent();
         parent
@@ -51,7 +54,7 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
     }
     else
     {
-      window.gevents.prebuy._trackEvent('online_logined', id);
+      //window.gevents.prebuy._trackEvent('online_logined', __context.id);
       if (typeof(stayhere) == 'undefined' || stayhere != true)
       {
         var item_href = $(this).parents('.item-cell').find('a');
@@ -60,6 +63,7 @@ phoxy.Appeared('#online_order_' + id + '_' + ancor_id, function()
       
       $('#menu li button[data-target="#modal-login"]').trigger('click');
     }
+    */
   });
 });
 %>

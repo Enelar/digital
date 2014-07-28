@@ -1,16 +1,14 @@
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-47477009-3']);
-gevents = {};
-
 window.onerror = function(msg, url, line) {
   var e = new Error('dummy');
+  if (typeof(e.stack) == 'undefined')
+    return; 
   var stack = e.stack.replace(/^[^\(]+?[\n$]/gm, '')
       .replace(/^\s+at\s+/gm, '')
       .replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@')
       .split('\n');
 
   var preventErrorAlert = false;
-  window._gaq.push(['_trackEvent', 'JS Error', msg, stack + ' -> (' + url + ") : " + line, 0, true]);
+//  window._gaq.push(['_trackEvent', 'JS Error', msg, stack + ' -> (' + url + ") : " + line, 0, true]);
   return preventErrorAlert;
 };
 
@@ -68,54 +66,27 @@ function OnDesignBoneLoads()
     });
     return res;
   }
-
-  /* Аналитика */
-  function GoogleAnalysticsEvent()
-  {
-    try
-    {
-      window._gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
-    } catch (e)
-    {
-    }  
-  }
-
-  GoogleAnalysticsEvent();
-  $(window).bind('hashchange', function()
-  {
-    GoogleAnalysticsEvent();
-  });
-  
-  /* Комментарии и отзывы */
-  window._ues = {
-  host:'digittal812.userecho.com',
-  forum:'30927',
-  lang:'ru',
-  tab_icon_show:false,
-  tab_corner_radius:0,
-  tab_font_size:20,
-  tab_image_hash:'0L7RgdGC0LDQstC40YLRjCDQvtGC0LfRi9Cy',
-  tab_chat_hash:'0YfQsNGC',
-  tab_alignment:'right',
-  tab_text_color:'#FFFFFF',
-  tab_text_shadow_color:'#00000055',
-  tab_bg_color:'#9E9BA9',
-  tab_hover_color:'#5EF43F'
-  };
-
-  (function() {
-      var _ue = document.createElement('script'); _ue.type = 'text/javascript'; _ue.async = true;
-      _ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(_ue, s);
-    })();  
  
   if (location.search.indexOf('utm_source') != -1)
     location = location.pathname + location.hash;
-    
-  var pageTracker = window._gat._getTracker('UA-47477009-3');
-  window.gevents.clicks = pageTracker._createEventTracker("Click");
-  window.gevents.buy = pageTracker._createEventTracker("Buy");
-  window.gevents.prebuy = pageTracker._createEventTracker("PreBuy");
+  
+  var phoxy_ChangeHash = phoxy.ChangeHash;
+  phoxy.ChangeHash = function(hash)
+  {
+    TrackPage(hash);
+    return phoxy_ChangeHash.apply(this, arguments);
+  }
+  TrackPage(location.hash);
+  arguments[1]();
+}
+
+function TrackPage( hash )
+{
+  function Unify( url )
+  {
+    return  url.replace("#!", "#");
+  }
+  window.analytics.page({ path: Unify(hash), url: Unify(location.href) });
 }
 
 function GetElementCode( el )

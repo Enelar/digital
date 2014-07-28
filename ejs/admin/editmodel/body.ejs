@@ -1,0 +1,69 @@
+<h1><%= this.name %></h1>
+<div class='row'>
+  <div class='col-md-6'>
+<table border='1' id='editshit'>
+<%
+for (var k in this.params)
+{
+  var v = this.params[k];
+%>
+<tr>
+  <td>
+    <%= this.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
+  </td>
+  <td>
+    <%= this.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
+  </td>
+</tr>
+<%
+}
+%>
+</table>
+  </div>
+  <div class='col-md-6'>
+    <a>Скачать инфу с маркета</a>
+  </div>
+</div>
+
+<%
+var ymid = this.params[3];
+this.Defer(function()
+{
+  this.first().parent().find('div a').click(function()
+  {
+    $(this).parent().html(phoxy.DeferRender('ym/ModelSpec?0='+ymid));
+  })
+})
+
+%>
+
+<%
+function trim (str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
+this.DeferCascade(function()
+{
+  debugger;
+  var $tbody = $('#editshit tbody');
+  $tbody.find('tr:gt(4)').sort(function(a,b)
+  { 
+    var tda = $(a).find('td:eq(0)').text(); // can replace 1 with the column you want to sort on
+    var tdb = $(b).find('td:eq(0)').text(); // this will sort on the second column
+            // if a < b return 1
+    tda = trim(tda);
+    tdb = trim(tdb);
+    return tda < tdb ? -1 
+           // else if a > b return 1
+           : tda > tdb ? 1 
+           // else they are equal - return 0    
+           : 0;           
+  }).appendTo($tbody);
+})
+%>

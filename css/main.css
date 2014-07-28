@@ -81,6 +81,12 @@ a.hipster {
   border: 1px;
 }
 
+.catalog .item-cell a {
+  /*   */
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 1.2rem;
+}
+
 .catalog .item-cell .item-picture {
   position: absolute;
 }
@@ -133,4 +139,133 @@ a.hipster {
     left: 10px;
     top: 11px;
     left: -6px;
+}
+
+.catalog:not(.galery) .item-picture:hover {
+  transform: translate(-117px,0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.catalog:not(.galery) .item-picture {
+  transform: translate(-1px,0);
+  transition: transform 1s ease-in-out;
+}
+
+.kitten-stuff {
+  position: relative;
+}
+
+.kitten-stuff {
+  position: relative;
+  min-height: 200px;
+}
+
+.kitten-stuff div {
+  height: 100%;
+}
+
+.cutie-kitten {
+  background: url(/res/img/kitten1.png);
+  background-size: auto 200px;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+body.cutie-kitten {
+  background-position: right bottom 40px;
+}
+
+
+.kitten-stuff > div {
+  padding-right: 40%;
+}
+
+.kitten-stuff textarea {
+  font-family: 'Marck Script', cursive;
+  font-size: 2rem;
+  background-color: transparent;
+  min-height: 240px;
+  max-height: 240px;
+  min-width: 370px;
+  max-width: 370px;  
+}
+
+.kitten-stuff input {
+  width: 220px;
+  display: inline-block;
+}
+
+.better-menu {
+  width: 100px;
+  height: 100px;
+}
+
+.better-menu div {
+  width: 64px;
+  height: 64px;
+}
+
+.better-menu div:not(.apple):not(:hover) {
+  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+}
+
+.better-menu div.apple {
+  background: url(/res/img/logo/apple.png);
+  background-size: 200px;
+  background-position: left 2px top -111.5px;
+  width: 62px;
+  margin-left: 4px;
+}
+
+.better-menu div.apple:hover {
+  background-position: left 0px top -20px;
+}
+
+.better-menu div.samsung {
+  background: url(/res/img/logo/samsung.png);
+  background-size: 64px;
+  height: 30px;
+  background-position: left 1px top -20px;
+  width: 64px;
+  margin-left: 2px;
+}
+
+.better-menu div.sony {
+  background: url(/res/img/logo/sony.jpg);
+  background-size: 66px;
+  height: 30px;
+  --background-position: left 3px top -20px;
+  /* background-position: left 6px top -111.5px; */
+  background-repeat: no-repeat;
+  background-position: left 3px top 5px;
+  width: 80px;
+}
+
+.better-menu div.htc {
+  background: url(/res/img/logo/htc.png);
+  background-size: 70px;
+  height: 20px;
+  background-position: left 0px top -16px;
+}
+
+.better-menu div.nokia {
+  background: url(/res/img/logo/nokia.png);
+  background-size: 69px;
+  height: 30px;
+  width: 65px;
+  background-position: left top -15px;
+}
+
+.better-menu div.lg {
+  background: url(/res/img/logo/lg.png);
+  background-size: 100px;
+  height: 54px;
+  background-position: left 6px top -25px;
+}
+
+.better-menu div.motorola {
+  background: url(/res/img/logo/motorola.jpg);
+  background-size: 300px;
+  background-position: left -6px top 120px;
 }

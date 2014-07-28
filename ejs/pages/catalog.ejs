@@ -2,9 +2,9 @@
 %>
 <ul data-mark='catalog-list'>
 <%
-for (k in catalog)
+for (k in this.catalog)
 {
-  item = catalog[k];
+  item = this.catalog[k];
 %>
   <li data-content=<%= item.name %>>
   <%= item.name %><%= item.price %><%= item.url %>
@@ -17,7 +17,7 @@ for (k in catalog)
 
 
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   $("#content ul")
     .css({"list-style-type" : "none"})

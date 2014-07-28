@@ -10,4 +10,25 @@ class contacts extends api
       "result" => "content"
     );
   }
+  
+  protected function Juridical()
+  {
+    return array
+    (
+      "design" => "pages/juridical",
+      "result" => "content",
+      "data" => ["super" => true],      
+    );
+  }
+
+  protected function Juridic()
+  {
+    return array
+    (
+      "design" => "pages/juridical",
+      "result" => "content",
+      "data" => ["super" => true],
+    );
+  }
+
 }

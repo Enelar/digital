@@ -1,5 +1,5 @@
 Наберите<br>
-<u><i>+7 (812) 499-49-55</i></u><br>
+<u><i>+7 (921) 8-5678-08</i></u><br>
 Или оставьте свой номер<br>
 <input id='<%= divid = phoxy.GenerateUniqueID() %>' />
 
@@ -28,8 +28,7 @@ phoxy.Appeared('#' + divid, function()
       popover
         .find('.popover-content')
         .slideUp(1000);
-      
-      phoxy.AJAX('buy/RequestCallback?phone='+div.val()+'&id='+id, function()
+      phoxy.AJAX('buy/RequestCallback?phone='+div.val()+'&id='+__context.id, function()
       {
         popover
           .find('.popover-title')

@@ -1,7 +1,9 @@
-<% $('title').first().html('Digital812 Каталог ' + catalog) %>
+<% $('title').first().html('ScladLess Каталог ' + this.catalog) %>
+<% $('#keywords').attr('content', this.catalog + ', Scladless, Каталог') %>
+<% $('#description').attr('content', 'Каталог телефонов ' + this.catalog) %>
 <div data-mark='catalog' class='catalog'>
   <div style='width: 100%;'>
-    <b><%= catalog %></b>
+    <b><%= this.catalog %></b>
     <div style='float: right;'>
       <input type="checkbox" class="switch-mini" id='galery-mode'>
       Режим галереи
@@ -11,24 +13,28 @@
 <%
 var accum = 0;
 var in_line = 3;
-for (var i = 0; i < vendor.length; i++)
+var z_index = 30;
+for (var i = 0; i < this.vendor.length; i++)
 {
-  var p = vendor[i];
+  var p = this.vendor[i];
 %>
-    <div class='col-md-<%= 12 / in_line %>'>
+    <div class='col-md-<%= 12 / in_line %>' style='z-index: <%= z_index++ %>'>
       <div class='row item-cell' style='height: 200px;'>
         <div class='col-md-12 item-picture' style='overflow: hidden; height: inherit; width: 100%;'>
-          <a href='#!catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'>
+          <a href='#!catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %>'>
             <img src='<%= p.picture %>' style='height: 100%; max-width: inherit;' />
           </a>
         </div>
         <div class='col-md-7 item-popover-info'>
           <a class='hipster' 
              style='font-family: Gill sans-serif;'
-             href='#!catalog/<%= catalog %>/<%= p.id %>/<%= p.name %>'><%= p.name %></a><br>
+             href='#!catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %> <%= p.colour %>'>
+             <%= p.name %> <%= p.colour %>
+           </a>
+          <br>
           <div class="badge"><%= p.price %></div>
           <br><br>
-          <button role='buy' class='btn btn-danger' value='<%= p.id %>'>Купить</button>
+          <button role='buy' class='btn btn-danger' value='<%= p.id %>'><%= p.available == 't' ? 'Купить' : 'Заказать' %></button>
         </div>
       </div>
     </div>
@@ -49,7 +55,7 @@ for (var i = 0; i < vendor.length; i++)
 </div>
 <div id='vendor_temp_id_for_stone'>
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   var content = $('#vendor_temp_id_for_stone');
   var delay = 0;
@@ -61,7 +67,7 @@ phoxy.Defer(function()
     .each(function()
     {
       var that = this;    
-      phoxy.Defer(function()
+      __context.Defer(function()
       {
         function Bind(that)
         {
@@ -69,7 +75,7 @@ phoxy.Defer(function()
           $(that)
             .click(function()
             {
-              window.gevents.prebuy._trackEvent('open_stone_from_catalog', $(that).attr('value'));
+              //window.gevents.prebuy._trackEvent('open_stone_from_catalog', $(that).attr('value'));
               $(that)
                 .unbind()
                 .click(function()
@@ -90,7 +96,8 @@ phoxy.Defer(function()
                     {
                       html: true,
                       title: "Способ покупки",
-                      content: html
+                      content: html,
+                      container: 'body',
                     })
                   );
                 $(that).next().popover('show');
@@ -107,7 +114,7 @@ phoxy.Defer(function()
 %>
 </div>
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   var cells = $('#content .catalog .item-cell');
   var elements = cells.find('.item-popover-info');
@@ -116,6 +123,7 @@ phoxy.Defer(function()
   
   function EnableGalery()
   {
+    $('#content .catalog').addClass('galery');
     cells
       .hover(function()
       {
@@ -125,6 +133,7 @@ phoxy.Defer(function()
   }
   function DisableGalery()
   {
+    $('#content .catalog').removeClass('galery');
     cells.off('mouseenter mouseleave');
     elements.slideDown();
   }
@@ -142,3 +151,4 @@ phoxy.Defer(function()
 
 });
 %>
+<i>Информация размещена исключительно в рекламных и информационных целях и не является публичной офертой.</i><br>

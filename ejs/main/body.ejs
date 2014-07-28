@@ -1,7 +1,4 @@
-<title>Digital812 Интернет магазин</title>
-<meta name="description" content="Интернет магизин мобильной техники Digital812">
-<meta name="keywords" content="Интернет-магазин, мобильные телефоны, смартфоны, планшетные компьютеры, аксессуары, digital, 812, спб, диджитал, чехлы, интернет магазин, apple, htc, lg, nokia">
-
+<title>ScladLess Интернет магазин</title>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" language='javascript'></script>
@@ -12,8 +9,10 @@
   <a href='#content' class="sr-only">Skip to main content</a>
   <div id='header'><%= DeferRender('main/header', {}) %></div>
   <div id='menu'><%= DeferRender('menu/main', {}) %></div>
+  <%= this.DeferRender('catalog/better_menu', {}) %>
   <div class='container' id='content'>
   </div>
+  <%= this.DeferRender('main/Optout') %>
   <div class='push_footer'></div>
 </div>
 
@@ -22,7 +21,7 @@
   <div class="container">
     <p class="muted credit pull-right">
       <span class="glyphicon glyphicon-copyright-mark"></span> 
-      <span>Digital812 2014</span>
+      <span>ScladLess Beta 2014</span>
     </p>
   </div>
 </div>
@@ -31,8 +30,9 @@
 <link href="css/main.css" rel="stylesheet" media="screen">
 
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
+  console.log("Test", this);
   function Bruce( text )
   {
     return $('<li />').html(text);

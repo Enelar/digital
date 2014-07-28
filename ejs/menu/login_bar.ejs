@@ -1,9 +1,10 @@
 <div data-system='login_bar_system_div'></div>
 <%
-if (typeof(uid) == 'undefined')
-  uid = sessionStorage['uid'];
-if (typeof(uid) == 'undefined')
-  uid = 0;
+if (typeof(window['uid']) == 'undefined')
+  if (typeof(sessionStorage['uid']) == 'undefined')
+    window['uid'] = 0;
+  else
+    window['uid'] = sessionStorage['uid'];
   
 var login_button =
   $('<button type="button" class="btn btn-default" style="opacity: 0" />')
@@ -12,7 +13,7 @@ var login_button =
     $('<span />').addClass("glyphicon")
   );
   
-if (uid)
+if (window['uid'])
 {
   login_button
     .attr('title', "Выйти")
@@ -55,7 +56,7 @@ else
   });  
 }
 
-phoxy.Defer(function()
+this.Defer(function()
 {
   $('div[data-system="login_bar_system_div"]').replaceWith(login_button);
   

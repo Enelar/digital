@@ -1,5 +1,7 @@
-<% did = phoxy.GenerateUniqueID(); %>
-<ancor id='<%= did %>'></ancor>
+<input type='text' placeholder='Телефон' name='phone' style='width: 100%;'/>
+<input type='text' placeholder='Почта' name='mail' style='width: 100%;'/>
+<textarea placeholder='Адрес доставки' name='delivery' style='width: 100%; height: 50px'></textarea>
+
 <%
 /*
 <span id='< %= did % >'>
@@ -13,27 +15,57 @@
 */
 %>
 
+<br>
 <button type='button' class='btn btn-default' disabled>Наличные</button><br>
 <button type='button' class='btn btn-default' disabled>VISA/Mastercard</button><br>
 <button type='button' class='btn btn-default' disabled>Bitcoin</button><br>
+<img src='/res/img/logo/visa.png' style='width: 100px' />
+<img src='/res/img/logo/mastercard.png' style='width: 100px' />
 
 <%
-phoxy.Appeared('#' + did, function()
+this.Defer(function()
 {
-  var span = $('#' + did);
+  //window.gevents.prebuy._trackEvent('online_easy', this.id);
+  var span = this.first();
   
   span
-    .next()
+    .parents('.popover')
+    .css({overflow: 'auto', 'min-width': '300px'});
+  
+  span
+    .parent()
+    .find('button')
+    .first()
     .prop('disabled', false)
     .click(function()
     {
-      phoxy.AJAX('buy/Registered?id=' + model, function()
+      //window.gevents.buy._trackEvent('online_easy', __context.id);
+      var parent = span.parent();
+      var phone = parent.find("input[name='phone']").val();
+      var mail = parent.find("input[name='mail']").val();
+      var delivery = parent.find("[name='delivery']").val();
+
+      $(this).prop('disabled', true);
+
+      phoxy.AJAX(
+        'buy/Unregistered?id=' + __context.id +
+        '&phone=' + encodeURI(phone) +
+        '&mail=' + encodeURI(mail) +
+        '&delivery=' + encodeURI(delivery), function()
       {
         span
-          .parents('.popover')
-          .first()
-          .prev()
-          .popover('hide');
+          .tooltip({title: "Сохранено"})
+          .tooltip('show');
+
+        phoxy.Defer(function()
+        {
+          span
+            .tooltip('destroy')
+            .parents('.popover')
+            .first()
+            .prev()
+            .popover('hide');
+        }, 1000);
       });
     });
 });

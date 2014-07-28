@@ -1,0 +1,66 @@
+<%
+debugger;
+var binded = this.params.binded;
+var grouped = this.params.grouped;
+$('title').first().html(binded.name.v);
+%>
+    <table class="table table-hover table-condensed"><tbody>
+<%
+for (g in grouped)
+{
+  var group = grouped[g];
+  var group_title = window['phone_info'].groups[g].title;
+%>
+    <tr style='background-color: #999;' data-group='<%= g %>'>
+      <td 
+        colspan="2" 
+        data-value="<%= group_title %>"
+        data-mark='phone-group-inditifier'>
+        </td>
+    </tr>
+<%
+  for (k in group)
+  {
+    var v = group[k];
+    var type = binded[k].type;
+%>
+      <tr data-group='<%= g %>' data-group-element>
+        <td><%= k %></td>
+        <td>
+<%
+    if (type == 'bool')
+    {
+%>
+          <%= v == 't' ? 'Есть' : 'Нет' %>
+<%
+    }
+    else
+    {
+%>
+          <%= v %>
+<%
+    }
+%>
+        </td>
+      </tr>
+<%
+  }
+}
+%>
+    </tbody></table>
+
+
+<%
+var cur_active = 0;
+this.Defer(function()
+{
+  var val = $('#phone_' + this.id).attr('data-value');
+  var table =   $('#phone_' + this.id).find('table');
+  table
+    .find("td[data-mark='phone-group-inditifier']")
+    .each(function()
+    {
+      $(this).html($(this).attr('data-value'));
+    });
+});
+%>

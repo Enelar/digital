@@ -61,8 +61,8 @@ class xml extends api
     $root->setAttribute('date', date('o-m-d H:i'));
     
     $shop = $root->createElement('shop');
-    $shop->createElement('name')->createTextNode('digital812.ru');
-    $shop->createElement('company')->createTextNode('digital812.ru');
+    $shop->createElement('name')->createTextNode('scladless.com');
+    $shop->createElement('company')->createTextNode('scladless.com');
     $shop->createElement('url')->createTextNode(phoxy_conf()['site']);
     
     $currencies = $shop->createElement('currencies');
@@ -91,7 +91,7 @@ class xml extends api
   private function Offers($root)
   {
     $ph = LoadModule('api', 'phone');
-    $phones = db::Query('SELECT * FROM phones.models WHERE vendor != 580');
+    $phones = db::Query("SELECT * FROM phones.models WHERE ym = true AND show = true AND now() - actual < '24 hour'::interval");
     
     foreach ($phones as $phone)
     {
@@ -103,7 +103,7 @@ class xml extends api
       $offer->setAttribute('type', 'vendor.model');
       $offer->setAttribute('available', $phone['quantity'] > 0 ? 'true' : 'false');
       
-      $url = phoxy_conf()['site']."?utm_source=yandex_market&utm_medium=cpc&utm_campaign=default#!catalog/{$vendor}/{$phone['id']}/".(urlencode($minimal['name']));
+      $url = phoxy_conf()['site']."?utm_source=yandex_market&utm_medium=cpc&utm_campaign=default#!catalog/{$vendor}/{$phone['id']}/".(urlencode($minimal['name'].' '.$minimal['colour']));
       $offer->createElement('url')->createTextNode($url);
       $offer->createElement('price')->createTextNode($phone['price']);
       
@@ -112,12 +112,12 @@ class xml extends api
 
       $offer->createElement('picture')->createTextNode((phoxy_conf()['site'])."{$minimal['picture']}");
       
-      $offer->createElement('store')->createTextNode('true');
-      $offer->createElement('pickup')->createTextNode('true');
+      //$offer->createElement('store')->createTextNode('true');
+      //$offer->createElement('pickup')->createTextNode('true');
       $offer->createElement('delivery')->createTextNode('true');
 
       $offer->createElement('vendor')->createTextNode("{$vendor}");
-      $offer->createElement('model')->createTextNode("{$minimal['name']}");
+      $offer->createElement('model')->createTextNode("{$minimal['name']} {$minimal['colour']}");
       
       $offer->createElement('description');
     }

@@ -1,68 +1,36 @@
-<div id="phone_<%= id %>">
+<div id="phone_<%= this.id %>">
 
 <%
-var binded = params.binded;
-var grouped = params.grouped;
-$('title').first().html(binded.name.v);
+var binded = this.params.binded;
+var grouped = this.params.grouped;
+var showname = binded.name.v + ' ' + binded['Цвет'].v;
+$('title').first().html(showname);
+$('#keywords').attr('content', showname + ', Scladless');
+$('#description').attr('content', showname + ' Scladless');
 %>
-<h2><%= binded.name.v %></h2>
+<h2><%= showname %></h2>
 <div class="row">
   <div class="col-md-6" style='text-align: center;'>
 <%
-if (typeof(binded.picture) == undefined)
-  img = "http://placehold.it/300x400";
+if (typeof(binded.picture) == 'undefined')
+  var img = "res/img/phones/" + this.id + ".jpg"; //"http://placehold.it/300x400";
 else
-  img = binded.picture.v;
+  var img = binded.picture.v;
 %>
     <img src="<%= img %>" style="max-width: 300px; max-height: 400px;" />
     <br>
-    <%= phoxy.DeferRender('buy/button', {id: id, stayhere: true}) %>
+    <div class='catalog' style='display: inline-block;'>  
+      <div class='badge'><%= this.price %></div>
+    </div>
+    <%= phoxy.DeferRender('buy/button', {id: this.id, stayhere: true, available: this.available}) %>
   </div>
   <div class="col-md-6">
-    <table class="table table-hover table-condensed"><tbody>
-<%
-for (g in grouped)
-{
-  var group = grouped[g];
-  var group_title = phone_info.groups[g].title;
-%>
-    <tr style='background-color: #999;'>
-      <td colspan="2" data-value="<%= group_title %>" data-mark='phone-group-inditifier'></td>
-    </tr>
-<%
-  for (k in group)
-  {
-    var v = group[k];
-%>
-      <tr>
-        <td><%= k %></td>
-        <td><%= v %></td>
-      </tr>
-<%
-  }
-}
-%>
-    </tbody></table>
+    <%= this.DeferRender('catalog/item_properties.ejs', this) %>
   </div>
 </div>
 <div class="row" style='margin-top: 10px'>
   <div class='col-md-12'>
   </div>
 </div>
-
-<%
-phoxy.Defer(function()
-{
-  var val = $('#phone_' + id).attr('data-value');
-  $('#phone_' + id)
-    .find('table')
-    .find("td[data-mark='phone-group-inditifier']")
-    .each(function()
-    {
-      $(this).html($(this).attr('data-value'));
-    });
-  
-});
-%>
 
 </div>

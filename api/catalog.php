@@ -28,7 +28,7 @@ class catalog extends api
   
   protected function Root()
   {
-    $res = db::Query("SELECT * FROM phones.vendor");
+    $res = db::Query("SELECT * FROM phones.vendor_goggle ORDER BY id ASC");
     return array(
       "design" => "catalog/vendor_select",
       "result" => "content",
@@ -38,8 +38,11 @@ class catalog extends api
   
   protected function Vendor( $name )
   {
+    // looks like outdated
     $res = db::Query(
-      "SELECT id, price, (quantity > 0) as available FROM phones.models WHERE vendor=(SELECT id FROM phones.vendor WHERE name=$1)",
+      "SELECT id, price, (quantity > 0) as available, view_weight 
+       FROM phones.models WHERE vendor=(SELECT id FROM phones.vendor WHERE name=$1)
+       ORDER BY view_weight DESC",
       array($name));
     $phone = LoadModule('api', 'phone');
     foreach ($res as &$r)
@@ -50,7 +53,8 @@ class catalog extends api
     return array(
       "design" => "catalog/vendor",
       "result" => "content",
-      "data" => array("vendor" => $res, "catalog" => (count($res) ? $name : ''))
+      "data" => array("vendor" => $res, "catalog" => (count($res) ? $name : '')),
+      "cache" => ["no" => "global"]
     );
   }
 }

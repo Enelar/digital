@@ -4,10 +4,11 @@ class phone extends api
 {
   protected function Reserve( $phone )
   {
+    $res = db::Query("SELECT price, quantity > 0 as available FROM phones.models WHERE id=$1", [$phone], true);
     return array(
       "script" => array("js/main/phone.js"),
       "before" => "BindPhoneInfo",
-      "data" => $this->GetParams($phone)['data']
+      "data" => array_merge($this->GetParams($phone)['data'], $res)
     );
   }
   
@@ -26,8 +27,12 @@ class phone extends api
     )
     SELECT value FROM all_that_type_values, all_model_values WHERE all_that_type_values.id=all_model_values.id
     ", array($field, $phone), true);
+    
     if (!count($res))
-      return null;
+      if ($field != 'picture')
+        return null;
+      else
+        return "res/img/phones/{$phone}.jpg";
     return $res['value'];
   }
   
@@ -37,9 +42,16 @@ class phone extends api
       "data" => array(
         "picture" => $this->GetValueByName($id, "picture"),
         "name" => $this->GetValueByName($id, "name"),
-        "colour" => $this->GetValueByName($id, "colour"),
+        "colour" => $this->GetValueByName($id, "Цвет"),
+        "price" => $this->GetCurrentPrice($id),
       )
     );
+  }
+
+  private function GetCurrentPrice( $model )
+  {
+    $res = db::Query("SELECT * FROM phones.models WHERE id=$1", [$model], true);
+    return $res['price'];
   }
 
   protected function GetParams( $id )
@@ -75,7 +87,7 @@ class phone extends api
     $ret = array();
     foreach ($params as $param)
     {
-      $res = db::Query('SELECT name, hide, "group" FROM phones.params WHERE id=$1', array($param), true);
+      $res = db::Query('SELECT name, hide, "group", type FROM phones.params WHERE id=$1', array($param), true);
       $res['hide'] = ($res['hide'] == 't');
       $ret[(int)$param] = $res;
     }

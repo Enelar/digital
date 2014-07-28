@@ -1,10 +1,15 @@
-<% did = phoxy.GenerateUniqueID() %>
-<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= id %>'>Купить</button>
+<% 
+did = phoxy.GenerateUniqueID()
+if (typeof(available) == 'undefined')
+  available = 't';
+%>
+<button id='<%= did %>' role='buy' class='btn btn-danger' value='<%= this.id %>'>
+<%= this.available == 't' ? 'Купить' : 'Заказать' %></button>
 
 <%
-if (typeof(stayhere) == 'undefined')
-  stayhere = false;
-phoxy.Defer(function()
+if (typeof(this.stayhere) == 'undefined')
+  this.stayhere = false;
+this.Defer(function()
 {
   var that = $("#" + did);
   
@@ -14,7 +19,7 @@ phoxy.Defer(function()
     $(that)
       .click(function()
       {
-        window.gevents.prebuy._trackEvent('open_stone', id);
+      //  window.gevents.prebuy._trackEvent('open_stone', __context.id);
         $(that)
           .unbind()
           .click(function()
@@ -26,7 +31,7 @@ phoxy.Defer(function()
             Bind(that);
           });
 
-        phoxy.Fancy('buy/stone', {id: id, stayhere: stayhere}, function(html)
+        phoxy.Fancy('buy/stone', {id: __context.id, stayhere: __context.stayhere}, function(html)
         {
           $(that)
             .after(

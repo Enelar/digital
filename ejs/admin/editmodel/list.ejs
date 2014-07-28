@@ -1,0 +1,12 @@
+<%
+for (var i = 0; i < this.models.length; i++)
+{
+  var v = this.models[i];
+%>
+  <a href='#admin/editmodel/Model?id=<%= v %>'><%= v %>:
+  <%= phoxy.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/ModelById?id=' + v) %>
+  <%= phoxy.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/ModelParamValue?id=' + v + '&param=102') %>
+  </a><br>
+<%
+}
+%>

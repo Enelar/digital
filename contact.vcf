@@ -1,0 +1,20 @@
+BEGIN:VCARD
+VERSION:3.0
+N:СкладLess;Магазин;;;
+URL:http://scladless.com
+EMAIL;TYPE=INTERNET;TYPE=WORK:support@scladless.com
+item1.TEL;TYPE=CELL;TYPE=PREF:+79218567808
+item1.X-ABLabel:Любые вопросы
+item2.TEL;:+79218567818
+item2.X-ABLabel:Гарантия
+item3.URL:http\://vk.com/scladless
+item3.X-ABLabel:Вконтакте
+item4.URL:http\://facebook.com/scladless
+item4.X-ABLabel:Facebook
+item5.URL:http\://twitter.com/scladless
+item5.X-ABLabel:Twitter
+item6.URL:http\://support.scladless.com
+item6.X-ABLabel:Поддержка
+BDAY:07.05.2014
+ORG:ScladLess
+END:VCARD

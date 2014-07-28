@@ -1,21 +1,23 @@
-<% $('title').first().html('Digital812 Контакты') %>
+<% $('title').first().html('ScladLess Контакты') %>
 <div class="indent" />
 <div data-mark='contacts'>
   <ul class="no_ul_bullets">
-    <li data-mark='contact-address'>
-      <span class='glyphicon glyphicon-map-marker' title="Карта здесь!"></span>        
-      <b>
-        <p>г. Санкт-Петербург,</p>
-        <p><big>Улица Ефимова, 4а</big></p>
-      </b>
-    </li>
     <li data-mark='contact-phone'>
       <span class='glyphicon glyphicon-earphone'></span>
       <b>
-        <p><a data-mark='phone'>+7 (812) 499 49 55</a> (мобильный)</p>
-        <font color='darkslategray'>Многоканальный</font>
+        <p><a data-mark='phone'>+7 (921) 8-5678-08</a></p>
+        <font color='darkslategray'>Общие вопросы</font><br>
       </b>
     </li>
+<% /*    
+    <li data-mark='contact-phone'>
+      <span class='glyphicon glyphicon-phone-alt'></span>
+      <b>
+        <p><a data-mark='phone'>+7 (921) 8-5678-18</a> (директор)</p>
+        <font color='darkslategray'>Гарантия, претензии</font>
+      </b>
+    </li>    
+*/ %>
     <li data-mark='contact-work-hours'>
       <span class='glyphicon glyphicon-time'></span>
       <b>
@@ -23,24 +25,47 @@
         <p>Доставка с 10:00 до 22:00</p>
       </b>
     </li>
-    <li data-mark='contact-roadmap'>
-      <span class='glyphicon glyphicon-road'></span>
-      <b style='font-size: 2em'>Как добраться</b><br>
-      <b>5 минут от м. Сенная</b>
+    
+    <li data-mark='contact-other'>
+      <span class='glyphicon glyphicon-comment'></span>
+      <b>
+        <a href='http://support.scladless.com'>Тикет система</a><br>
+        Вопросы, предложения, поддержка. <br>
+      </b>
+      <i>
+        ...или любой из способов ниже.
+      </i>
     </li>
+
     <li data-mark='contact-other'>
       <span class='glyphicon glyphicon-envelope'></span>
       <b>
-        <a href='mailto:info@digital812.ru' class='hipster'>info@digital.ru</a><br>
-        <a href="https://vk.com/digital812spb" class='hipster' target="_blank">Вконтакте</a><br>
-        <a href="https://twitter.com/digital812" class='hipster' target="_blank">Twitter</a>
+        <a href="https://twitter.com/scladless" class='hipster' target="_blank">Twitter</a>
+        <a href="http://vk.com/scladless" class='hipster' target="_blank">Вконтакте</a>
+        <a href="https://facebook.com/scladless" class='hipster' target="_blank">Facebook</a><br>
+        <a href='mailto:support@scladless.com' class='hipster'>support@scladless.com</a><br>        
+      </b>
+    </li>
+
+    <li data-mark='contact-save'>
+      <span class='glyphicon glyphicon-download-alt'></span>
+      <b>
+        <p><a href='contact.vcf'>VCard</a> (iOS/Android/G+ compatible)</p>
+        Вы можете сохранить наш контакт.
+      </b>
+    </li>
+
+    <li data-mark='juridical'>
+      <span class='glyphicon glyphicon-briefcase'></span>
+      <b>
+        <p><a href='#contacts/Juridical'>Реквизиты</a></p>
       </b>
     </li>
   </ul>
 </div>
 
 <%
-phoxy.Defer(function()
+this.Defer(function()
 {
   var base = $('#content [data-mark="contacts"]');
   
@@ -58,8 +83,8 @@ phoxy.Defer(function()
     )
     .find('span').tooltip('show');
     
-  MakeModal("#modal-map", map);
-  MakeModal("#modal-roadmap", base.find('li[data-mark="contact-roadmap"]'));
+  //MakeModal("#modal-map", map);
+  //MakeModal("#modal-roadmap", base.find('li[data-mark="contact-roadmap"]'));
   
   base.find('span.glyphicon').each(function()
   {
@@ -69,24 +94,4 @@ phoxy.Defer(function()
   CorrectPhonesURL();
 }
 );
-%>
-
-<%=
-phoxy.DeferRender(
-  'pages/modal', 
-  {
-    id: "modal-map",
-    title: "Контакты сервис центра",
-    body: phoxy.DeferRender('pages/map', {})
-  })
-%>
-
-<%=
-phoxy.DeferRender(
-  'pages/modal', 
-  {
-    id: "modal-roadmap",
-    title: "Как добраться",
-    body: phoxy.DeferRender('pages/roadmap', {})
-  })
 %>

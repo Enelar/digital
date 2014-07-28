@@ -1,0 +1,43 @@
+<% did = 'field_'+this.id+'_'+'param'; %>
+<input 
+	id='<%= did %>'
+	type='text'
+	data-phone='<%= this.id %>'
+	data-param='<%= this.param %>'
+	value='<%= this.value %>'
+	style='background-color: gray;'
+	 />
+
+<%
+this.Defer(function()
+{
+  $('table input')
+	.css({'background-color': 'white'})
+	.unbind()
+	.change(function()
+	{
+	  var that = $(this);
+	  var phone = that.attr('data-phone');
+	  var param = that.attr('data-param');
+	  var value = that.val();
+	  
+	  phoxy.AJAX(
+		'admin/editmodel/SetParam?phone='
+		+ phone
+		+ '&param='
+		+ param
+		+ '&value='
+		+ encodeURI(value), function()
+		{
+		  that
+		    .tooltip({title: "Сохранено"})
+        .tooltip('show');
+		  this.Defer(function()
+		  {
+		    that.tooltip('destroy');
+		  }, 1000);
+		});
+	});
+}, 500);
+
+%>
