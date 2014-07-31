@@ -91,7 +91,14 @@ class xml extends api
   private function Offers($root)
   {
     $ph = LoadModule('api', 'phone');
-    $phones = db::Query("SELECT * FROM phones.models WHERE ym = true AND show = true AND now() - actual < '24 hour'::interval");
+    $phones = db::Query("
+      SELECT *
+        FROM phones.models
+        WHERE 
+          vendor IN (SELECT id FROM phones.vendor WHERE hide=false)
+          AND ym = true
+          AND show = true
+          AND now() - actual < '48 hour'::interval");
     
     foreach ($phones as $phone)
     {
