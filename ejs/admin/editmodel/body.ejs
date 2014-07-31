@@ -1,24 +1,7 @@
 <h1><%= this.name %></h1>
 <div class='row'>
   <div class='col-md-6'>
-<table border='1' id='editshit'>
-<%
-for (var k in this.params)
-{
-  var v = this.params[k];
-%>
-<tr>
-  <td>
-    <%= this.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
-  </td>
-  <td>
-    <%= this.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
-  </td>
-</tr>
-<%
-}
-%>
-</table>
+  <%= this.DeferRender('admin/editmodel/param_list', this) %>
   </div>
   <div class='col-md-6'>
     <a>Скачать инфу с маркета</a>

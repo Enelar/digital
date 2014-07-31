@@ -1,0 +1,19 @@
+<table border='1' id='editshit'>
+<%
+  debugger;
+for (var k in this.params)
+{
+  var v = this.params[k];
+%>
+<tr>
+  <td>
+    <%= this.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
+  </td>
+  <td>
+    <%= this.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
+  </td>
+</tr>
+<%
+}
+%>
+</table>
