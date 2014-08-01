@@ -1,0 +1,31 @@
+<div>
+  <%= this.DeferRender(this.design, this.data) %>
+</div>
+
+<%
+
+function MakeSortable(obj)
+{
+  obj.draggable
+  ({
+    helper: "clone",
+  });
+
+  obj.droppable
+  ({
+    drop: function(event, ui)
+    {
+      ui.helper.remove();
+      var element = ui.draggable.detach();
+      $(this).before(element);
+    }
+  });  
+}
+
+this.DeferCascade(function()
+{
+  var obj = this.first().find('table tr');
+  MakeSortable(obj);
+})
+
+%>
