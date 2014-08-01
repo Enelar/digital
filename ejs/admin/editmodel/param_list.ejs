@@ -16,3 +16,21 @@ for (var k in this.params)
 }
 %>
 </table>
+
+<%
+this.DeferCascade(function()
+{
+  this.first().find('input').click(function()
+  {
+    var html = $(this).parents('tr').find('td:first').html().trim().toLowerCase().split(" ");
+    $('#marketshit tr').find('td').each(function()
+    {
+      var cmp = $(this).html().trim().toLowerCase();
+      for (var k in html)
+        if (cmp.search(html[k]) !== -1)
+          $(this).css({"background-color": "green"});
+        else
+          $(this).css({"background-color": "white"});
+    });
+  });
+}) %>

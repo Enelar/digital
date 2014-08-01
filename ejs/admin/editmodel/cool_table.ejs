@@ -4,9 +4,23 @@
 
 <%
 
+function CoolInsert(event, ui)
+{
+  if (!$(ui.draggable).parents('#marketshit').size())
+    return false;
+  if (!$(this).parents('#editshit').size())
+    return false;
+debugger;
+  var data = $(ui.draggable).parents('tr').find('td:nth-child(2)').html().trim();
+  $(this).find('input').val(data);
+  $(ui.draggable).parents('tr').remove();
+  $(ui.helper).remove();
+  return true;
+}
+
 function MakeSortable(obj)
 {
-  obj.draggable
+  obj.find('td:first').draggable
   ({
     helper: "clone",
   });
@@ -15,8 +29,12 @@ function MakeSortable(obj)
   ({
     drop: function(event, ui)
     {
+      if (CoolInsert.apply(this, arguments))
+        return;
+
       ui.helper.remove();
-      var element = ui.draggable.detach();
+      var origin = ui.draggable.parents('tr').first();
+      var element = origin.detach();
       $(this).before(element);
     }
   });  
@@ -26,6 +44,13 @@ this.DeferCascade(function()
 {
   var obj = this.first().find('table tr');
   MakeSortable(obj);
+
+  var delme = $('<td></td>').html("[X]").click(function()
+  {
+    $(this).parents('tr').remove();
+  });
+  
+  obj.find('td:last').after(delme);
 })
 
 %>

@@ -14,7 +14,8 @@ this.Defer(function()
 {
   this.first().parent().find('div a').click(function()
   {
-    $(this).parent().html(phoxy.DeferRender('ym/ModelSpec?0='+ymid));
+    var dr = phoxy.DeferRender('admin/editmodel/cool_table', {design: 'grab/model', data: 'ym/ModelSpec?0='+ymid});
+    $(this).parent().html(dr);
   })
 })
 
@@ -33,7 +34,6 @@ function trim (str) {
 }
 this.DeferCascade(function()
 {
-  debugger;
   var $tbody = $('#editshit tbody');
   $tbody.find('tr:gt(4)').sort(function(a,b)
   { 
