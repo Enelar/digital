@@ -10,7 +10,7 @@ function CoolInsert(event, ui)
     return false;
   if (!$(this).parents('#editshit').size())
     return false;
-debugger;
+
   var data = $(ui.draggable).parents('tr').find('td:nth-child(2)').html().trim();
   $(this).find('input').val(data);
   $(ui.draggable).parents('tr').remove();

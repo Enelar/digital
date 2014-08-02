@@ -101,4 +101,12 @@ class editmodel extends api
 
     return ["cache" => ["no" => "global"]];
   }
+
+  protected function Mirror( $to, $from )
+  {
+    $res = db::Query("SELECT * FROM phones.model_params WHERE model=$1", [$from]);
+    foreach ($res as $row)
+      if ($row['param'] > 100)
+        $this->SetParam($to, $row['param'], $row['value']);
+  }
 }
