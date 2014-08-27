@@ -1,9 +1,10 @@
 var system = require('system'),
     address, output, size;
-if (system.args.length < 2)
+if (system.args.length < 3)
   phantom.exit();
 
-address = system.args[1];
+file = system.args[1];
+address = system.args[2];
 //console.log(address);
 var page = require('webpage').create();
 page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36';
@@ -32,10 +33,15 @@ page.evaluate(function()
  $('body meta').appendTo('html > head');
  $('script').remove();
 });
-    console.log(page.content);
+    Dump(page.content);
 //                page.render(output);
     phantom.exit();
    }, 3000);
  }
 });
 
+function Dump( result )
+{
+  var fs = require('fs');
+  fs.write(file, result, 'w');
+}
