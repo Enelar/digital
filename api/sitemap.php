@@ -1,13 +1,16 @@
 <?php
 
+function ECCO( $hash )
+{
+  echo "http://scladless.com/?_escaped_fragment_={$hash}\n";
+}
+
 class sitemap extends api
 {
   protected function Reserve()
   {
-?>
-http://scladless.com/#!delivery
-http://scladless.com/#!contacts
-<?php
+    ECCO('delivery');
+    ECCO('contacts');
     $vendors = LoadModule('api', 'catalog')->Root();
     $pclass = LoadModule('api/catalog', '_phone');
 
@@ -15,7 +18,7 @@ http://scladless.com/#!contacts
     {
       $res = $pclass->Vendor($row['name']);
       foreach ($res['vendor'] as $p)
-        echo "http://scladless.com/#!catalog/{$row['name']}/{$p['id']}/{$p['name']} {$p['colour']}\n";
+        ECCO("catalog/{$row['name']}/{$p['id']}/{$p['name']} {$p['colour']}\n");
     }
     
     exit();

@@ -9,14 +9,13 @@
   <a href='#catalog/phones/LG'>
     <div class='lg'></div>
   </a>
-  <div class='motorola ignore_rules'></div>
+  <% /* <div class='motorola ignore_rules'></div> */ %>
 </div>
 
 <%=
 this.Defer(function()
 {
   this.first().affix();
-  debugger;
   this.first().children(':not(a)').each(function()
   {
     var to = $(this).attr('class').split(' ')[0];

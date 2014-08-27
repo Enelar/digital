@@ -1,24 +1,7 @@
 <h1><%= this.name %></h1>
 <div class='row'>
   <div class='col-md-6'>
-<table border='1' id='editshit'>
-<%
-for (var k in this.params)
-{
-  var v = this.params[k];
-%>
-<tr>
-  <td>
-    <%= this.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
-  </td>
-  <td>
-    <%= this.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
-  </td>
-</tr>
-<%
-}
-%>
-</table>
+  <%= this.DeferRender('admin/editmodel/cool_table', {design: 'admin/editmodel/param_list', data: this}) %>
   </div>
   <div class='col-md-6'>
     <a>Скачать инфу с маркета</a>
@@ -31,7 +14,8 @@ this.Defer(function()
 {
   this.first().parent().find('div a').click(function()
   {
-    $(this).parent().html(phoxy.DeferRender('ym/ModelSpec?0='+ymid));
+    var dr = phoxy.DeferRender('admin/editmodel/cool_table', {design: 'grab/model', data: 'ym/ModelSpec?0='+ymid});
+    $(this).parent().html(dr);
   })
 })
 
@@ -50,7 +34,6 @@ function trim (str) {
 }
 this.DeferCascade(function()
 {
-  debugger;
   var $tbody = $('#editshit tbody');
   $tbody.find('tr:gt(4)').sort(function(a,b)
   { 
@@ -66,4 +49,14 @@ this.DeferCascade(function()
            : 0;           
   }).appendTo($tbody);
 })
+%>
+
+<%
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+ setCookie('oofb', true, 30);
 %>

@@ -1,5 +1,3 @@
 User-agent: *
-Disallow: /#contacts/Juridical
-Disallow: /#!contacts/Juridical
 Crawl-delay: 2
 Sitemap: http://scladless.com/api/sitemap

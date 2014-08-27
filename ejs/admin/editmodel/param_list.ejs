@@ -1,0 +1,60 @@
+<div class='panel'>
+  <button>Hide filled</button>
+  <input placeholder='Import from'>
+</div>
+<table border='1' id='editshit'>
+<%
+for (var k in this.params)
+{
+  var v = this.params[k];
+%>
+<tr>
+  <td>
+    <%= this.DeferRender('admin/editmodel/string_by_param', 'admin/editmodel/StringByParam?id='+k) %>
+  </td>
+  <td>
+    <%= this.DeferRender('admin/editmodel/field', {id: this.id, param: k, value: v}) %>
+  </td>
+</tr>
+<%
+}
+%>
+</table>
+
+<%
+this.DeferCascade(function()
+{
+  this.first().find('button').click(function()
+  {
+    __context.first().next().find('input').each(function()
+    {
+      if ($(this).val() != '>=NULL=<')
+        $(this).parents('tr').remove();
+    });
+  });
+
+  this.first().find('input').change(function()
+  {
+    phoxy.ApiRequest('admin/editmodel/Mirror', [__context.id, $(this).val()], function()
+    {
+      alert('Готово');
+    });
+  });
+
+  this.first().next().find('input').click(function()
+  {
+    var key = $(this).parents('tr').find('td:first').html().trim().toLowerCase();
+    if (key == "версия ос")
+      key += " операцион";
+    var html = key.split(" ");
+    $('#marketshit tr').find('td').each(function()
+    {
+      var cmp = $(this).html().trim().toLowerCase();
+      for (var k in html)
+        if (cmp.search(html[k]) !== -1)
+          $(this).css({"background-color": "green"});
+        else
+          $(this).css({"background-color": "white"});
+    });
+  });
+}) %>

@@ -12,8 +12,7 @@ class buy extends api
     db::Query("INSERT INTO mail.send_tasks(\"to\", subj, body, \"from\") 
     VALUES ('scladless@gmail.com', $1, $2, 'Робот Заказов <orderbot@scladless.com>')",
     ["Заказ #{$res['trans']} (перезвонить): {$minimal['name']} {$minimal['colour']} ", "Пользователь заказал {$minimal['name']} {$minimal['colour']} . Попросил перезвонить {$phone}."]);
-    LoadModule('api', 'sms')->SendTo($phone, "Ваш заказ #{$res['trans']} принят. Мы перезвоним. Обязательно.");
-    LoadModule('api', 'sms')->SendToManager("#{$res['trans']}({$minimal['price']}руб)\n{$phone}\n{$minimal['name']} {$minimal['colour']}");
+    $this->OnBuy($res['trans'], "{$minimal['name']} {$minimal['colour']}", $minimal['price'], $phone);
     return ["date" => [$res]];
   }
   
@@ -40,8 +39,14 @@ class buy extends api
 Телефон: {$phone}
 Почта: {$mail}
 Доставка: {$delivery}"]);
-    LoadModule('api', 'sms')->SendTo($phone, "Ваш заказ #{$res['trans']} принят. Мы перезвоним. Обязательно.");
-    LoadModule('api', 'sms')->SendToManager("#{$res['trans']}({$minimal['price']}руб)\n{$phone}\n{$minimal['name']} {$minimal['colour']}\n{$delivery}");
+    $this->OnBuy($res['trans'], "{$minimal['name']} {$minimal['colour']}", $minimal['price'], $phone, $mail, $delivery);
     return ["date" => [$res]];
+  }
+
+  private function OnBuy( $id, $modelname, $price, $phone, $email = "", $delivery = "" )
+  {
+    LoadModule('api', 'sms')->SendTo($phone, "Ваш заказ #{$id} принят. Мы перезвоним. Обязательно.");
+    LoadModule('api', 'sms')->SendToManager("#{$id}({$price}руб)\n{$phone}\n{$modelname}\n{$delivery}\n{$email}");
+    LoadModule('api/integration', 'slack')->Order($id, $modelname, $price, $phone, $email, $delivery);
   }
 }

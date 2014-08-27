@@ -1,7 +1,33 @@
 <table border='1' id='marketshit'>
 <%
+var filter =
+[
+  "ремя",
+  "A-GPS",
+  "Аудио",
+  "Распоз",
+  "Воспроизведение видео",
+  "Виброзвонок",
+  "Geo Tagg",
+  "MMS",
+  "SMS",
+  "Диктофон",
+  "Органайзер",
+  "Сенсорный экран",
+  "Поддержка протоколов",
+];
+
 for (var i = 0; i < this.keys.length; i++)
 {
+  var v = this.keys[i].trim();
+  var next = false;
+
+  for (var j = 0; j < filter.length; j++)
+    if (v.search(filter[j]) != -1)
+      next = true;
+
+  if (next)
+    continue;
 %>
   <tr>
     <td>
@@ -29,7 +55,6 @@ function trim (str) {
 }
 this.DeferCascade(function()
 {
-  debugger;
   var $tbody = $('#marketshit tbody');
   $tbody.find('tr').sort(function(a,b)
   { 
