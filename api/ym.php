@@ -73,8 +73,8 @@ class ym extends api
         return;
 
     $change  = round($change, 1);
-    if (abs($change) > 10)
-      LoadModule('api', 'sms')->SendTo('+79213243303', "{$id} Price $old=>$new ($delta;$change%)");
+    //if (abs($change) > 10)
+     // LoadModule('api', 'sms')->SendTo('+79213243303', "{$id} Price $old=>$new ($delta;$change%)");
   }
 
   protected function UpdatePrices( $offset = 0 )
@@ -148,7 +148,7 @@ WITH old_models AS
           return 30;
         if (strpos($parsed['body'], '<td class="headCode">404</td>') !== false)
           return 0;
-        LoadModule('api', 'sms')->SendTo('+79213243303', "ym.php staled.");
+//        LoadModule('api', 'sms')->SendTo('+79213243303', "ym.php staled.");
         var_dump("staled");
         echo $parsed['body'];
         exit();
@@ -161,7 +161,8 @@ WITH old_models AS
       $price = end($parsed['prices']);
     else
       $price = $parsed['prices'][3];
-    $price += 2000;
+
+    $price *= 1.05; // Add 5% to all models
     $this->WarnPrice($id, $model['price'], $price);
     var_dump("PRICE: $price");
     $change = db::Query("
