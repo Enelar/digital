@@ -32,7 +32,7 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://scladless.com/ [R=302]
+RewriteRule ^(.*)$ notexsists.php?url=$1
 
 </IfModule>
 

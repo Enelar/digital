@@ -120,7 +120,7 @@ WITH old_models AS
       return $this->UpdatePrices($offset + $i);
     if ($reload < 60)
       $offset++;
-    $reload *= 1000;
+    $reload *= 1000 * 2;
     echo "<script language='javascript'>setTimeout(function() { document.location.search='?0=$offset'}, $reload)</script>";
     var_dump("RELOAD $reload");
     return ["data" => "GRACEFUL", "cache" => ["no" => "global"]];

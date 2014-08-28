@@ -32,6 +32,7 @@ page.evaluate(function()
  $('body title').appendTo('html > head');
  $('body meta').appendTo('html > head');
  $('script').remove();
+ $('.ejs_ancor').remove(); // workaound bug
 });
     Dump(page.content);
 //                page.render(output);
