@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <div class='page_content_wrapper'>
-  <div id='header'><%= DeferRender('main/header', {}) %></div>
-  <div id='menu'><%= DeferRender('menu/main', {}) %></div>
+  <div id='header'><%= this.DeferRender('main/header', {}) %></div>
+  <div id='menu'><%= this.DeferRender('menu/main', {}) %></div>
   <%= this.DeferRender('catalog/better_menu', {}) %>
   <div class='container' id='content'>
   </div>
