@@ -270,3 +270,118 @@ body.cutie-kitten {
   background-size: 300px;
   background-position: left -6px top 120px;
 }
+
+
+
+.callus-widget {
+  position: fixed;
+  padding: 10px;
+  right: 20px;
+  bottom: 20px;
+  width: 160px;
+  height: 160px;
+  text-align: center;
+  border-radius: 50%;
+  
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(175,243,236,.7) 46%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(175,243,236,1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(175,243,236,.7) 46%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  rgba(175,243,236,.7) 46%,rgba(0,0,0,0) 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(175,243,236,.7) 46%,rgba(0,0,0,0) 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  rgba(175,243,236,.7) 46%,rgba(0,0,0,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  opacity: 0;
+}
+
+.callus-widget .relative {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.callus-widget .relative > div {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+}
+
+
+.callus-widget .aura-container {
+  width: inherit;
+  height: inherit;
+  display: table;
+}
+
+.callus-widget .aura-container > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.callus-widget .aura-container > div > div {
+  margin: 0 auto;
+  border-radius: 50%;
+  
+  -webkit-animation-name: aura-pulse;  
+  -moz-animation-name: aura-pulse;  
+
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+
+  -moz-animation-duration: 2s;
+  -moz-animation-iteration-count:infinite;
+  -moz-animation-timing-function:linear;
+  
+
+  /* border-color: white; */
+  border: 2px solid rgba(8, 189, 243, 0.38);
+  width: 100px;
+  height: 100px;
+}
+
+@-webkit-keyframes aura-pulse {
+  0% { width: 70px; height: 70px; }
+  50% { width: 100px; height: 100px; }
+  100% { width: 70px; height: 70px; }  
+}
+
+@-moz-keyframes aura-pulse {
+  0% { width: 70px; height: 70px; }
+  50% { width: 100px; height: 100px; }
+  100% { width: 70px; height: 70px; }  
+}
+
+
+.callus-widget .phone-container {
+  display: table;
+  width: inherit;
+  height: 100%;
+}
+
+.callus-widget .phone-container > div {
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.callus-widget .phone-container > div > div {
+  margin: 0 auto;
+}
+
+.callus-widget .phone-circle {
+  border-radius: 50%;
+  display: inline-block;
+  background-color: rgba(11, 255, 0, 0.41);
+  /* width: 70px; */
+  /* height: 70px; */
+  padding: 12px;
+}
+
+
+.callus-widget .phone-circle > span {
+  /* vertical-align: middle; */
+}
+
+.callus-widget .phone-circle > span > span {
+  font-size: 3em;
+  color: #2B6299;
+}
