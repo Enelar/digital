@@ -74,7 +74,7 @@ this.Defer(function()
         span
           .tooltip({title: "Сохранено"})
           .tooltip('show');
-
+        analytics.track("online_complete", {category: "order", phone: __context.id});
         phoxy.Defer(function()
         {
           span
