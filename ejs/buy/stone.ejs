@@ -3,9 +3,11 @@
 %>
 
 <div id='<%= ancor_id %>'></div>
-<button type='button' id='phone_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Телефон</button>
+<button type='button' id='online_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 200px'>Заказать online</button>
+<center><b>или</b></center> 
+<button type='button' id='phone_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 200px'>Оставить телефон</button>
 
-<button type='button' id='online_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Онлайн</button>
+
 
 <%
 
@@ -21,7 +23,7 @@ phoxy.Appeared('#phone_order_' + this.id + '_' + ancor_id, function()
       .popover(
       {
         html: true,
-        title: "Покупка через телефон",
+        title: "Заказ через звонок",
         content: html
       });
   });

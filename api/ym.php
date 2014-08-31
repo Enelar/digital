@@ -120,7 +120,8 @@ WITH old_models AS
       return $this->UpdatePrices($offset + $i);
     if ($reload < 60)
       $offset++;
-    $reload *= 1000 * 2;
+
+    $reload *= 1000 * rand(100, 200) / 100;
     echo "<script language='javascript'>setTimeout(function() { document.location.search='?0=$offset'}, $reload)</script>";
     var_dump("RELOAD $reload");
     return ["data" => "GRACEFUL", "cache" => ["no" => "global"]];
@@ -163,6 +164,7 @@ WITH old_models AS
       $price = $parsed['prices'][3];
 
     $price *= 1.05; // Add 5% to all models
+    $price = (int)$price;
     $this->WarnPrice($id, $model['price'], $price);
     var_dump("PRICE: $price");
     $change = db::Query("

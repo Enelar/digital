@@ -14,7 +14,11 @@ class _phone extends api
   {
     $res = db::Query(
       "SELECT id, price, (quantity > 0) as available, view_weight
-       FROM phones.models WHERE show=true AND vendor=(SELECT id FROM phones.vendor WHERE name=$1) AND now()-actual<'48 hours'::interval
+       FROM phones.models
+       WHERE 
+        show=true
+          AND vendor=(SELECT id FROM phones.vendor WHERE name=$1)
+          AND now() - actual < '7 days'::interval
        ORDER BY view_weight ASC",
       array($name));
     $phone = LoadModule('api', 'phone');

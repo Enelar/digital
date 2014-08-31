@@ -1,11 +1,10 @@
 <% $('title').first().html('ScladLess Каталог ' + this.catalog) %>
 <% $('#keywords').attr('content', this.catalog + ', Scladless, Каталог') %>
 <% $('#description').attr('content', 'Каталог телефонов ' + this.catalog) %>
-<h1>Каталог <%= this.catalog %></h1>
 <div data-mark='catalog' class='catalog'>
   <div style='width: 100%;'>
-    <b><%= this.catalog %></b>
-    <div style='float: right;'>
+    <h1>Каталог <%= this.catalog %></h1>
+    <div style='float: right; display: none;'>
       <input type="checkbox" class="switch-mini" id='galery-mode'>
       Режим галереи
     </div>
