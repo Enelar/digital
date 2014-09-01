@@ -18,7 +18,7 @@ class sitemap extends api
     {
       $res = $pclass->Vendor($row['name']);
       foreach ($res['vendor'] as $p)
-        ECCO("catalog/{$row['name']}/{$p['id']}/{$p['name']} {$p['colour']}\n");
+        ECCO("catalog/{$row['name']}/{$p['id']}/{$p['name']} {$p['colour']}");
     }
     
     exit();
