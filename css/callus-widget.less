@@ -1,3 +1,19 @@
+.keyframes-mixin (@name; @frames) {
+  @-webkit-keyframes @name {@frames();}
+  @-moz-keyframes @name {@frames();}
+  @-ms-keyframes @name {@frames();}
+  @-o-keyframes @name {@frames();}
+  @keyframes @name {@frames();}
+}
+
+.animation-mixin (@code) {
+  -webkit-animation: @code;
+  -moz-animation: @code;
+  -ms-animation: @code;
+  -o-animation: @code;
+  animation: @code;
+}
+
 .callus-widget {
   position: fixed;
   right: 20px;
@@ -9,23 +25,14 @@
 
   opacity: 0;
   
-  -webkit-animation: aura-blink 4s linear infinite;  
-  animation: aura-blink 4s linear infinite;  
-
+  .animation-mixin(aura-blink 4s linear infinite);
 }
 
-@keyframes aura-blink {
+.keyframes-mixin(aura-blink, {
   0% { background-color: rgba(0, 107, 171, 0); }
   50% { background-color: rgba(0, 107, 171, 0.2); }
   100% { background-color: rgba(0, 107, 171, 0); }
-}
-
-@-webkit-keyframes aura-blink {
-  0% { background-color: rgba(0, 107, 171, 0); }
-  50% { background-color: rgba(0, 107, 171, 0.2); }
-  100% { background-color: rgba(0, 107, 171, 0); }
-}
-
+});
 
 .relative {
   position: relative;
@@ -64,8 +71,7 @@
 .callus-widget .aura-container {
   border-radius: 50%;
   
-  -webkit-animation: aura-pulse 1.3s linear infinite;  
-  animation: aura-pulse 1.3s linear infinite;  
+  .animation-mixin(aura-pulse 1.3s linear infinite);
 
   /* border-color: white; */
   border: 1px solid rgba(0, 232, 254, 0.38);
@@ -73,18 +79,11 @@
   height: 70px;
 }
 
-keyframes aura-pulse {
+.keyframes-mixin(aura-pulse, {
   0% { transform: scale(1) }
   50% { transform: scale(1.3) }
   100% { transform: scale(1) }  
-}
-
-@-webkit-keyframes aura-pulse {
-  0% { transform: scale(1) }
-  50% { transform: scale(1.3) }
-  100% { transform: scale(1) }  
-}
-
+});
 
 .callus-widget .phone-circle {
   border-radius: 50%;
@@ -106,26 +105,18 @@ keyframes aura-pulse {
 }
 
 .callus-widget .phone:hover {
-  -webkit-animation: phone-shake .25s linear infinite;  
-  animation: phone-shake .25s linear infinite; 
+  .animation-mixin(phone-shake .25s linear infinite);
 }
 
-keyframes phone-shake {
+.keyframes-mixin(phone-shake, {
   0% { tranform: rotate(0) }
   50% { transform: rotate(10deg) }  
   100% { tranform: rotate(0) }
-}
-
-@-webkit-keyframes phone-shake {
-  0% { tranform: rotate(0) }
-  50% { transform: rotate(10deg) }  
-  100% { tranform: rotate(0) }
-}
+});
 
 
 .callus-widget .pulse-emit {
-  -webkit-animation: pulse-emit 1.5s ease-out infinite;  
-  animation: pulse-emit 1.5s ease-out infinite;  
+  .animation-mixin(pulse-emit 1.5s ease-out infinite);
   border: 2.38px solid rgba(0, 120, 207, 0.6);
 
   border-radius: 50%;
@@ -133,12 +124,7 @@ keyframes phone-shake {
   height: 70px;
 }
 
-keyframes pulse-emit {
+.keyframes-mixin(pulse-emit, {
   0% { transform: scale(1); opacity: 1 }
   100% { transform: scale(2); opacity: 0 }  
-}
-
-@-webkit-keyframes pulse-emit {
-  0% { transform: scale(1); opacity: 1 }
-  100% { transform: scale(2); opacity: 0 }  
-}
+});
