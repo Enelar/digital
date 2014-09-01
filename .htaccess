@@ -33,7 +33,7 @@ RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 #RewriteRule ^notfound.php$ /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ notfound.php?url=$1
+RewriteRule ^(.*)$ notfound.php?url=$1 [QSA]
 
 </IfModule>
 

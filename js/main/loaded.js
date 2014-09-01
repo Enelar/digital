@@ -66,10 +66,7 @@ function OnDesignBoneLoads()
     });
     return res;
   }
- 
-  if (location.search.indexOf('utm_source') != -1)
-    location = location.pathname + location.hash;
-  
+   
   var phoxy_ChangeHash = phoxy.ChangeHash;
   phoxy.ChangeHash = function(hash)
   {
@@ -87,6 +84,11 @@ function TrackPage( hash )
     return  url.replace("#!", "#");
   }
   window.analytics.page({ path: Unify(hash), url: Unify(location.href) });
+
+
+  // Hide google analystics after tracking complete
+  if (location.search.indexOf('utm_source') != -1)
+    history.pushState({}, document.title, location.pathname + location.hash);
 }
 
 function GetElementCode( el )
