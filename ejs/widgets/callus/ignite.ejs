@@ -15,5 +15,11 @@ this.DeferCascade(function()
     {
       $('#modal-callus').modal('show');
     })
+
+  $('#modal-callus')
+    .on('hide.bs.modal', function()
+    {
+      $('.callus-widget').hide();
+    });
 })
 %>

@@ -5,13 +5,14 @@
     <div class='col-md-6'>
       <div class="input-group input-group-lg">
         <input placeholder="Ваш номер" class="form-control">
+        <div class='status'></div>
       </div>
     </div>
     <div class='col-md-6 countdown'>
     </div>
   </div>
   <br>
-  <p>Или наберите +7 (921) 8-5678-08</p>
+  <p>Или наберите <u>+7 (921) 8-5678-08</u></p>
 </div>
 
 <%
@@ -45,10 +46,7 @@ function Animate()
     return;
 
   var now = Timestamp();
-  var remain = 30 * 1000 - (now - start);
-
-  if (remain < 0)
-    remain = 0;
+  var remain = (now - start);
 
   cd.html(Decorate(remain));
 
@@ -65,8 +63,8 @@ this.Defer(function()
   this.first().parents('.modal')
     .on('show.bs.modal', function()
     {
-      debugger;
       start = Timestamp();
+      $('.status').html('');
     })
     .on('shown.bs.modal', function()
     {
@@ -76,5 +74,18 @@ this.Defer(function()
     {
       start = 0;
     });
+
+  this.first().find('input')
+    .change(function()
+    {
+      if ($('.status').html().length > 0)
+        return;
+      $('.status').html('Отправка запроса...');
+      phoxy.ApiRequest('widgets/callus/Shedule', [$(this).val()], function()
+      {
+        start = 0;
+        $('.status').html('Готово..:)');
+      })
+    })
 })
 %>

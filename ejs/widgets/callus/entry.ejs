@@ -36,10 +36,13 @@
 var ignite;
 this.DeferCascade(function()
 {
-  if (phoxy.Config()["ip"] == "213.21.7.6" || location.host == "callus.demo.scladless.com")
-    this.first().css('opacity', 1);
-  else
-    return;
+  phoxy.Defer(function()
+  {
+    __context.first().css('opacity', 1);
+  }, 30000);
+
+  if (location.host == "callus.demo.scladless.com")
+    __context.first().css('opacity', 1);
 
   this.first()
     .find('.phone')
