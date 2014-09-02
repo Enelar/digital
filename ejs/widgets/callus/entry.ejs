@@ -33,9 +33,24 @@
 <link href="css/callus-widget.less" rel="stylesheet" media="screen">
 
 <%
-this.Defer(function()
+var ignite;
+this.DeferCascade(function()
 {
-  if (phoxy.Config()["ip"] == "213.21.7.6")
+  if (phoxy.Config()["ip"] == "213.21.7.6" || location.host == "callus.demo.scladless.com")
     this.first().css('opacity', 1);
+  else
+    return;
+
+  this.first()
+    .find('.phone')
+    .click(function()
+    {
+      ignite.click();
+    })
 })
 %>
+
+<%= this.DeferRender('widgets/callus/ignite', {}, function()
+{
+  ignite = this.first();
+}) %>

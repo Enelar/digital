@@ -1,1 +1,19 @@
-blabla
+<div data-comment='Ignite button'></div>
+<%= this.DeferRender(
+    'pages/modal', 
+    {
+      id: "modal-callus",
+      title: "Затрудняетесь с выбором? Не нашли то что искали?",
+      body: this.DeferRender('widgets/callus/modal', {})
+    }) %>
+
+<%
+this.DeferCascade(function()
+{
+  this.first()
+    .click(function()
+    {
+      $('#modal-callus').modal('show');
+    })
+})
+%>
