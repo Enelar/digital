@@ -36,8 +36,12 @@
 var ignite;
 this.DeferCascade(function()
 {
+  if (localStorage.getItem("widget.callus"))
+    return;
+
   phoxy.Defer(function()
   {
+    localStorage.setItem("widget.callus", 1);
     __context.first().css('opacity', 1);
   }, 30000);
 
