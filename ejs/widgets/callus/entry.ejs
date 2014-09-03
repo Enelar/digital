@@ -36,8 +36,11 @@
 var ignite;
 this.DeferCascade(function()
 {
-  if (localStorage.getItem("widget.callus"))
-    return;
+  if (location.host == "callus.demo.scladless.com")
+    __context.first().css('opacity', 1);
+  else
+    if (localStorage.getItem("widget.callus"))
+      return;
 
   phoxy.Defer(function()
   {
@@ -45,8 +48,6 @@ this.DeferCascade(function()
     __context.first().css('opacity', 1);
   }, 30000);
 
-  if (location.host == "callus.demo.scladless.com")
-    __context.first().css('opacity', 1);
 
   this.first()
     .find('.phone')
