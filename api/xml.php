@@ -48,7 +48,6 @@ class xml extends api
         FROM phones.models
         WHERE 
           vendor IN (SELECT id FROM phones.vendor WHERE hide=false)
-          AND ym = true
           AND show = true
           AND now() - actual < '48 hour'::interval");
     

@@ -11,9 +11,12 @@
   </div>
   <div class='row'>
 <%
+function rrAsyncInit() {  try { rrApi.categoryView(1); } catch(e) {} }
+
 var accum = 0;
 var in_line = 3;
 var z_index = 30;
+
 for (var i = 0; i < this.vendor.length; i++)
 {
   var p = this.vendor[i];
@@ -29,12 +32,13 @@ for (var i = 0; i < this.vendor.length; i++)
           <a class='hipster' 
              style='font-family: Gill sans-serif;'
              href='/#catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %> <%= p.colour %>'>
+             <span class='showgoogle'><%= this.catalog %></span>
              <%= p.name %> <%= p.colour %>
            </a>
           <br>
-          <div class="badge"><%= p.price %></div>
+          <div class="badge hidegoogle"><%= p.price %></div>
           <br><br>
-          <button role='buy' class='btn btn-danger' value='<%= p.id %>'><%= p.available == 't' ? 'Купить' : 'Заказать' %></button>
+          <button role='buy' class='btn btn-danger hidegoogle' value='<%= p.id %>'><%= p.available == 't' ? 'Купить' : 'Заказать' %></button>
         </div>
       </div>
     </div>

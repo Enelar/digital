@@ -1,6 +1,7 @@
 <div id="phone_<%= this.id %>">
 
 <%
+function rrAsyncInit(){  try{ rrApi.view(__context.id); } catch(e) {} }
 var binded = this.params.binded;
 var grouped = this.params.grouped;
 var showname = binded.name.v + ' ' + binded['Цвет'].v;

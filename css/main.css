@@ -1,3 +1,7 @@
+.showgoogle {
+  display: none;  
+}
+
 .no_ul_bullets {
   list-style-type: none;
 }

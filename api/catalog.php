@@ -39,6 +39,7 @@ class catalog extends api
   protected function Vendor( $name )
   {
     // looks like outdated
+    // WARNING! This code is NOT executed.
     $res = db::Query(
       "SELECT id, price, (quantity > 0) as available, view_weight 
        FROM phones.models WHERE vendor=(SELECT id FROM phones.vendor WHERE name=$1)
