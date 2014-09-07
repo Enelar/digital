@@ -48,11 +48,6 @@ class ym extends api
       echo "SKIP: Hide";
       return false;
     }
-    if ($res['ym'] != 't')
-    {
-      echo "SKIP: Not shared";
-      return false;
-    }
     if ($res['cur_day'] == 't')
     {
       echo "SKIP: cur_day";
@@ -86,8 +81,7 @@ WITH old_models AS
 (
   SELECT id 
     FROM phones.models 
-    WHERE
-      ym=true ".
+       ".
       //AND now()-actual>'0 hours'::interval
     "ORDER BY actual ASC
 ) SELECT model_params.*
