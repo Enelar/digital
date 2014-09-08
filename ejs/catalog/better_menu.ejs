@@ -15,7 +15,9 @@ this.Defer(function()
     var to = $(this).attr('class').split(' ')[0];
     var html = $('<span></span>').addClass('showgoogle').html(to);
     $(this)
-      .attr('href', '/catalog/phones/' + to).html(html);
+      .attr('href', '/catalog/phones/' + to)
+      .addClass('onetip')
+      .html(html);
   });
   this.first().affix();
 })

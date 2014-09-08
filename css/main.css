@@ -200,9 +200,9 @@ body.cutie-kitten {
 }
 
 .better-menu {
-  width: 100px;
-  height: 100px;
   position: fixed;
+  border: 1px solid black;
+  border-bottom-right-radius: 10px;
 }
 
 .better-menu > * {
@@ -275,6 +275,18 @@ body.cutie-kitten {
   background: url(/res/img/logo/motorola.jpg);
   background-size: 300px;
   background-position: left -6px top 120px;
+}
+
+.better-menu .onetip .showgoogle {
+  display: block;
+  position: absolute;
+  left: 90px;
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+.better-menu:hover .onetip .showgoogle {
+  opacity: 1;
 }
 
 .news p {
