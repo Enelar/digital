@@ -284,3 +284,10 @@ body.cutie-kitten {
 .news span {
   float: right;
 }
+
+#menu a[href='/delivery'] + span {
+  position: absolute;
+  font-size: 0.8em;
+  right: 4px;
+  bottom: 0px;  
+}

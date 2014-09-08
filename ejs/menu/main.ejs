@@ -63,7 +63,14 @@ this.Defer(function()
         }
       };
     %>
-    <%= DeferRender('menu/menu', {menu: menu.left}) %>
+    <%= this.DeferRender('menu/menu', {menu: menu.left}) %>
+    <%
+    this.DeferCascade(function()
+    {
+      debugger;
+      this.first().find('a[href="/delivery"]').after('<span>бесплатно</span>');
+    })
+    %>
     </ul>
     <ul class="nav navbar-nav navbar-form navbar-right">
       <li>
@@ -78,10 +85,10 @@ this.Defer(function()
     <ul class="nav navbar-nav navbar-right">
       <li>
         <form class="navbar-form" data-comment="tools">
-          <%= DeferRender('menu/login_bar', {}) %>
+          <%= this.DeferRender('menu/login_bar', {}) %>
         </form>
       </li>
-      <%= DeferRender('menu/menu', {menu: menu.right}) %>
+      <%= this.DeferRender('menu/menu', {menu: menu.right}) %>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>

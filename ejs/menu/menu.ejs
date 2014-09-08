@@ -6,7 +6,7 @@ for (var k in this.menu)
   v = this.menu[k];
 %>
   <li>
-    <%= DeferRender('menu/menu_element', {url: v, name: k}) %>
+    <%= this.DeferRender('menu/menu_element', {url: v, name: k}) %>
   </li>
 <%
 }
