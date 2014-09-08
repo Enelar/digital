@@ -7,3 +7,6 @@
 [submodule "bootstrap-select"]
 	path = bootstrap-select
 	url = https://github.com/silviomoreto/bootstrap-select
+[submodule "phpsql"]
+	path = phpsql
+	url = https://github.com/Enelar/phpsql
