@@ -24,9 +24,9 @@ document.location = "http://www.google.ru/intl/ru/chrome/";
 var WRInitTime=(new Date()).getTime();
 </script>
 
-  <div id='no_js_warning' class='hidden'>
+  <div id='no_js_warning' style='background: url("/res/textured_paper.png"); position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; transition: opacity 2s linear; z-index: 999;'>
     <div id='preload_please_wait' style='visibility: hidden;'>
-      <img src='/res/loading.gif' />
+      <img asrc='/res/loading.gif' />
     </div>
     <div id='preload_js_enable_warning'>
       Включите Javascript!
@@ -59,9 +59,20 @@ phoxy =
   },
   OnInitialClientCodeComplete: function()
   {
+    function CoolCB()
+    {
+      requirejs.config({baseUrl: phoxy.Config()['js_dir']});
+      $('#no_js_warning').css('opacity', 0);
+      phoxy.Defer(function()
+      {
+        $('#no_js_warning').remove();
+      }, 2000);
+    }
+
     if (location.pathname != "/")
-      phoxy.ApiRequest(location.pathname);
-    requirejs.config({baseUrl: phoxy.Config()['js_dir']});
+      phoxy.ApiRequest(location.pathname, undefined, CoolCB());
+    else
+      CoolCB();
   }
 }
 </script>
