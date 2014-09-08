@@ -1,3 +1,9 @@
+<%
+$('title').first().html('ScladLess Условия доставки');
+$('#keywords').attr('content', 'Цены на доставку, условия доставки');
+$('#description').attr('content', 'Информация о доставке');
+%>
+
 <h2>Только Санкт-Петербург и Лен Область.</h2>
 <%= phoxy.DeferRender('pages/delivery_prices', this) %>
 

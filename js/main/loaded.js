@@ -18,42 +18,24 @@ requirejs.config({
 
 function AJAXImage()
 {
-  return $('<img />').attr('src', 'res/loading.gif');
+  return $('<img />').attr('src', '/res/loading.gif');
 }
  
 function OnDesignBoneLoads()
 {
   /* Плагин для фокси */
-  phoxy.plugin = {};
   phoxy.Appeared('#phoxy_ajax_active', function ()
   {
     $('#phoxy_ajax_active').css({'display': 'block'});
-    phoxy.plugin.ajax = {};
     
-    phoxy.plugin.ajax.nesting_level = 0;
-    phoxy.plugin.ajax.active = [];
-    phoxy.plugin.ajax.active_id = 0;
-    $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
-    
-    var phoxy_AJAX = phoxy.AJAX;
-    phoxy.AJAX = function(a, cb, params)
+    phoxy.prestart.OnAjaxBegin = function()
     {
-      phoxy.plugin.ajax.nesting_level++;
-      var my_id = phoxy.plugin.ajax.active_id++;
-      phoxy.plugin.ajax.active[my_id] = arguments;
-      if (phoxy.plugin.ajax.nesting_level >= 1)
-        $('#phoxy_ajax_active').stop(true).animate({'opacity': 1});
-      function CallbackHook()
-      {
-        phoxy.plugin.ajax.nesting_level--;
-        delete phoxy.plugin.ajax.active[my_id];
-        if (phoxy.plugin.ajax.nesting_level < 0)
-          phoxy.plugin.ajax.nesting_level = 0;
-        if (phoxy.plugin.ajax.nesting_level == 0)
-          $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
-        cb.apply(this, arguments);
-      }
-      return phoxy_AJAX(a, CallbackHook, params);
+      $('#phoxy_ajax_active').stop(true).animate({'opacity': 1});
+    }
+
+    phoxy.prestart.OnAjaxEnd = function()
+    {
+      $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
     }
   });
   var phoxy_DeferRender = phoxy.DeferRender;
@@ -66,10 +48,7 @@ function OnDesignBoneLoads()
     });
     return res;
   }
- 
-  if (location.search.indexOf('utm_source') != -1)
-    location = location.pathname + location.hash;
-  
+   
   var phoxy_ChangeHash = phoxy.ChangeHash;
   phoxy.ChangeHash = function(hash)
   {
@@ -78,6 +57,11 @@ function OnDesignBoneLoads()
   }
   TrackPage(location.hash);
   arguments[1]();
+
+  // retailrocket.ru
+  var rrPartnerId = "Ваш PartnerId";       var rrApi = {};        var rrApiOnReady = rrApiOnReady || [];       rrApi.addToBasket = rrApi.order = rrApi.categoryView = rrApi.view =            rrApi.recomMouseDown = rrApi.recomAddToCart = function() {};       (function(d) {           var ref = d.getElementsByTagName('script')[0];           var apiJs, apiJsId = 'rrApi-jssdk';           if (d.getElementById(apiJsId)) return;           apiJs = d.createElement('script');           apiJs.id = apiJsId;           apiJs.async = true;           apiJs.src = "//cdn.retailrocket.ru/content/javascript/api.js";           ref.parentNode.insertBefore(apiJs, ref);       }(document)); 
+  if (location.host.indexOf("demo") != -1)
+    analytics.identify({"demo": 1});
 }
 
 function TrackPage( hash )
@@ -87,6 +71,11 @@ function TrackPage( hash )
     return  url.replace("#!", "#");
   }
   window.analytics.page({ path: Unify(hash), url: Unify(location.href) });
+
+
+  // Hide google analystics after tracking complete
+  if (location.search.indexOf('utm_source') != -1)
+    history.pushState({}, document.title, location.pathname + location.hash);
 }
 
 function GetElementCode( el )

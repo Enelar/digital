@@ -1,69 +1,46 @@
-<%
-  var ancor_id = phoxy.GenerateUniqueID();
-%>
-
-<div id='<%= ancor_id %>'></div>
-<button type='button' id='phone_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Телефон</button>
-
-<button type='button' id='online_order_<%= this.id %>_<%= ancor_id %>' class='btn btn-default' style='width: 100px'>Онлайн</button>
+<button type='button' class='btn btn-default' style='width: 200px'>Заказать online</button>
+<center><b>или</b></center> 
+<button type='button' class='btn btn-default' style='width: 200px'>Оставить телефон</button>
 
 <%
-
-phoxy.Appeared('#phone_order_' + this.id + '_' + ancor_id, function()
+analytics.track("start", {category: "order", phone: this.id});
+this.Defer(function()
 {
-  phoxy.Fancy('buy/phone', {id: __context.id}, function(html)
-  {  
-    $('#phone_order_' + __context.id + '_' + ancor_id)
-      .click(function()
-      {
-        //window.gevents.buy._trackEvent('phone', __context.id);
-      })
-      .popover(
-      {
-        html: true,
-        title: "Покупка через телефон",
-        content: html
-      });
-  });
-});
+  var online = this.first();
+  var phone = online.nextAll('button');
+  var all = online.add(phone);
+  
+  all.click(function()
+    { // Prevent spam
+      all.prop('disabled', true);
 
-phoxy.Appeared('#online_order_' + this.id + '_' + ancor_id, function()
-{
-  var that = this;
-  $(this).click(function()
-  {
-    $(this).prop('disabled', true);
-    $(that).parent().html(phoxy.DeferRender('buy/method', {id: __context.id}));
-    //$(that).popover
-    /*
-    if (window.uid)
-    {
-      //window.gevents.prebuy._trackEvent('online_not_logined', __context.id);
-      phoxy.AJAX('buy/Registered?id=' + this.id, function()
+      phoxy.Defer(function()
       {
-        var parent = $(that).parent();
-        parent
-          .html(
-            "Успешно!"
-          );
-        phoxy.Defer(function()
-        {
-          parent.parents('.popover').prev().popover('hide');
-        }, 1000);
-      });
-    }
-    else
+        all.prop('disabled', false);
+      }, 400)
+    });
+
+  online
+    .click(function()
     {
-      //window.gevents.prebuy._trackEvent('online_logined', __context.id);
-      if (typeof(stayhere) == 'undefined' || stayhere != true)
-      {
-        var item_href = $(this).parents('.item-cell').find('a');
-        location.hash = item_href.attr('href');
-      }
-      
-      $('#menu li button[data-target="#modal-login"]').trigger('click');
-    }
-    */
-  });
-});
+      analytics.track("phone", {category: "order", phone: __context.id});
+    })
+    .popover(
+    {
+      html: true,
+      title: "Заказ через звонок",
+      content: phoxy.DeferRender('buy/phone', {id: __context.id})
+    });
+
+  phone
+    .click(function()
+    {
+      analytics.track("online", {category: "order", phone: __context.id});
+    })
+    .click(function()
+    {
+      $(this).parent().html(phoxy.DeferRender('buy/method', {id: __context.id}));
+    });
+
+})
 %>

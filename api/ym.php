@@ -48,11 +48,6 @@ class ym extends api
       echo "SKIP: Hide";
       return false;
     }
-    if ($res['ym'] != 't')
-    {
-      echo "SKIP: Not shared";
-      return false;
-    }
     if ($res['cur_day'] == 't')
     {
       echo "SKIP: cur_day";
@@ -86,8 +81,7 @@ WITH old_models AS
 (
   SELECT id 
     FROM phones.models 
-    WHERE
-      ym=true ".
+       ".
       //AND now()-actual>'0 hours'::interval
     "ORDER BY actual ASC
 ) SELECT model_params.*
@@ -120,7 +114,8 @@ WITH old_models AS
       return $this->UpdatePrices($offset + $i);
     if ($reload < 60)
       $offset++;
-    $reload *= 1000;
+
+    $reload *= 1000 * rand(100, 200) / 100;
     echo "<script language='javascript'>setTimeout(function() { document.location.search='?0=$offset'}, $reload)</script>";
     var_dump("RELOAD $reload");
     return ["data" => "GRACEFUL", "cache" => ["no" => "global"]];
@@ -163,6 +158,7 @@ WITH old_models AS
       $price = $parsed['prices'][3];
 
     $price *= 1.05; // Add 5% to all models
+    $price = (int)$price;
     $this->WarnPrice($id, $model['price'], $price);
     var_dump("PRICE: $price");
     $change = db::Query("

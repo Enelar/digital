@@ -20,7 +20,7 @@ RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api\/catalog\/(\w+)\/(\d+)\/([^\/]*)$ api/catalog/_phone/item?id=$2 [L,QSA]
 
 RewriteCond %{QUERY_STRING} _escaped_fragment_
-RewriteRule ^(.*)$ shot.php?url=$1 [L,QSA]
+RewriteRule ^(.*)$ shot.php [QSA]
 
 RewriteRule ^api/(.+)$ rpc.php?api=$1 [L,QSA]
 RewriteRule ^api(.*)$ rpc.php?api=main/home$1 [L,QSA]
@@ -30,9 +30,12 @@ RewriteRule ^api(.*)$ rpc.php?api=main/home$1 [L,QSA]
 RewriteRule ^libs/(.*)$ /phoxy/$0 [L,QSA]
 RewriteRule ^phoxy(.*).js$ /phoxy/$0 [L,QSA]
 
+RewriteRule ^(.*).less$ less.php?file=$1
+
+#RewriteRule ^notfound.php$ /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ http://scladless.com/ [R=302]
+RewriteRule ^(.*)$ notfound.php?url=$1 [QSA]
 
 </IfModule>
 

@@ -1,26 +1,22 @@
 <div class='better-menu' data-spy="affix" data-offset-top="60">
-  <div class='apple ignore_rules'></div>
-  <div class='samsung'></div>
-  <div class='sony'></div>
-  <a href='#catalog/phones/HTC'>
-    <div class='htc'></div>
-  </a>
-  <div class='nokia'></div>
-  <a href='#catalog/phones/LG'>
-    <div class='lg'></div>
-  </a>
-  <% /* <div class='motorola ignore_rules'></div> */ %>
+  <a class='Apple ignore_rules'></a>
+  <a class='Samsung'></a>
+  <a class='Sony'></a>
+  <a class='HTC'></a>
+  <a class='Nokia'></a>
+  <a class='LG'></a>
 </div>
 
 <%=
 this.Defer(function()
 {
-  this.first().affix();
-  this.first().children(':not(a)').each(function()
+  this.first().find('a').each(function()
   {
     var to = $(this).attr('class').split(' ')[0];
-    to = to.charAt(0).toUpperCase() + to.slice(1)
-    $(this).wrap('<a></a>').parent().attr('href', '#catalog/phones/' + to);
+    var html = $('<span></span>').addClass('showgoogle').html(to);
+    $(this)
+      .attr('href', '/catalog/phones/' + to).html(html);
   });
+  this.first().affix();
 })
 %>

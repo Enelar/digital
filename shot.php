@@ -1,6 +1,10 @@
 <?php
 
-$url = $_GET['_escaped_fragment_'];
+if ($_SERVER['REDIRECT_URL'] != '/')
+  $url = $_SERVER['REDIRECT_URL'];
+else
+  $url = $_GET['_escaped_fragment_'];
+
 if (strpos($url, '"') !== false)
   die("Security bless you");
 
@@ -13,7 +17,10 @@ $args =
 ];
 $query = 'phantomjs googleit.js '.(implode(' ', $args));
 
-$res = exec($query);
+if ($_SERVER['REMOTE_ADDR'] == '213.21.7.6')
+  $res = system($query);
+else
+  $res = exec($query);
 
 $return = file_get_contents($result);
 echo $return;

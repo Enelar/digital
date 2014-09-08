@@ -6,18 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <div class='page_content_wrapper'>
-  <a href='#content' class="sr-only">Skip to main content</a>
-  <div id='header'><%= DeferRender('main/header', {}) %></div>
-  <div id='menu'><%= DeferRender('menu/main', {}) %></div>
+  <div id='header'><%= this.DeferRender('main/header', {}) %></div>
+  <div id='menu'><%= this.DeferRender('menu/main', {}) %></div>
   <%= this.DeferRender('catalog/better_menu', {}) %>
   <div class='container' id='content'>
   </div>
   <%= this.DeferRender('main/Optout') %>
+  <%= this.DeferRender('widgets/entrypoint', this) %>
   <div class='push_footer'></div>
 </div>
 
 <div id="footer" class='footer'>
-  <%= DeferRender('main/footer', {}) %>
+  <%= this.DeferRender('main/footer', {}) %>
   <div class="container">
     <p class="muted credit pull-right">
       <span class="glyphicon glyphicon-copyright-mark"></span> 
@@ -26,8 +26,8 @@
   </div>
 </div>
 
-<link href="css/sticky_footer.css" rel="stylesheet" media="screen">
-<link href="css/main.css" rel="stylesheet" media="screen">
+<link href="/css/sticky_footer.css" rel="stylesheet" media="screen">
+<link href="/css/main.css" rel="stylesheet" media="screen">
 
 <%
 this.Defer(function()
@@ -67,5 +67,5 @@ this.Defer(function()
 );
 %>
 
-<link href="css/bootstrap-switch.min.css" rel="stylesheet" media="screen">
-<script language='javascript' src='js/bootstrap-switch.min.js'>
+<link href="/css/bootstrap-switch.min.css" rel="stylesheet" media="screen">
+<script language='javascript' src='/js/bootstrap-switch.min.js'>

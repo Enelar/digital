@@ -1,11 +1,21 @@
-<% $('title').first().html('ScladLess Контакты') %>
+<%
+$('title').first().html('ScladLess Контакты');
+$('#keywords').attr('content', 'Контакты, Телефон, Время работы, Связаться с нами, Scladless');
+$('#description').attr('content', 'Телефон и другие контакты интернет-магазина');
+%>
+
 <div class="indent" />
-<div data-mark='contacts'>
+<div data-mark='contacts' itemscope itemtype="http://schema.org/LocalBusiness">
+  <div class="showgoogle">
+    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+      <span itemprop="addressLocality">Санкт-Петербург</span>
+    </span>
+  </div>
   <ul class="no_ul_bullets">
     <li data-mark='contact-phone'>
       <span class='glyphicon glyphicon-earphone'></span>
       <b>
-        <p><a data-mark='phone'>+7 (921) 8-5678-08</a></p>
+        <p><a not-phoxy data-mark='phone' itemprop="telephone">+7 (921) 8-5678-18</a></p>
         <font color='darkslategray'>Общие вопросы</font><br>
       </b>
     </li>
@@ -13,7 +23,7 @@
     <li data-mark='contact-phone'>
       <span class='glyphicon glyphicon-phone-alt'></span>
       <b>
-        <p><a data-mark='phone'>+7 (921) 8-5678-18</a> (директор)</p>
+        <p><a not-phoxy data-mark='phone'>+7 (921) 8-5678-18</a> (директор)</p>
         <font color='darkslategray'>Гарантия, претензии</font>
       </b>
     </li>    
@@ -21,15 +31,15 @@
     <li data-mark='contact-work-hours'>
       <span class='glyphicon glyphicon-time'></span>
       <b>
-        <p>Ежедневно с 11:00 до 20:00</p>
-        <p>Доставка с 10:00 до 22:00</p>
+        <p itemprop="openingHours" datetime="11:00-20:00">Ежедневно с 11:00 до 20:00</p>
+        <p class='hidegoogle'>Доставка с 10:00 до 22:00</p>
       </b>
     </li>
     
     <li data-mark='contact-other'>
       <span class='glyphicon glyphicon-comment'></span>
       <b>
-        <a href='http://support.scladless.com'>Тикет система</a><br>
+        <a not-phoxy href='http://support.scladless.com' class='hidegoogle'>Тикет система</a><br>
         Вопросы, предложения, поддержка. <br>
       </b>
       <i>
@@ -40,17 +50,17 @@
     <li data-mark='contact-other'>
       <span class='glyphicon glyphicon-envelope'></span>
       <b>
-        <a href="https://twitter.com/scladless" class='hipster' target="_blank">Twitter</a>
-        <a href="http://vk.com/scladless" class='hipster' target="_blank">Вконтакте</a>
-        <a href="https://facebook.com/scladless" class='hipster' target="_blank">Facebook</a><br>
-        <a href='mailto:support@scladless.com' class='hipster'>support@scladless.com</a><br>        
+        <a not-phoxy href="https://twitter.com/scladless" class='hipster' target="_blank">Twitter</a>
+        <a not-phoxy href="http://vk.com/scladless" class='hipster' target="_blank">Вконтакте</a>
+        <a not-phoxy href="https://facebook.com/scladless" class='hipster' target="_blank">Facebook</a><br>
+        <a not-phoxy href='mailto:support@scladless.com' class='hipster' itemprop="email">support@scladless.com</a><br>        
       </b>
     </li>
 
     <li data-mark='contact-save'>
       <span class='glyphicon glyphicon-download-alt'></span>
       <b>
-        <p><a href='contact.vcf'>VCard</a> (iOS/Android/G+ compatible)</p>
+        <p><a not-phoxy href='contact.vcf'>VCard</a> (iOS/Android/G+ compatible)</p>
         Вы можете сохранить наш контакт.
       </b>
     </li>
@@ -58,7 +68,7 @@
     <li data-mark='juridical'>
       <span class='glyphicon glyphicon-briefcase'></span>
       <b>
-        <p><a href='#!contacts' onclick='phoxy.ApiRequest("contacts/Juridical"); return false;'>Реквизиты</a></p>
+        <p><a href='/contacts' onclick='phoxy.ApiRequest("contacts/Juridical"); return false;'>Реквизиты</a></p>
       </b>
     </li>
   </ul>

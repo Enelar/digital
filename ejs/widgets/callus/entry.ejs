@@ -1,0 +1,64 @@
+<div class='callus-widget'>
+  <div class='relative'>
+          <div>
+            <div class="center">
+              <div>
+                <div class="pulse-emit">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <div class="center">
+              <div>
+                <div class="aura-container">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="center">
+            <div>
+              <div class='phone-circle'>
+                <span>
+                  <span class='phone glyphicon glyphicon-earphone'></span>
+                </span>
+              </div>
+            </div>
+          </div>
+  </div>
+</div>
+
+<link href="/css/callus-widget.less" rel="stylesheet" media="screen">
+
+<%
+var ignite;
+this.DeferCascade(function()
+{
+  if (location.host == "callus.demo.scladless.com")
+    __context.first().css('opacity', 1);
+  else
+    if (localStorage.getItem("widget.callus"))
+      return;
+
+  phoxy.Defer(function()
+  {
+    localStorage.setItem("widget.callus", 1);
+    __context.first().css('opacity', 1);
+  }, 30000);
+
+
+  this.first()
+    .find('.phone')
+    .click(function()
+    {
+      ignite.click();
+    })
+})
+%>
+
+<%= this.DeferRender('widgets/callus/ignite', {}, function()
+{
+  ignite = this.first();
+}) %>

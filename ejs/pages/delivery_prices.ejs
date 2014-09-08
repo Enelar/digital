@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped hidegoogle">
   <thead>
     <tr>
       <td>Тип</td>
@@ -22,3 +22,19 @@ for (k in this.prices)
 %>
   </tbody>
 </table>
+
+<ul class='showgoogle'>
+<%
+for (k in this.prices)
+{
+  v = this.prices[k];  
+  if (v.price == 0)
+    v.price = "бесплатно";
+  else
+    v.price += " рублей";
+%>
+  <li>Доставка <%= v.title %> <%= v.timing %> - <%= v.price %></li>
+<%
+}
+%>
+</ul>

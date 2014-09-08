@@ -45,5 +45,10 @@ class sms extends api
       $url .= $key . "=" . urlencode($value) . "&";
     $signature = md5($url . "&password=". urlencode("interteimat"));
     return $signature;
-  }  
+  } 
+
+  protected function Temp()
+  {
+    return ["text" => "soup"];
+  } 
 }
