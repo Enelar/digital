@@ -276,3 +276,11 @@ body.cutie-kitten {
   background-size: 300px;
   background-position: left -6px top 120px;
 }
+
+.news p {
+  font-size: 18px;
+}
+
+.news span {
+  float: right;
+}
