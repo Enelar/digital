@@ -18,42 +18,24 @@ requirejs.config({
 
 function AJAXImage()
 {
-  return $('<img />').attr('src', 'res/loading.gif');
+  return $('<img />').attr('src', '/res/loading.gif');
 }
  
 function OnDesignBoneLoads()
 {
   /* Плагин для фокси */
-  phoxy.plugin = {};
   phoxy.Appeared('#phoxy_ajax_active', function ()
   {
     $('#phoxy_ajax_active').css({'display': 'block'});
-    phoxy.plugin.ajax = {};
     
-    phoxy.plugin.ajax.nesting_level = 0;
-    phoxy.plugin.ajax.active = [];
-    phoxy.plugin.ajax.active_id = 0;
-    $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
-    
-    var phoxy_AJAX = phoxy.AJAX;
-    phoxy.AJAX = function(a, cb, params)
+    phoxy.prestart.OnAjaxBegin = function()
     {
-      phoxy.plugin.ajax.nesting_level++;
-      var my_id = phoxy.plugin.ajax.active_id++;
-      phoxy.plugin.ajax.active[my_id] = arguments;
-      if (phoxy.plugin.ajax.nesting_level >= 1)
-        $('#phoxy_ajax_active').stop(true).animate({'opacity': 1});
-      function CallbackHook()
-      {
-        phoxy.plugin.ajax.nesting_level--;
-        delete phoxy.plugin.ajax.active[my_id];
-        if (phoxy.plugin.ajax.nesting_level < 0)
-          phoxy.plugin.ajax.nesting_level = 0;
-        if (phoxy.plugin.ajax.nesting_level == 0)
-          $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
-        cb.apply(this, arguments);
-      }
-      return phoxy_AJAX(a, CallbackHook, params);
+      $('#phoxy_ajax_active').stop(true).animate({'opacity': 1});
+    }
+
+    phoxy.prestart.OnAjaxEnd = function()
+    {
+      $('#phoxy_ajax_active').stop(true).animate({'opacity': 0});
     }
   });
   var phoxy_DeferRender = phoxy.DeferRender;

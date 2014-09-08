@@ -17,7 +17,7 @@
 </div>
 
 <div id="footer" class='footer'>
-  <%= DeferRender('main/footer', {}) %>
+  <%= this.DeferRender('main/footer', {}) %>
   <div class="container">
     <p class="muted credit pull-right">
       <span class="glyphicon glyphicon-copyright-mark"></span> 
@@ -26,8 +26,8 @@
   </div>
 </div>
 
-<link href="css/sticky_footer.css" rel="stylesheet" media="screen">
-<link href="css/main.css" rel="stylesheet" media="screen">
+<link href="/css/sticky_footer.css" rel="stylesheet" media="screen">
+<link href="/css/main.css" rel="stylesheet" media="screen">
 
 <%
 this.Defer(function()
@@ -67,5 +67,5 @@ this.Defer(function()
 );
 %>
 
-<link href="css/bootstrap-switch.min.css" rel="stylesheet" media="screen">
-<script language='javascript' src='js/bootstrap-switch.min.js'>
+<link href="/css/bootstrap-switch.min.css" rel="stylesheet" media="screen">
+<script language='javascript' src='/js/bootstrap-switch.min.js'>
