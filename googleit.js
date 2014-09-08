@@ -14,6 +14,10 @@ page.onResourceError = function(resourceError) {
     page.reason_url = resourceError.url;
 };
 
+page.onConsoleMessage = function(msg) {
+    //system.stdout.writeLine('console: ' + msg);
+};
+
 page.open(address, function (status) 
 {
   if (status !== 'success')
@@ -41,7 +45,7 @@ page.open(address, function (status)
       Dump(page.content);
       // page.render(output);
       phantom.exit();
-    }, 1000);
+    }, 10000);
   }
 });
 
