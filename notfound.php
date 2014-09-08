@@ -18,6 +18,8 @@ function ExceptionParams( &$arr )
   return $ret;
 }
 
+$raw = true;
+
 $url = $_GET['url'];
 unset($_GET['url']);
 $exception_query = http_build_query(ExceptionParams($_GET));
@@ -27,7 +29,10 @@ if ($query != "")
 
 // Business code here
 if ($url[0] == '~')
+{
   $url = "catalog/phones/".substr($url, 1);
+  $raw = false;
+}
 
 // End of business code
 if ($exception_query != "")
@@ -35,5 +40,11 @@ if ($exception_query != "")
 else
   $out = "/";
 
-header('HTTP/1.1 302 Found');
-header("Location: {$out}#{$url}");
+if (!$raw)
+{
+  header('HTTP/1.1 302 Found');
+  header("Location: {$out}#{$url}");
+  return;
+}
+
+include('load.html');

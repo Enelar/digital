@@ -6,7 +6,7 @@ class main extends api
   {
     return array(
       "design" => "main/body",
-      "script" => ["main/loaded"],
+      "script" => ["main/loaded", "url-hook"],
       "before" => "OnDesignBoneLoads",
     );
   }
