@@ -4,7 +4,7 @@ class phone extends api
 {
   protected function Reserve( $phone )
   {
-    $res = db::Query("SELECT price, quantity > 0 as available FROM phones.models WHERE id=$1", [$phone], true);
+    $res = db::Query("SELECT (SELECT name FROM phones.vendor WHERE id=vendor) as vendor, price, quantity > 0 as available FROM phones.models WHERE id=$1", [$phone], true);
     return array(
       "script" => ["main/phone"],
       "before" => "BindPhoneInfo",

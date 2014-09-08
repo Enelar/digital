@@ -17,6 +17,7 @@ RewriteRule ^(.*)$ http://scladless.com/$1 [L,R=302,QSA]
 RewriteRule ^api/catalog/phones$ api/catalog/_phone [L,QSA]
 RewriteRule ^api/catalog/phones/(.*)/$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api/catalog/phones/(.*)$ api/catalog/_phone/vendor?name=$1 [L,QSA]
+RewriteRule ^api\/catalog\/(\w+)\/?$ api/catalog/_phone/vendor?name=$1 [L,QSA]
 RewriteRule ^api\/catalog\/(\w+)\/(\d+)\/([^\/]*)$ api/catalog/_phone/item?id=$2 [L,QSA]
 
 RewriteCond %{QUERY_STRING} _escaped_fragment_
