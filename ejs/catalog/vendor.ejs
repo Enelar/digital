@@ -24,14 +24,14 @@ for (var i = 0; i < this.vendor.length; i++)
     <div class='col-md-<%= 12 / in_line %>' style='z-index: <%= z_index++ %>'>
       <div class='row item-cell' style='height: 200px;'>
         <div class='col-md-12 item-picture' style='overflow: hidden; height: inherit; width: 100%;'>
-          <a href='#!catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %>'>
+          <a href='/catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %>'>
             <img src='/<%= p.picture %>' style='height: 100%; max-width: inherit;' />
           </a>
         </div>
         <div class='col-md-7 item-popover-info'>
           <a class='hipster' 
              style='font-family: Gill sans-serif;'
-             href='/#catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %> <%= p.colour %>'>
+             href='/catalog/<%= this.catalog %>/<%= p.id %>/<%= p.name %> <%= p.colour %>'>
              <span class='showgoogle'><%= this.catalog %></span>
              <%= p.name %> <%= p.colour %>
            </a>

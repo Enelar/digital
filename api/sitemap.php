@@ -8,7 +8,7 @@ function ECCO( $hash )
 function XECCO( $root, $hash, $freq = "daily" )
 {
   $url = $root->createElement('url');
-  $url->createElement('loc')->createTextNode("http://scladless.com/?_escaped_fragment_={$hash}");;
+  $url->createElement('loc')->createTextNode("http://scladless.com/{$hash}");;
   $url->createElement('changefreq')->createTextNode($freq);
 }
 

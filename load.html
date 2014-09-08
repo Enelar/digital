@@ -61,6 +61,7 @@ phoxy =
   {
     if (location.pathname != "/")
       phoxy.ApiRequest(location.pathname);
+    requirejs.config({baseUrl: phoxy.Config()['js_dir']});
   }
 }
 </script>

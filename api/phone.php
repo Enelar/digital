@@ -6,7 +6,7 @@ class phone extends api
   {
     $res = db::Query("SELECT price, quantity > 0 as available FROM phones.models WHERE id=$1", [$phone], true);
     return array(
-      "script" => array("js/main/phone.js"),
+      "script" => ["main/phone"],
       "before" => "BindPhoneInfo",
       "data" => array_merge($this->GetParams($phone)['data'], $res)
     );
