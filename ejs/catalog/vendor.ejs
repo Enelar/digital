@@ -4,10 +4,6 @@
 <div data-mark='catalog' class='catalog'>
   <div style='width: 100%;'>
     <h1>Каталог <%= this.catalog %></h1>
-    <div style='float: right; display: none;'>
-      <input type="checkbox" class="switch-mini" id='galery-mode'>
-      Режим галереи
-    </div>
   </div>
   <div class='row'>
 <%
@@ -117,42 +113,5 @@ this.Defer(function()
 
 %>
 </div>
-<%
-this.Defer(function()
-{
-  var cells = $('#content .catalog .item-cell');
-  var elements = cells.find('.item-popover-info');
-  
-  elements.hide();
-  
-  function EnableGalery()
-  {
-    $('#content .catalog').addClass('galery');
-    cells
-      .hover(function()
-      {
-        $(this).find('.item-popover-info').animate({height: 'toggle'});
-      });    
-    elements.slideUp();
-  }
-  function DisableGalery()
-  {
-    $('#content .catalog').removeClass('galery');
-    cells.off('mouseenter mouseleave');
-    elements.slideDown();
-  }
 
-  $('#galery-mode')
-    .bootstrapSwitch()
-    .change(function()
-    {
-      if (this.checked)
-        EnableGalery();
-      else
-        DisableGalery();
-    })
-    .trigger('change');
-
-});
-%>
 <i>Информация размещена исключительно в рекламных и информационных целях и не является публичной офертой.</i><br>
