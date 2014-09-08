@@ -1,6 +1,10 @@
 <?php
 
-$url = $_GET['_escaped_fragment_'];
+if ($_SERVER['REDIRECT_URL'] != '/')
+  $url = $_SERVER['REDIRECT_URL'];
+else
+  $url = $_GET['_escaped_fragment_'];
+
 if (strpos($url, '"') !== false)
   die("Security bless you");
 

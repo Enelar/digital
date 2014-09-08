@@ -41,7 +41,7 @@ page.open(address, function (status)
       Dump(page.content);
       // page.render(output);
       phantom.exit();
-    }, 3000);
+    }, 1000);
   }
 });
 
