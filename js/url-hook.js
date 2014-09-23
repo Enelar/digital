@@ -10,6 +10,7 @@ function url_hook(url, not_push)
     url = url.substring(1);
   
   phoxy.ApiRequest(url);
+  TrackPage(url);
   return false; 
 }
 
