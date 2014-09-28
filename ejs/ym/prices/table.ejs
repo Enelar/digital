@@ -1,0 +1,65 @@
+<%
+function Time(str)
+{
+  hour = Math.floor(str / 60);
+  minute = str % 60;
+  ret = "";
+  if (hour > 0)
+    ret = hour + "h";
+  return ret + minute + "m";
+}
+%>
+
+<table class='table'>
+<%
+for (var k in this.list)
+{
+  var v = this.list[k];
+%>
+  <tr>
+    <td class='ymid'>
+      <%= v.ymid %>
+    </td>
+    <td>
+      <%= v.name !== null ? v.name : "< Модель добавляется >" %>
+    </td>
+    <td>
+      <%= Time(v.sync) %> ago
+    </td>
+    <td>
+      <button class='refresh'>
+        <span class='glyphicon glyphicon-refresh'></span>
+      </button>
+    </td>
+  </tr>
+<%
+}
+
+%>
+</table>
+
+<%
+this.Defer(function()
+{
+  this.first().find('tr').find('td:first').each(function()
+    {
+      var ymid = parseInt($(this).html());
+      $(this).val(ymid);
+      var url = $('<a></a>').html(ymid).attr('href', 'http://market.yandex.ru/offers.xml?how=aprice&modelid=' + ymid);
+      $(this).html(url);
+    })
+
+  this.first().find('button.refresh')
+    .tooltip
+    ({
+      'title' : 'Обновить цены вне очереди'
+    })
+    .click(function()
+    {
+      phoxy.ApiRequest('ym/prices/AddToWatch', [$(this).val()], function()
+      {
+
+      });
+    })
+})
+%>

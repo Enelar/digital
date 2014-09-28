@@ -92,6 +92,8 @@ handlers.push(function()
           res.shops.push($(this).html());
         });
       res.success = $('.b-model-tabs').size();
+      res.name = $('.b-page-title__title').children().remove().end().text();
+
       return res;
     },
     function (res)

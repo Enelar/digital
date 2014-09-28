@@ -27,7 +27,7 @@ class watch extends api
 
   private function NextCard()
   {
-    $res = db::Query("SELECT * FROM market.cards WHERE snap IS NULL OR now() - snap > '4 hours'::interval ORDER BY snap ASC LIMIT 1", [], true);
+    $res = db::Query("SELECT * FROM market.cards WHERE snap IS NULL OR now() - snap > '4 hours'::interval ORDER BY urgent DESC, snap ASC LIMIT 1", [], true);
     //phoxy_protected_assert($res, ["error" => "Noting to update"]);
     if (!$res)
       return null;
@@ -45,7 +45,7 @@ class watch extends api
     if (!$obj['success'])
       return false;
     var_dump($obj);
-    db::Query("UPDATE market.cards SET snap=now() WHERE ymid=$1", [$id], true);
+    db::Query("UPDATE market.cards SET name=$2, snap=now(), urgent=false WHERE ymid=$1", [$id, $obj['name']], true);
 
     $res = db::Query("INSERT INTO market.slices(ymid, price, shop) VALUES ($1, $2::character varying[]::integer[], $3) RETURNING snap",
       [$id, $obj['prices'], $obj['shops']], true);
@@ -56,5 +56,10 @@ class watch extends api
   {
     echo "<script language='javascript'>setTimeout(function() { document.location.search='?'}, 50000)</script>";
     return $this->UpdateSubscribed();
+  }
+
+  public function Add($id)
+  {
+    db::Query("INSERT INTO market.cards(ymid) VALUES ($id)", [$id]);
   }
 }

@@ -1,0 +1,59 @@
+Посмотреть последние цены яндекса
+<table class='table table-hover spectate'>
+<%
+for (var k in this.snap)
+{
+  var v = this.snap[k];
+%>
+  <tr>
+    <td style='font-size: 1rem; min-width: 30%;'>
+      <a href='http://market.yandex.ru/offers.xml?how=aprice&page=2&modelid=<%= v.ymid %>'>
+        <%= v.name %>
+      </a>
+    </td>
+<%
+  for (var kk in v.price)
+  {
+%>
+    <td style='padding: 8px 2px; max-width: 80px; text-align: center;'>
+      <abbr title='<%= v.shop[kk] %>'>
+        <%= v.price[kk] %><%= v.shop[kk] == 'Digital812' ? '<b>D</b>' : '' %>
+      </abbr>
+    </td>
+<%
+  }
+%>
+  </tr>
+<%
+}
+%>
+</table>
+
+<%
+this.Defer(function()
+{
+  var marked = $();
+  this.first().find('abbr').tooltip();
+  
+  this.first().find('td').click
+  (
+    function()
+    {
+      var shop = $(this).find('abbr').attr('data-original-title');
+      marked.css('background-color', 'white');
+      marked = $();
+
+      __context.first().find('td').each
+      (
+        function()
+        {
+          if ($(this).find('abbr').attr('data-original-title') != shop)
+            return;
+          $(this).css('background-color', 'green');
+          marked = marked.add(this);
+        }
+      )
+    }
+  );
+})
+%>
