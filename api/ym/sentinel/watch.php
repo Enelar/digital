@@ -27,7 +27,7 @@ class watch extends api
 
   private function NextCard()
   {
-    $res = db::Query("SELECT * FROM market.cards WHERE snap IS NULL OR now() - snap > '6 hours'::interval ORDER BY snap ASC LIMIT 1", [], true);
+    $res = db::Query("SELECT * FROM market.cards WHERE snap IS NULL OR now() - snap > '4 hours'::interval ORDER BY snap ASC LIMIT 1", [], true);
     //phoxy_protected_assert($res, ["error" => "Noting to update"]);
     if (!$res)
       return null;
@@ -54,7 +54,7 @@ class watch extends api
 
   protected function RobotUpdate()
   {
-    echo "<script language='javascript'>setTimeout(function() { document.location.search='?'}, 000)</script>";
+    echo "<script language='javascript'>setTimeout(function() { document.location.search='?'}, 50000)</script>";
     return $this->UpdateSubscribed();
   }
 }

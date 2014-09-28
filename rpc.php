@@ -22,6 +22,16 @@ function phoxy_conf()
   return $ret;
 }
 
+function default_addons( $name )
+{
+  if ($name == 'main')
+    return [];
+  return
+  [
+    "result" => "content",
+  ];
+}
+
 if (isset($_GET['api']) && $_GET['api'][0] == '!')
 {
   header('HTTP/1.1 302 Found');

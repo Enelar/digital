@@ -6,6 +6,10 @@ class ym extends api
 {
   protected function Reserve()
   {
+    return 
+    [
+      "design" => "ym/entry"
+    ];
   }
   
   protected function ModelSpec( $id )
