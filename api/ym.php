@@ -114,12 +114,17 @@ WITH old_models AS
     }
 
     if (!$reload)
-      //$offset += count($res);
       return $this->UpdatePrices($offset + $i);
-    if ($reload < 60)
-      $offset++;
+    if ($reload < 30)
+    {
 
-    $reload *= 1000 * rand(100, 200) / 100;
+      var_dump($row);
+      die();
+      $offset++;
+      $this->AddToWatch($row['value']);
+    }
+
+    $reload *= 1 * rand(100, 200) / 100;
     echo "<script language='javascript'>setTimeout(function() { document.location.search='?0=$offset'}, $reload)</script>";
     var_dump("RELOAD $reload");
     return ["data" => "GRACEFUL", "cache" => ["no" => "global"]];
@@ -132,37 +137,18 @@ WITH old_models AS
     if (!$model)
       return 0;
 
-    $sentinel = LoadModule('api/ym/sentinel', 'tell');
-    $ret = $sentinel->LastPrice($ymid);
+    $ret = $this->Grab($ymid);
+
     var_dump($ret);
+    if (!count($ret))
+      return 1; // mean model not parsed yet
 
-    if ($ret == '')
-      return 20;
-    if ($ret == 'timeout')
-      return 20;
-    $parsed = json_decode($ret, true);
+    $parsed = $ret;
 
-    if (!count($parsed['prices']))
-    {
-      if (!$parsed['success'])
-      {
-        if (strpos($parsed['body'], "502 Bad Gateway") !== false)
-          return 30;
-        if (strpos($parsed['body'], '<td class="headCode">404</td>') !== false)
-          return 0;
-//        LoadModule('api', 'sms')->SendTo('+79213243303', "ym.php staled.");
-        var_dump("staled");
-        echo $parsed['body'];
-        exit();
-        return 60 * 60;
-      }
-      return 29;
-    }
-  //  $this->ScoreProxy($proxy, 1);
-    if (count($parsed['prices']) < 4)
-      $price = end($parsed['prices']);
+    if (count($parsed['price']) < 4)
+      $price = end($parsed['price']);
     else
-      $price = $parsed['prices'][3];
+      $price = $parsed['price'][3];
 
     $price *= 1.05; // Add 5% to all models
     $price = (int)$price;
@@ -176,12 +162,18 @@ WITH old_models AS
         RETURNING models.id", [$ymid, $price]);
     var_dump([$ymid, $price]);
     var_dump($change);
-    return 300;
+    return 30;
   }
 
   private function Grab( $id )
   {
-    $g = LoadModule('api/grab', 'grabber');
-    return $g->Grab($id);
+    $sentinel = LoadModule('api/ym/sentinel', 'tell');
+    return $sentinel->LastPrice($id);
+  }
+
+  private function AddToWatch( $ymid )
+  {
+    $sentinel = LoadModule('api/ym/sentinel', 'watch');
+    return $sentinel->Add($ymid);
   }
 }
