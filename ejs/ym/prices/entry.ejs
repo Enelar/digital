@@ -12,3 +12,20 @@
 
 <a href='/ym/prices/cp/Spectate'>Смотреть последние цены</a>
 <%= this.DeferRender('ym/prices/cp/GetList') %>
+
+<%
+debugger;
+this.Defer(function()
+{
+  this.first().find('button').click(function()
+  {
+    var url = __context.first().find('input').val();
+    
+    phoxy.ApiRequest('/ym/prices/cp/AddToWatch', [url], function()
+    {
+      __context.first().find('input').val('');
+    });
+  })
+})
+
+%>

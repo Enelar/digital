@@ -56,7 +56,7 @@ this.Defer(function()
     })
     .click(function()
     {
-      phoxy.ApiRequest('ym/prices/AddToWatch', [$(this).val()], function()
+      phoxy.ApiRequest('ym/prices/cp/Refresh', [$(this).parents('tr').find('td:first').val()], function()
       {
 
       });

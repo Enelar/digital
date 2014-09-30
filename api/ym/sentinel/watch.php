@@ -60,6 +60,6 @@ class watch extends api
 
   public function Add($id)
   {
-    db::Query("INSERT INTO market.cards(ymid) VALUES ($id)", [$id]);
+    db::Query("INSERT INTO market.cards(ymid) VALUES ($1)", [$id]);
   }
 }

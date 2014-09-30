@@ -2,6 +2,16 @@
 
 class cp extends api
 {
+  public function __construct()
+  {
+    $this->addons =
+    [
+      "cache" => ["no"]
+    ];
+
+    parent::__construct();
+  }
+
   protected function Reserve()
   {
     return
@@ -23,9 +33,18 @@ class cp extends api
   protected function AddToWatch($str)
   {
     list($a, $b) = explode("modelid=", $str, 2);
-    list($id, $garb) = explode("&", $b, 2);
+    if (strpos($b, "&") !== false)
+      list($id, $garb) = explode("&", $b, 2);
+    else
+      $id = $b;
+
     $watch = LoadModule('api/ym/sentinel', 'watch');
     $watch->Add($id);
+  }
+
+  protected function Refresh($id)
+  {
+    db::Query("UPDATE market.cards SET urgent=true WHERE ymid=$1", [$id], true);
   }
 
   protected function Spectate()

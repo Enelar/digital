@@ -131,8 +131,11 @@ WITH old_models AS
     echo "<br />";
     if (!$model)
       return 0;
-    $ret = $this->Grab($ymid);
+
+    $sentinel = LoadModule('api/ym/sentinel', 'tell');
+    $ret = $sentinel->LastPrice($ymid);
     var_dump($ret);
+
     if ($ret == '')
       return 20;
     if ($ret == 'timeout')
